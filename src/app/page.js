@@ -1,30 +1,44 @@
-import { client } from "@/lib/graphql";
-import { HOME_QUERY } from "@/queries/homeQuery";
-import Image from "next/image";
+import React from 'react';
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
+import Hero from '../components/home/Hero';
+import About from '../components/home/About';
+import Products from '../components/home/Products';
+import Summit from '../components/home/Summit';
+import CaseStudies from '../components/home/CaseStudies';
+import CTA from '../components/home/CTA';
+import ProjectsDone from '../components/home/ProjectsDone';
 
-export default async function Home() {
-  const data = await client.request(HOME_QUERY);
-
-  const page = data.page;
-
+export default function TheAccessGroupLandingPage() {
   return (
-    <main>
-      <h1>{page.title}</h1>
+    <div className="min-h-screen bg-primary text-white">
+      <style>{`
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .marquee {
+          animation: marquee 22s linear infinite;
+        }
+        .grid-bg {
+          background-image:
+            linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+          background-size: 72px 72px;
+        }
+      `}</style>
 
-      {page.featuredImage && (
-        <Image
-          src={page.featuredImage.node.sourceUrl}
-          alt={page.featuredImage.node.altText}
-          width={400}
-          height={400}
-        />
-      )}
-
-      <div
-        dangerouslySetInnerHTML={{
-          __html: page.content,
-        }}
-      />
-    </main>
+      <Header />
+      <main>
+        <Hero />
+        <About />
+        <Products />
+        <Summit />
+        <CaseStudies />
+        <CTA />
+        <ProjectsDone />
+      </main>
+      <Footer />
+    </div>
   );
 }

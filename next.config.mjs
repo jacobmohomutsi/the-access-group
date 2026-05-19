@@ -6,6 +6,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "cms.theaccessgroup.co.za",
       },
+      {
+        protocol: "https",
+        hostname: "anewhotels.com",
+      },
     ],
   },
 };

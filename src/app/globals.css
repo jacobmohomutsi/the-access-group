@@ -10,6 +10,31 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-primary: #304945;
+
+  --animate-fade-up: fade-up 0.8s ease-out forwards;
+  @keyframes fade-up {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@utility animation-delay-200 {
+  animation-delay: 200ms;
+}
+
+@utility animation-delay-400 {
+  animation-delay: 400ms;
+}
+
+@utility animation-delay-600 {
+  animation-delay: 600ms;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -1,0 +1,51 @@
+"use client";
+
+import { useState, useEffect } from "react";
+
+const TARGET_DATE = new Date("2026-10-15T08:00:00+02:00"); // SAST
+
+const calcTimeLeft = () => {
+    const diff = TARGET_DATE.getTime() - Date.now();
+    if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    return {
+        days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((diff / (1000 * 60)) % 60),
+        seconds: Math.floor((diff / 1000) % 60),
+    };
+};
+
+const CountdownTimer = () => {
+    const [timeLeft, setTimeLeft] = useState(calcTimeLeft);
+
+    useEffect(() => {
+        const id = setInterval(() => setTimeLeft(calcTimeLeft()), 1000);
+        return () => clearInterval(id);
+    }, []);
+
+    const units = [
+        { label: "Days", value: timeLeft.days },
+        { label: "Hours", value: timeLeft.hours },
+        { label: "Minutes", value: timeLeft.minutes },
+        { label: "Seconds", value: timeLeft.seconds },
+    ];
+
+    return (
+        <div className="flex items-center justify-center gap-3 sm:gap-6">
+            {units.map((u) => (
+                <div key={u.label} className="flex flex-col items-center">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-[#263B38] flex items-center justify-center shadow-lg border border-white/10">
+                        <span className="font-black tracking-tight text-2xl sm:text-3xl text-white">
+                            {String(u.value).padStart(2, "0")}
+                        </span>
+                    </div>
+                    <span className="text-xs sm:text-sm text-white/70 mt-2 uppercase tracking-wider">
+                        {u.label}
+                    </span>
+                </div>
+            ))}
+        </div>
+    );
+};
+
+export default CountdownTimer;
