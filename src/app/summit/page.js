@@ -8,8 +8,16 @@ import Tickets from '../../components/summit/Tickets';
 import Venue from '../../components/summit/Venue';
 import Programme from '../../components/summit/Programme';
 import CTA from '../../components/summit/CTA';
+import { client } from "@/lib/graphql";
+import { SUMMIT_QUERY } from "@/queries/summitQuery";
 
-export default function TheAccessGroupLandingPage() {
+export default async function TheAccessGroupLandingPage() {
+
+    const data = await client.request(SUMMIT_QUERY);
+
+    const summitHero = data.page.summitHero;
+    const summitSpeakers = data.page.summitSpeakers;
+
     return (
         <div className="min-h-screen bg-primary text-white">
             <style>{`
@@ -30,9 +38,9 @@ export default function TheAccessGroupLandingPage() {
 
             <Header />
             <main>
-                <Hero />
+                <Hero heroData={summitHero} />
                 <About />
-                <Speakers />
+                <Speakers speakersData={summitSpeakers} />
                 <Tickets />
                 <Venue />
                 <Programme />

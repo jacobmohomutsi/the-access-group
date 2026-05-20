@@ -2,7 +2,9 @@ import { Calendar, MapPin, ArrowRight } from "lucide-react";
 import CountdownTimer from "./CountdownTimer";
 import Image from "next/image";
 
-const Hero = () => {
+const Hero = ({ heroData }) => {
+    const data = heroData;
+
     return (
         <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
             {/* Background image */}
@@ -21,42 +23,42 @@ const Hero = () => {
             <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
                 <div className="opacity-0 animate-fade-up">
                     <span className="inline-block px-4 py-1.5 rounded-full text-sm font-semibold tracking-widest uppercase bg-white text-primary mb-8">
-                        2nd Annual Summit
+                        {data.badgeText}
                     </span>
                 </div>
 
                 <h1 className="opacity-0 animate-fade-up animation-delay-200 font-black tracking-tight text-4xl md:text-6xl lg:text-7xl text-white leading-tight mb-6">
-                    <span className="text-white">Import-Export Access Summit</span>
+                    {data.heroTitle}
                 </h1>
 
                 <p className="opacity-0 animate-fade-up animation-delay-400 text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-10 leading-relaxed">
-                    Bridging the gap between policy and practice — connecting African innovation to global markets through Special Economic Zones.
+                    {data.heroDescription}
                 </p>
 
                 <div className="opacity-0 animate-fade-up animation-delay-600 flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
                     <div className="flex items-center gap-2 text-white/90">
                         <Calendar className="w-5 h-5 text-white" />
-                        <span className="text-lg font-medium">15–16 October 2026</span>
+                        <span className="text-lg font-medium">{data.date}</span>
                     </div>
                     <span className="hidden sm:block text-white/40">|</span>
                     <div className="flex items-center gap-2 text-white/90">
                         <MapPin className="w-5 h-5 text-white" />
-                        <span className="text-lg font-medium">ANEW Resort Hunters Rest, Rustenburg</span>
+                        <span className="text-lg font-medium">{data.location}</span>
                     </div>
                 </div>
 
                 <div className="opacity-0 animate-fade-up animation-delay-600 flex flex-col sm:flex-row items-center justify-center gap-4">
                     <a
-                        href="#tickets"
+                        href={data.primaryButtonLink}
                         className="bg-white px-8 py-4 rounded-lg text-primary font-bold text-lg tracking-wide hover:opacity-90 transition-opacity flex items-center gap-2 shadow-lg"
                     >
-                        Get Your Tickets <ArrowRight className="w-5 h-5" />
+                        {data.primaryButtonText} <ArrowRight className="w-5 h-5" />
                     </a>
                     <a
-                        href="#about"
+                        href={data.secondaryButtonLink}
                         className="px-8 py-4 rounded-lg border-2 border-white/30 text-white font-semibold text-lg hover:border-white hover:text-white transition-colors"
                     >
-                        Learn More
+                        {data.secondaryButtonText}
                     </a>
                 </div>
             </div>

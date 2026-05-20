@@ -1,45 +1,35 @@
 import { Linkedin } from "lucide-react";
 
-const speakers = [
-    {
-        name: "To Be Announced",
-        role: "Keynote Speaker",
-        organisation: "Trade & Industry",
-        image: null,
-    },
-    {
-        name: "To Be Announced",
-        role: "Panel Moderator",
-        organisation: "SEZ Development",
-        image: null,
-    },
-    {
-        name: "To Be Announced",
-        role: "Breakaway Facilitator",
-        organisation: "Export Finance",
-        image: null,
-    },
-    {
-        name: "To Be Announced",
-        role: "Breakaway Facilitator",
-        organisation: "Logistics & Freight",
-        image: null,
-    },
-    {
-        name: "To Be Announced",
-        role: "Panel Speaker",
-        organisation: "Customs & Compliance",
-        image: null,
-    },
-    {
-        name: "To Be Announced",
-        role: "Panel Speaker",
-        organisation: "Digital Trade",
-        image: null,
-    },
-];
+const Speakers = ({ speakersData }) => {
+    const data = speakersData;
 
-const Speakers = () => {
+    const speakers = [
+        {
+            name: data.card1Title,
+            role: data.card1Position,
+            organisation: data.card1Body,
+            image: data.card1Image?.node,
+        },
+        {
+            name: data.card2Title,
+            role: data.card2Position,
+            organisation: data.card2Body,
+            image: data.card2Image?.node,
+        },
+        {
+            name: data.card3Title,
+            role: data.card3Position,
+            organisation: data.card3Body,
+            image: data.card3Image?.node,
+        },
+        {
+            name: data.card4Title,
+            role: data.card4Position,
+            organisation: data.card4Body,
+            image: data.card4Image?.node,
+        }
+    ];
+
     return (
         <section id="speakers" className="px-4 py-20 sm:px-6 lg:px-8 lg:py-24 bg-[#F5F5F2]">
             <div className="max-w-6xl mx-auto">

@@ -8,8 +8,22 @@ import Summit from '../components/home/Summit';
 import CaseStudies from '../components/home/CaseStudies';
 import CTA from '../components/home/CTA';
 import ProjectsDone from '../components/home/ProjectsDone';
+import { client } from "@/lib/graphql";
+import { HOME_QUERY } from "@/queries/homeQuery";
 
-export default function TheAccessGroupLandingPage() {
+export default async function TheAccessGroupLandingPage() {
+
+  const data = await client.request(HOME_QUERY);
+
+  console.log(data.page);
+  const hero = data.page.homeHero;
+  const about = data.page.homeAbout;
+  const products = data.page.homeProducts;
+  const feature = data.page.homeFeature;
+  const caseStudies = data.page.homeCaseStudies;
+  const cta = data.page.homeCTA;
+  const projects = data.page.homeProjects;
+
   return (
     <div className="min-h-screen bg-primary text-white">
       <style>{`
@@ -30,13 +44,13 @@ export default function TheAccessGroupLandingPage() {
 
       <Header />
       <main>
-        <Hero />
-        <About />
-        <Products />
-        <Summit />
-        <CaseStudies />
-        <CTA />
-        <ProjectsDone />
+        <Hero heroData={hero} />
+        <About aboutData={about} />
+        <Products productsData={products} />
+        <Summit featureData={feature} />
+        <CaseStudies caseStudiesData={caseStudies} />
+        <CTA ctaData={cta} />
+        <ProjectsDone projectsData={projects} />
       </main>
       <Footer />
     </div>
