@@ -11,6 +11,7 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --color-primary: #304945;
+  --color-secondary: #C2A66B;
 
   --animate-fade-up: fade-up 0.8s ease-out forwards;
   @keyframes fade-up {

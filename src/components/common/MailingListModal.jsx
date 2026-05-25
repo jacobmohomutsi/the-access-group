@@ -22,41 +22,24 @@ export default function MailingListModal({ isOpen, onClose }) {
     e.preventDefault();
     setStatus('loading');
     setErrorMessage('');
-
     try {
-      // Dummy API call to Brevo
-      const response = await fetch('https://api.brevo.com/v3/contacts', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'api-key': process.env.NEXT_PUBLIC_BREVO_API_KEY || 'dummy_api_key'
         },
-        body: JSON.stringify({
-          email: formData.email,
-          attributes: {
-            FULL_NAME: formData.fullName,
-            COMPANY: formData.company
-          },
-          listIds: [2] // Example list ID
-        })
+        body: JSON.stringify(formData),
       });
-
       if (!response.ok) {
-        throw new Error('Failed to join mailing list');
-      }
-
-      setStatus('success');
-    } catch (error) {
-      console.error(error);
-      // Since it's a dummy key, we will pretend it succeeds or set an error
-      // Actually, since it's a dummy API, a real fetch to api.brevo.com will fail with 401. 
-      // We simulate success if there's no real API key present.
-      if (!process.env.NEXT_PUBLIC_BREVO_API_KEY) {
-        setTimeout(() => setStatus('success'), 1000);
-      } else {
+        const data = await response.json();
         setStatus('error');
-        setErrorMessage('Something went wrong. Please try again.');
+        setErrorMessage(data.error || 'Something went wrong. Please try again.');
+      } else {
+        setStatus('success');
       }
+    } catch (error) {
+      setStatus('error');
+      setErrorMessage('Something went wrong. Please try again.');
     }
   };
 
@@ -101,7 +84,7 @@ export default function MailingListModal({ isOpen, onClose }) {
             <p className="text-sm font-semibold uppercase tracking-[0.28em] text-white">Join the waiting list</p>
             <h3 className="mt-3 text-3xl font-bold">Be first in line for summit updates.</h3>
             <p className="mt-4 text-white/65">
-              Use this form area for an email capture, partner expression of interest, or speaking / exhibition requests.
+              Receive announcements, partnership opportunities, speaker releases, exhibition applications, and delegate registration updates for IEAS 2026.
             </p>
 
             <form onSubmit={handleSubmit} className="mt-6 space-y-4">

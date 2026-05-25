@@ -1,4 +1,8 @@
+
+"use client";
+import { useState } from "react";
 import { Check, ArrowRight } from "lucide-react";
+import MailingListModal from "../common/MailingListModal";
 
 const tickets = [
     {
@@ -75,8 +79,10 @@ const tickets = [
 ];
 
 const Tickets = () => {
+    const [modalOpen, setModalOpen] = useState(false);
     return (
         <section id="tickets" className="px-4 py-20 sm:px-6 lg:px-8 lg:py-24 bg-[#F5F5F2]">
+            <MailingListModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-16">
                     <span className="text-sm font-semibold tracking-widest uppercase text-primary">
@@ -162,8 +168,10 @@ const Tickets = () => {
                                     ? "bg-primary text-white hover:opacity-90"
                                     : "bg-primary text-white hover:opacity-90"
                                     }`}
+                                onClick={() => setModalOpen(true)}
+                                type="button"
                             >
-                                Book Now <ArrowRight className="w-4 h-4" />
+                                Join waiting list <ArrowRight className="w-4 h-4" />
                             </button>
                         </div>
                     ))}

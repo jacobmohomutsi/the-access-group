@@ -5,20 +5,20 @@ export default function ProjectsDone({ projectsData }) {
 
   const cards = [
     {
-      title: data.card1Title,
-      body: data.card1Body,
+      title: "Digital Solutions & Transformation",
+      body: "Web infrastructure, brand systems, digital identity, communication tools, and scalable online presence development.",
     },
     {
-      title: data.card2Title,
-      body: data.card2Body,
+      title: "Compliance & Governance",
+      body: "Business registration, tax compliance, operational structuring, governance support, and procurement readiness.",
     },
     {
-      title: data.card3Title,
-      body: data.card3Body,
+      title: "Global Market Access",
+      body: "Trade facilitation, export readiness, stakeholder matchmaking, procurement integration, and international partnerships.",
     },
     {
-      title: data.card4Title,
-      body: data.card4Body,
+      title:"Professional Capability with Digital Agility",
+      body: "Our proprietary framework combines strategic expertise with fast-moving digital execution to help organisations scale with confidence.",
     },
   ];
 
@@ -30,15 +30,15 @@ export default function ProjectsDone({ projectsData }) {
         <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.28em] text-white">
-              {data.eyebrow}
+              OUR CAPABILITY
             </p>
 
             <h2 className="mt-4 text-4xl font-black tracking-tight text-white sm:text-5xl">
-              {data.title}
+              African innovation, packaged for a global audience.
             </h2>
 
             <p className="mt-5 text-lg leading-8 text-white/70">
-              {data.description1}
+              We help businesses move from informal activity into structured, investment-ready, and globally connected operations through strategic advisory, digital systems, stakeholder engagement, and market activation.
             </p>
           </div>
 

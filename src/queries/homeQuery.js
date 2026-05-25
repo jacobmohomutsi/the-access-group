@@ -2,7 +2,7 @@ import { gql } from "graphql-request";
 
 export const HOME_QUERY = gql`
   {
-    page(id: "the-access-group", idType: URI) {
+    page(id: "new-home", idType: URI) {
       title
 
       homeHero {
@@ -44,6 +44,54 @@ export const HOME_QUERY = gql`
 
         partner3name
         partner3logo {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+
+        partner4name
+        partner4logo {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+
+        partner5name
+        partner5logo {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+
+        partner6name
+        partner6logo {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+
+        partner7name
+        partner7logo {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+
+        partner8name
+        partner8logo {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+
+        partner9name
+        partner9logo {
           node {
             sourceUrl
             altText

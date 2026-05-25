@@ -2,37 +2,37 @@ import React from 'react';
 
 export default function CaseStudies({ caseStudiesData }) {
   const data = caseStudiesData;
-
+  
   const caseStudies = [
     {
-      badge: data.card1Badge,
-      title: data.card1Title,
-      body: data.card1Body,
+      badge:"Access to Branding & Market Positioning",
+      title: "Living Sound Faith Tabernacle",
+      body: "Delivered full digital brand activation including website development, merchandise production, ticketing systems, photography training, and large-scale event coordination supporting audiences exceeding 8,000 attendees.",
     },
 
     {
-      badge: data.card2Badge,
-      title: data.card2Title,
-      body: data.card2Body,
+      badge: "Access to Business",
+      title: "Perfect Petals Florals",
+      body: "Supported formal business registration, banking setup, catalogue development, and client matching — helping transition the business into a more structured and commercially positioned operation.",
     },
 
     {
-      badge: data.card3Badge,
-      title: data.card3Title,
-      body: data.card3Body,
+      badge: "International Access",
+      title: "Shanghai Pufen Catering",
+      body: "Facilitated international market access through stakeholder engagement, export roadmapping, licensing support, and strategic trade connections between South African and Chinese markets.",
     },
   ];
 
   return (
     <section id="cases" className="bg-primary">
       <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
-        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="max-w-2xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-white">{data.eyebrow}</p>
-            <h2 className="mt-4 text-4xl font-black tracking-tight text-white sm:text-5xl">{data.title}</h2>
+            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-white">CASE STUDIES</p>
+            <h2 className="mt-4 text-4xl font-black tracking-tight text-white sm:text-5xl">Real businesses. Structured growth. Market-ready outcomes.</h2>
           </div>
           <p className="max-w-xl text-white/65">
-            {data.description}
+            From business formalisation to international trade facilitation, our work focuses on helping African businesses and creatives become visible, bankable, scalable, and globally connected.
           </p>
         </div>
 

@@ -31,6 +31,30 @@ export default function Hero({ heroData }) {
       name: data.partner3name,
       logo: data.partner3logo,
     },
+    {
+      name: data.partner4name,
+      logo: data.partner4logo,
+    },
+    {
+      name: data.partner5name,
+      logo: data.partner5logo,
+    },
+    {
+      name: data.partner6name,
+      logo: data.partner6logo,
+    },
+    {
+      name: data.partner7name,
+      logo: data.partner7logo,
+    },
+    {
+      name: data.partner8name,
+      logo: data.partner8logo,
+    },
+    {
+      name: data.partner9name,
+      logo: data.partner9logo,
+    },
   ];
 
   return (
@@ -56,7 +80,7 @@ export default function Hero({ heroData }) {
 
           <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
             <a
-              href={data.primaryButtonLink}
+              href="#products"
               className="inline-flex items-center justify-center rounded-2xl bg-white px-7 py-4 text-base font-semibold text-primary shadow-lg shadow-white/20 hover:opacity-95"
             >
               {data.primaryButtonText}
@@ -100,13 +124,15 @@ export default function Hero({ heroData }) {
               {[...partners, ...partners].map((item, idx) => (
                 <div
                   key={`${item.name}-${idx}`}
-                  className="flex min-w-[180px] items-center justify-center rounded-2xl border border-white/10 bg-primary/40 px-5 py-4 text-sm font-medium text-white/80"
+                  className="flex min-w-[180px] items-center justify-center rounded-2xl border border-white/10 bg-white px-5 py-4 text-sm font-medium text-white/80"
                 >
                   {item.logo?.node?.sourceUrl ? (
                     <Image
+                      width={100}
+                      height={100}
                       src={item.logo.node.sourceUrl}
                       alt={item.logo.node.altText || item.name}
-                      className="h-10 w-auto object-contain"
+                      className="h-20 w-auto object-contain grayscale hover:grayscale-0"
                     />
                   ) : (
                     item.name
