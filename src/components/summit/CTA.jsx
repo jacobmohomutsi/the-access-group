@@ -27,25 +27,6 @@ const CTA = () => {
                     >
                         Get Tickets Now <ArrowRight className="w-5 h-5" />
                     </a>
-                    <a
-                        href="https://theaccessgroup.co.za/partners-and-sponsors/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-10 py-4 rounded-2xl border-2 border-white/30 text-white font-semibold text-lg hover:border-secondary hover:text-secondary hover:bg-white/5 transition-all duration-300"
-                    >
-                        Become a Partner
-                    </a>
-                </div>
-
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-8 text-white/70">
-                    <a href="mailto:info@theaccessgroup.co.za" className="flex items-center gap-2 hover:text-white transition-colors">
-                        <Mail className="w-4 h-4" />
-                        info@theaccessgroup.co.za
-                    </a>
-                    <a href="tel:+27000000000" className="flex items-center gap-2 hover:text-white transition-colors">
-                        <Phone className="w-4 h-4" />
-                        Contact Us
-                    </a>
                 </div>
             </div>
         </section>
