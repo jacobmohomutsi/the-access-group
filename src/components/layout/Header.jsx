@@ -25,8 +25,7 @@ export default function Header() {
             <Link href="/#about" className="hover:text-white">About</Link>
             <Link href="/#products" className="hover:text-white">Product</Link>
             <Link href="/summit" className="hover:text-white">Summit</Link>
-            <Link href="/#cases" className="hover:text-white">Case Studies</Link>
-            <Link href="/#projects" className="hover:text-white">Projects Done</Link>
+            <Link href="/careers" className="hover:text-white">Careers</Link>
           </nav>
 
           <div className="flex items-center gap-3">
@@ -76,8 +75,7 @@ export default function Header() {
             <Link href="/#about" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-white transition-colors">About</Link>
             <Link href="/#products" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-white transition-colors">Product</Link>
             <Link href="/summit" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-white transition-colors">Summit</Link>
-            <Link href="/#cases" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-white transition-colors">Case Studies</Link>
-            <Link href="/#projects" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-white transition-colors">Projects Done</Link>
+            <Link href="/careers" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-white transition-colors">Careers</Link>
           </nav>
 
           <div className="mt-auto pt-8 flex flex-col gap-4 border-t border-white/10">

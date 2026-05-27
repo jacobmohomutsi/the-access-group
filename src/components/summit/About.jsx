@@ -25,7 +25,7 @@ const goals = [
 
 const About = () => {
     return (
-        <section id="about" className="px-4 py-20 sm:px-6 lg:px-8 lg:py-24 bg-[#F5F5F2]">
+        <section id="about" className="px-4 py-20 sm:px-6 lg:px-8 lg:py-24 bg-slate-50">
             <div className="max-w-6xl mx-auto">
                 <div className="text-center mb-16">
                     <span className="text-sm font-semibold tracking-widest uppercase text-primary">
@@ -66,10 +66,10 @@ const About = () => {
                     {goals.map((goal, idx) => (
                         <div
                             key={idx}
-                            className="bg-white rounded-xl p-8 shadow-md hover:shadow-xl transition-shadow border border-primary/10 group"
+                            className="bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-shadow border border-primary/10 group"
                         >
-                            <div className="w-14 h-14 rounded-lg bg-primary flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                                <goal.icon className="w-7 h-7 text-white" />
+                            <div className="w-14 h-14 rounded-2xl bg-secondary/15 text-secondary flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                                <goal.icon className="w-7 h-7 text-secondary" />
                             </div>
                             <h3 className="font-black tracking-tight text-xl text-primary mb-3">
                                 {goal.title}

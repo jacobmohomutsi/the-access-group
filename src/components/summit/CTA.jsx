@@ -2,7 +2,7 @@ import { ArrowRight, Mail, Phone } from "lucide-react";
 
 const CTA = () => {
     return (
-        <section className="px-4 py-16 sm:px-6 lg:px-8 lg:py-20 bg-[#263B38] relative overflow-hidden">
+        <section className="px-4 py-16 sm:px-6 lg:px-8 lg:py-20 bg-primary relative overflow-hidden">
             {/* Decorative */}
             <div className="absolute inset-0 opacity-10">
                 <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-white blur-3xl" />
@@ -23,7 +23,7 @@ const CTA = () => {
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
                     <a
                         href="#tickets"
-                        className="bg-white px-10 py-4 rounded-lg text-primary font-bold text-lg flex items-center gap-2 hover:opacity-90 transition-opacity shadow-lg"
+                        className="bg-secondary px-10 py-4 rounded-2xl text-primary font-extrabold text-lg flex items-center gap-2 hover:bg-white hover:scale-102 transition-all duration-300 shadow-lg shadow-black/20"
                     >
                         Get Tickets Now <ArrowRight className="w-5 h-5" />
                     </a>
@@ -31,7 +31,7 @@ const CTA = () => {
                         href="https://theaccessgroup.co.za/partners-and-sponsors/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-10 py-4 rounded-lg border-2 border-white/30 text-white font-semibold text-lg hover:border-white hover:text-white transition-colors"
+                        className="px-10 py-4 rounded-2xl border-2 border-white/30 text-white font-semibold text-lg hover:border-secondary hover:text-secondary hover:bg-white/5 transition-all duration-300"
                     >
                         Become a Partner
                     </a>

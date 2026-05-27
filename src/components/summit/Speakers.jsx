@@ -31,7 +31,7 @@ const Speakers = ({ speakersData }) => {
     ];
 
     return (
-        <section id="speakers" className="px-4 py-20 sm:px-6 lg:px-8 lg:py-24 bg-[#F5F5F2]">
+        <section id="speakers" className="px-4 py-20 sm:px-6 lg:px-8 lg:py-24 bg-slate-50">
             <div className="max-w-6xl mx-auto">
                 <div className="text-center mb-16">
                     <span className="text-sm font-semibold tracking-widest uppercase text-primary">
@@ -52,7 +52,7 @@ const Speakers = ({ speakersData }) => {
                             className="group relative bg-white border border-primary/10 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
                         >
                             {/* Placeholder avatar */}
-                            <div className="aspect-[4/3] bg-[#263B38] flex items-center justify-center">
+                            <div className="aspect-[4/3] bg-primary flex items-center justify-center">
                                 <div className="w-24 h-24 rounded-full bg-white/10 border-2 border-white/30 flex items-center justify-center">
                                     <span className="font-black tracking-tight text-3xl text-white">?</span>
                                 </div>

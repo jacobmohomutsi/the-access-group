@@ -1,64 +1,65 @@
 import React from 'react';
 
 export default function ProjectsDone({ projectsData }) {
-  const data = projectsData;
-
   const cards = [
     {
-      title: "Digital Solutions & Transformation",
-      body: "Web infrastructure, brand systems, digital identity, communication tools, and scalable online presence development.",
+      title: "Project Management",
+      body: "Initiation | Planning | Budgeting | Execution | Monitoring | Closure",
     },
     {
-      title: "Compliance & Governance",
-      body: "Business registration, tax compliance, operational structuring, governance support, and procurement readiness.",
+      title: "Stakeholder Engagement",
+      body: "Co-ordination | Protocol | Conflict Management | Engagements",
     },
     {
-      title: "Global Market Access",
-      body: "Trade facilitation, export readiness, stakeholder matchmaking, procurement integration, and international partnerships.",
+      title: "Event Management",
+      body: "Workshops | Festivals | Exhibitions | Summits | Conferences | AGM",
     },
     {
-      title:"Professional Capability with Digital Agility",
-      body: "Our proprietary framework combines strategic expertise with fast-moving digital execution to help organisations scale with confidence.",
+      title: "MERCHANDISE (Branded)",
+      body: "T-Shirts | Water | Banner | Signage | Poster | Catalogue",
     },
   ];
 
-  console.log("projectsData", data);
-
   return (
-    <section id="projects" className="bg-primary">
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
-        <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-white">
-              OUR CAPABILITY
-            </p>
+    <section id="projects" className="bg-[#F8F9FA] text-gray-900 py-20 lg:py-24 border-t border-gray-100">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        
+        {/* Section Heading */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#C2A66B]">
+            OUR CAPABILITY
+          </p>
+          <h2 className="mt-4 text-4xl font-black tracking-tight text-[#304945] sm:text-5xl">
+            African innovation, packaged for a global audience.
+          </h2>
+        </div>
 
-            <h2 className="mt-4 text-4xl font-black tracking-tight text-white sm:text-5xl">
-              African innovation, packaged for a global audience.
-            </h2>
-
-            <p className="mt-5 text-lg leading-8 text-white/70">
-              We help businesses move from informal activity into structured, investment-ready, and globally connected operations through strategic advisory, digital systems, stakeholder engagement, and market activation.
-            </p>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2">
-            {cards.map((card, index) => (
-              <div
-                key={`${card.title}-${index}`}
-                className="rounded-3xl border border-white/10 bg-white/5 p-6"
-              >
-                <p className="text-lg font-black text-white">
+        {/* 2x2 Card Grid */}
+        <div className="grid gap-6 md:grid-cols-2 max-w-5xl mx-auto">
+          {cards.map((card, index) => (
+            <div
+              key={`${card.title}-${index}`}
+              className="flex rounded-xl overflow-hidden shadow-sm bg-[#304945] text-white transition-all duration-300 hover:shadow-md border-l-8 border-[#C2A66B]"
+            >
+              <div className="p-6 sm:p-8 flex flex-col justify-center">
+                <h3 className="text-xl font-bold tracking-tight text-white">
                   {card.title}
-                </p>
-
-                <p className="mt-2 text-sm leading-6 text-white/75">
+                </h3>
+                <p className="mt-2.5 text-xs sm:text-sm font-medium text-white/80 leading-relaxed tracking-wide">
                   {card.body}
                 </p>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
+
+        {/* Center Bottom Paragraph */}
+        <div className="mt-16 max-w-4xl mx-auto text-center">
+          <p className="text-base sm:text-lg leading-relaxed text-gray-600 font-medium max-w-3xl mx-auto">
+            We tailor project efficiency, manage and retain external stakeholder relations, and provide full-scale logistics for various engagements on behalf of your organisation whether governments, corporations, or traditional communities.
+          </p>
+        </div>
+
       </div>
     </section>
   );

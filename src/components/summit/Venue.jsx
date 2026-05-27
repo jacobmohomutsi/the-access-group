@@ -45,7 +45,7 @@ const Venue = () => {
                             href="https://anewhotels.com/hotels/hunters-rest/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-block bg-primary px-6 py-3 rounded-lg text-white font-bold hover:opacity-90 transition-opacity"
+                            className="inline-flex items-center justify-center bg-secondary px-6 py-3.5 rounded-2xl text-primary font-extrabold hover:bg-primary hover:text-white transition-all duration-300 hover:scale-102 shadow-lg shadow-black/10"
                         >
                             View Venue & Accommodation
                         </a>

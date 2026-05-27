@@ -22,7 +22,7 @@ const Hero = ({ heroData }) => {
             {/* Content */}
             <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
                 <div className="opacity-0 animate-fade-up">
-                    <span className="inline-block px-4 py-1.5 rounded-full text-sm font-semibold tracking-widest uppercase bg-white text-primary mb-8">
+                    <span className="inline-block px-4 py-1.5 rounded-full text-sm font-semibold tracking-widest uppercase bg-secondary text-primary mb-8">
                         {data.badgeText}
                     </span>
                 </div>
@@ -50,13 +50,13 @@ const Hero = ({ heroData }) => {
                 <div className="opacity-0 animate-fade-up animation-delay-600 flex flex-col sm:flex-row items-center justify-center gap-4">
                     <a
                         href={data.primaryButtonLink}
-                        className="bg-white px-8 py-4 rounded-lg text-primary font-bold text-lg tracking-wide hover:opacity-90 transition-opacity flex items-center gap-2 shadow-lg"
+                        className="bg-secondary px-8 py-4 rounded-2xl text-primary font-extrabold text-lg tracking-wide hover:bg-white hover:scale-102 transition-all duration-300 flex items-center gap-2 shadow-lg shadow-black/20"
                     >
                         {data.primaryButtonText} <ArrowRight className="w-5 h-5" />
                     </a>
                     <a
                         href={data.secondaryButtonLink}
-                        className="px-8 py-4 rounded-lg border-2 border-white/30 text-white font-semibold text-lg hover:border-white hover:text-white transition-colors"
+                        className="px-8 py-4 rounded-2xl border-2 border-white/30 text-white font-semibold text-lg hover:border-secondary hover:text-secondary hover:bg-white/5 transition-all duration-300"
                     >
                         {data.secondaryButtonText}
                     </a>

@@ -1,4 +1,3 @@
-
 "use client";
 import { useState } from "react";
 import { Check, ArrowRight } from "lucide-react";
@@ -20,7 +19,7 @@ const tickets = [
         ],
         highlighted: false,
         badge: "Day 1",
-        badgeColor: "bg-white text-primary border border-primary/20",
+        badgeColor: "bg-secondary text-primary border border-secondary/20",
     },
     {
         name: "Main Summit",
@@ -38,7 +37,7 @@ const tickets = [
         ],
         highlighted: true,
         badge: "Most Popular",
-        badgeColor: "bg-white text-primary",
+        badgeColor: "bg-secondary text-primary",
     },
     {
         name: "Full Access Pass",
@@ -56,7 +55,7 @@ const tickets = [
         ],
         highlighted: false,
         badge: "Best Value",
-        badgeColor: "bg-primary text-white",
+        badgeColor: "bg-secondary text-primary",
     },
     {
         name: "Early Bird Full Access",
@@ -74,14 +73,14 @@ const tickets = [
         ],
         highlighted: false,
         badge: "Save R700",
-        badgeColor: "bg-white text-primary",
+        badgeColor: "bg-secondary text-primary",
     },
 ];
 
 const Tickets = () => {
     const [modalOpen, setModalOpen] = useState(false);
     return (
-        <section id="tickets" className="px-4 py-20 sm:px-6 lg:px-8 lg:py-24 bg-[#F5F5F2]">
+        <section id="tickets" className="px-4 py-20 sm:px-6 lg:px-8 lg:py-24 bg-slate-50">
             <MailingListModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-16">
@@ -101,7 +100,7 @@ const Tickets = () => {
                         <div
                             key={idx}
                             className={`relative rounded-2xl p-7 flex flex-col ${ticket.highlighted
-                                ? "bg-[#263B38] text-white shadow-2xl md:scale-105 border-0 z-10"
+                                ? "bg-primary text-white shadow-2xl md:scale-105 border-0 z-10"
                                 : "bg-white border border-primary/10 shadow-lg"
                                 }`}
                         >
@@ -164,9 +163,9 @@ const Tickets = () => {
                             </ul>
 
                             <button
-                                className={`w-full py-3.5 rounded-lg font-bold text-base flex items-center justify-center gap-2 transition-all ${ticket.highlighted
-                                    ? "bg-primary text-white hover:opacity-90"
-                                    : "bg-primary text-white hover:opacity-90"
+                                className={`w-full py-3.5 rounded-2xl font-extrabold text-base flex items-center justify-center gap-2 hover:scale-102 transition-all duration-300 ${ticket.highlighted
+                                    ? "bg-secondary text-primary hover:bg-white"
+                                    : "bg-primary text-white hover:bg-secondary hover:text-primary"
                                     }`}
                                 onClick={() => setModalOpen(true)}
                                 type="button"

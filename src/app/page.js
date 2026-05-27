@@ -4,6 +4,7 @@ import Footer from '../components/layout/Footer';
 import Hero from '../components/home/Hero';
 import About from '../components/home/About';
 import Products from '../components/home/Products';
+import SuccessCalculator from '../components/home/SuccessCalculator';
 import Summit from '../components/home/Summit';
 import CaseStudies from '../components/home/CaseStudies';
 import CTA from '../components/home/CTA';
@@ -47,6 +48,7 @@ export default async function TheAccessGroupLandingPage() {
         <Hero heroData={hero} />
         <About aboutData={about} />
         <Products productsData={products} />
+        <SuccessCalculator />
         <Summit featureData={feature} />
         <CaseStudies caseStudiesData={caseStudies} />
         <CTA ctaData={cta} />

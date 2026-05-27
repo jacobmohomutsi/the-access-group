@@ -31,9 +31,9 @@ const Programme = () => {
                     {panels.map((panel, idx) => (
                         <div
                             key={idx}
-                            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-8 hover:bg-white/10 transition-colors"
+                            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-secondary/30 transition-all duration-300"
                         >
-                            <span className="text-white font-bold text-sm tracking-widest uppercase">
+                            <span className="text-secondary font-bold text-sm tracking-widest uppercase">
                                 Panel {idx + 1}
                             </span>
                             <h3 className="font-black tracking-tight text-xl md:text-2xl text-white mt-2 mb-1">
@@ -44,7 +44,7 @@ const Programme = () => {
                     ))}
                 </div>
 
-                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-8">
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8">
                     <h3 className="font-black tracking-tight text-2xl text-white mb-6 text-center">
                         Breakaway Sessions
                     </h3>
@@ -52,9 +52,9 @@ const Programme = () => {
                         {breakaways.map((session, idx) => (
                             <div
                                 key={idx}
-                                className="text-center p-6 rounded-lg bg-white/5 border border-white/10"
+                                className="text-center p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-secondary/20 transition-all duration-300"
                             >
-                                <span className="text-white font-bold text-xs tracking-widest uppercase">
+                                <span className="text-secondary font-bold text-xs tracking-widest uppercase">
                                     Session {String.fromCharCode(65 + idx)}
                                 </span>
                                 <p className="text-white font-medium mt-2">

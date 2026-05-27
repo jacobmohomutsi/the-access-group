@@ -1,11 +1,7 @@
-"use client";
-
-import React, { useState } from 'react';
-import MailingListModal from '../common/MailingListModal';
-import { BREAK } from 'graphql';
+import React from 'react';
+import { Calendar, MapPin } from 'lucide-react';
 
 export default function Summit({ featureData }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const data = featureData;
 
   const points = data.points
@@ -13,55 +9,76 @@ export default function Summit({ featureData }) {
     .filter(Boolean);
 
   return (
-    <section id="summit" className="bg-[#F5F5F2] text-primary">
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
-        <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-primary">IMPORT EXPORT ACCESS SUMMIT</p>
-            <h2 className="mt-4 text-4xl font-black tracking-tight text-primary sm:text-5xl">
-              Connecting African innovation to global opportunity.
-            </h2>
-            <p className="mt-5 text-lg leading-8 text-primary/80">
-              The Import Export Access Summit is a strategic platform connecting entrepreneurs, investors, government, procurement networks, and industry leaders across Africa and international markets.<br/>
-              Hosted by The Access Group, the summit focuses on market activation, export readiness, industrial collaboration, and digital trade — creating practical pathways for businesses to scale beyond local limitations.
-            </p>
+    <section
+      id="summit"
+      className="bg-[#304945] text-white py-20 lg:py-28 relative overflow-hidden border-t border-b border-white/5"
+      style={{
+        backgroundImage: "url('/images/summit_bg.png')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
+      {/* Blur & Dark Color Tint Overlay */}
+      <div className="absolute inset-0 bg-[#304945]/70 backdrop-blur-[4px] pointer-events-none" />
 
-            {points && (
-              <div className="mt-8 space-y-4">
-                {points.map((point, index) => (
-                  <div key={index} className="rounded-2xl border border-primary/10 bg-primary/5 px-5 py-4">
-                    {point}
-                  </div>
-                ))}
-              </div>
-            )}
+      {/* Decorative background grid/lines */}
+      <div className="absolute inset-0 grid-bg opacity-10 pointer-events-none" />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center z-10">
+
+        {/* Subtitle */}
+        <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#C2A66B]">
+          IMPORT EXPORT ACCESS SUMMIT
+        </p>
+
+        {/* Title */}
+        <h2 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white max-w-4xl mx-auto leading-tight">
+          Connecting African innovation to global opportunity.
+        </h2>
+
+        {/* Dates and Venue badges */}
+        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 text-xs sm:text-sm font-bold text-[#C2A66B]">
+          <div className="flex items-center gap-2.5 bg-white/5 border border-white/10 px-5 py-2.5 rounded-2xl shadow-sm">
+            <Calendar size={16} />
+            <span>15–16 October 2026</span>
           </div>
-
-          <div className="rounded-[2rem] bg-primary p-8 text-white shadow-2xl shadow-black/10">
-            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-white">Join the waiting list</p>
-            <h3 className="mt-3 text-3xl font-bold">Be first in line for summit updates.</h3>
-            <p className="mt-4 text-white/65">
-              Receive announcements, partnership opportunities, speaker releases, exhibition applications, and delegate registration updates for IEAS 2026.
-            </p>
-            <div className="mt-6">
-              <button 
-                onClick={() => setIsModalOpen(true)}
-                className="w-full rounded-2xl bg-white px-5 py-4 font-semibold text-primary hover:opacity-95 transition-opacity"
-              >
-                Join the waiting list
-              </button>
-            </div>
-            <a href="/summit" className="mt-4 inline-flex text-sm font-semibold text-white hover:opacity-80 transition-opacity">
-              View summit prospectus →
-            </a>
+          <div className="flex items-center gap-2.5 bg-white/5 border border-white/10 px-5 py-2.5 rounded-2xl shadow-sm">
+            <MapPin size={16} />
+            <span>ANEW Resort Hunters Rest, Rustenburg</span>
           </div>
         </div>
-      </div>
 
-      <MailingListModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-      />
+        {/* Description */}
+        <p className="mt-8 text-base sm:text-lg leading-relaxed text-white/80 max-w-3xl mx-auto font-medium">
+          The Import Export Access Summit is a strategic platform connecting entrepreneurs, investors, government, procurement networks, and industry leaders across Africa and international markets.<br className="hidden sm:inline" />
+        </p>
+
+        {/* Highlight points as badges */}
+        {points && points.length > 0 && (
+          <div className="mt-10 flex flex-wrap justify-center gap-3 max-w-3xl mx-auto">
+            {points.map((point, index) => (
+              <span
+                key={index}
+                className="rounded-full bg-white/10 border border-white/10 px-4.5 py-2 text-xs font-semibold text-white/90 shadow-sm"
+              >
+                {point}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* Single Call to Action Button */}
+        <div className="mt-12">
+          <a
+            href="/summit"
+            className="inline-flex items-center gap-2 rounded-2xl bg-[#C2A66B] px-10 py-4.5 text-sm font-extrabold text-[#304945] hover:bg-white hover:text-[#304945] hover:scale-102 transition-all duration-300 shadow-lg shadow-black/20"
+          >
+            Learn More & Explore the Summit →
+          </a>
+        </div>
+
+      </div>
     </section>
   );
 }
