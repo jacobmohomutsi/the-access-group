@@ -4,9 +4,6 @@ import { Calendar, MapPin } from 'lucide-react';
 export default function Summit({ featureData }) {
   const data = featureData;
 
-  const points = data.points
-    ?.split("\n")
-    .filter(Boolean);
 
   return (
     <section
@@ -41,7 +38,7 @@ export default function Summit({ featureData }) {
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 text-xs sm:text-sm font-bold text-[#C2A66B]">
           <div className="flex items-center gap-2.5 bg-white/5 border border-white/10 px-5 py-2.5 rounded-2xl shadow-sm">
             <Calendar size={16} />
-            <span>15–16 October 2026</span>
+            <span>15-16 October 2026</span>
           </div>
           <div className="flex items-center gap-2.5 bg-white/5 border border-white/10 px-5 py-2.5 rounded-2xl shadow-sm">
             <MapPin size={16} />
@@ -54,19 +51,6 @@ export default function Summit({ featureData }) {
           The Import Export Access Summit is a strategic platform connecting entrepreneurs, investors, government, procurement networks, and industry leaders across Africa and international markets.<br className="hidden sm:inline" />
         </p>
 
-        {/* Highlight points as badges */}
-        {points && points.length > 0 && (
-          <div className="mt-10 flex flex-wrap justify-center gap-3 max-w-3xl mx-auto">
-            {points.map((point, index) => (
-              <span
-                key={index}
-                className="rounded-full bg-white/10 border border-white/10 px-4.5 py-2 text-xs font-semibold text-white/90 shadow-sm"
-              >
-                {point}
-              </span>
-            ))}
-          </div>
-        )}
 
         {/* Single Call to Action Button */}
         <div className="mt-12">

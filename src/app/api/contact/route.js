@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-async function sendNotificationEmail(email, { source, name, company, phone, bestTime, budget, message }) {
+async function sendNotificationEmail(email, { source, name, company, phone, bestTime, budget, message, recipientEmail, recipientName, subject }) {
     const htmlContent = `
 <!DOCTYPE html>
 <html>
@@ -135,11 +135,11 @@ async function sendNotificationEmail(email, { source, name, company, phone, best
         },
         to: [
             {
-                email: "jacobmohomutsi@gmail.com",
-                name: "Jacob Mohomutsi"
+                email: recipientEmail || "careers@theaccessgroup.co.za",
+                name: recipientName || "Simphiwe"
             }
         ],
-        subject: `New Lead - ${source || "Website Form"}`,
+        subject: subject || `New Lead - ${source || "Website Form"}`,
         htmlContent: htmlContent
     };
 
@@ -179,7 +179,7 @@ export async function POST(req) {
             data = Object.fromEntries(formData.entries());
         }
 
-        // Accept both forms: MailingListModal and ProposalOffcanvas
+        // Accept forms: MailingListModal, ProposalOffcanvas, CareerApplicationModal, and contact form
         // MailingListModal: fullName, email, company
         // ProposalOffcanvas: fullName, email, company, phone, bestTime, message
         // Contact form: name, email, phone, message, budget, company, startedAt
@@ -205,8 +205,8 @@ export async function POST(req) {
         }
 
         // ENV CHECK
-        if (!process.env.BREVO_API_KEY || !process.env.BREVO_LIST_ID) {
-            console.error("Missing Brevo env vars");
+        if (!process.env.BREVO_API_KEY) {
+            console.error("Missing Brevo API key");
             return NextResponse.json(
                 { error: "Server misconfiguration" },
                 { status: 500 }
@@ -230,7 +230,7 @@ export async function POST(req) {
                 PHONE_NUMBER: data.phone || "",
                 BEST_TIME: data.bestTime || "",
                 MESSAGE: data.message || "",
-                SOURCE: "Proposal Offcanvas",
+                SOURCE: data.source || "Proposal Offcanvas",
             };
         } else {
             email = data.email;
@@ -243,31 +243,6 @@ export async function POST(req) {
             };
         }
 
-        const brevoRes = await fetch("https://api.brevo.com/v3/contacts", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "api-key": process.env.BREVO_API_KEY,
-            },
-            body: JSON.stringify({
-                email,
-                attributes,
-                listIds: [Number(process.env.BREVO_LIST_ID)],
-                updateEnabled: true,
-            }),
-        });
-
-        const brevoText = await brevoRes.text();
-        console.log("BREVO RESPONSE:", brevoRes.status, brevoText);
-
-        if (!brevoRes.ok) {
-            return NextResponse.json(
-                { error: "Brevo error", details: brevoText },
-                { status: 500 }
-            );
-        }
-
-        // Also send notification email to jacobmohomutsi@gmail.com
         const smtpPayload = {
             source: attributes.SOURCE,
             name: attributes.FIRSTNAME,
@@ -275,13 +250,19 @@ export async function POST(req) {
             phone: attributes.PHONE_NUMBER || "",
             bestTime: attributes.BEST_TIME || "",
             budget: attributes.BUDGET || "",
-            message: attributes.MESSAGE || ""
+            message: attributes.MESSAGE || "",
+            recipientEmail: data.source === "Partnership Application" ? "info@theaccessgroup.co.za" : undefined,
+            recipientName: data.source === "Partnership Application" ? "The Access Group" : undefined,
+            subject: data.source === "Partnership Application" ? data.subject : undefined
         };
 
-        try {
-            await sendNotificationEmail(email, smtpPayload);
-        } catch (emailErr) {
-            console.error("SMTP notification failed:", emailErr);
+        const emailSent = await sendNotificationEmail(email, smtpPayload);
+
+        if (!emailSent) {
+            return NextResponse.json(
+                { error: "Email notification failed" },
+                { status: 500 }
+            );
         }
 
         return NextResponse.json({ success: true });

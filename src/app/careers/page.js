@@ -1,33 +1,49 @@
-import React from 'react';
+"use client";
+
+import React, { useState } from 'react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import { MapPin, Clock, Mail } from 'lucide-react';
+import { Mail } from 'lucide-react';
+import CareerApplicationModal from '@/components/common/CareerApplicationModal';
 
 export default function CareersPage() {
+  const [selectedJob, setSelectedJob] = useState(null);
+
   const jobs = [
     {
-      title: "Strategic Business Consultant",
+      title: "Operations & Customer Success Coordinator",
       location: "Rustenburg / Hybrid",
       type: "Full-Time",
-      description: "Looking for an advisory professional to manage corporate registrations, tender analysis, database compliance, and market growth roadmap delivery."
+      description: "Coordinate client onboarding, customer support, CRM updates, and operational delivery across modular service packages."
     },
     {
-      title: "Digital Solutions Specialist",
+      title: "Growth & Strategic Partnerships Representative",
       location: "Remote (South Africa)",
       type: "Full-Time",
-      description: "Responsible for building web infrastructures, setting up digital communication platforms, integrations, and operational toolsets for clients."
+      description: "Support partnership outreach, lead generation, market activation, and relationship management across growth initiatives."
     },
     {
-      title: "Client Support Coordinator",
+      title: "Creative & Brand Delivery Specialist",
       location: "Remote",
       type: "Contract",
-      description: "Manage client onboarding, document vetting, CRM logging, and operational logistics support for modular service delivery."
+      description: "Deliver brand assets, digital content, client-facing materials, and creative outputs for Access Group service packages."
+    },
+    {
+      title: "Corporate Compliance & Bid Writer",
+      location: "Remote",
+      type: "Contract",
+      description: "Prepare compliance documents, tender responses, bid submissions, and supporting business documentation for clients."
     }
   ];
 
   return (
     <div className="min-h-screen bg-primary text-white flex flex-col justify-between">
       <Header />
+      <CareerApplicationModal
+        isOpen={!!selectedJob}
+        onClose={() => setSelectedJob(null)}
+        jobTitle={selectedJob?.title}
+      />
       
       <main className="flex-grow py-20 lg:py-28 relative">
         {/* Subtle background grid pattern */}
@@ -60,16 +76,6 @@ export default function CareersPage() {
                     {job.title}
                   </h3>
                   
-                  <div className="flex flex-wrap items-center gap-3 text-xs font-semibold">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C2A66B]/15 text-[#C2A66B] border border-[#C2A66B]/25">
-                      <Clock size={12} />
-                      {job.type}
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-white/80 border border-white/5">
-                      <MapPin size={12} />
-                      {job.location}
-                    </span>
-                  </div>
                 </div>
 
                 <p className="text-xs sm:text-sm leading-relaxed text-white/70 mt-2">
@@ -78,12 +84,13 @@ export default function CareersPage() {
 
                 <div className="mt-6 pt-6 border-t border-white/5 flex items-center justify-between gap-4 flex-wrap">
                   <span className="text-xs text-white/40 font-semibold">Requirement: Relevant degree / 3+ years experience</span>
-                  <a 
-                    href={`mailto:careers@theaccessgroup.co.za?subject=Application for ${job.title}`}
+                  <button
+                    type="button"
+                    onClick={() => setSelectedJob(job)}
                     className="inline-flex items-center gap-2 rounded-xl bg-[#C2A66B] px-5 py-2.5 text-xs font-extrabold text-[#304945] hover:bg-white hover:text-[#304945] transition-all duration-300"
                   >
                     Apply Now →
-                  </a>
+                  </button>
                 </div>
               </div>
             ))}

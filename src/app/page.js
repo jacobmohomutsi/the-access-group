@@ -8,7 +8,7 @@ import SuccessCalculator from '../components/home/SuccessCalculator';
 import Summit from '../components/home/Summit';
 import CaseStudies from '../components/home/CaseStudies';
 import CTA from '../components/home/CTA';
-import ProjectsDone from '../components/home/ProjectsDone';
+
 import { client } from "@/lib/graphql";
 import { HOME_QUERY } from "@/queries/homeQuery";
 
@@ -52,7 +52,7 @@ export default async function TheAccessGroupLandingPage() {
         <Summit featureData={feature} />
         <CaseStudies caseStudiesData={caseStudies} />
         <CTA ctaData={cta} />
-        <ProjectsDone projectsData={projects} />
+
       </main>
       <Footer />
     </div>

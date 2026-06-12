@@ -1,23 +1,11 @@
-import React from 'react';
+"use client";
+
+import React, { useState } from 'react';
 import Image from 'next/image';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function Hero({ heroData }) {
   const data = heroData;
-  const cards = [
-    {
-      title: data.herocard1title,
-      body: data.herocard1body,
-    },
-    {
-      title: data.herocard2title,
-      body: data.herocard2body,
-    },
-    {
-      title: data.herocard3title,
-      body: data.herocard3body,
-    },
-  ];
-
   const partners = [
     {
       name: data.partner1name,
@@ -57,6 +45,18 @@ export default function Hero({ heroData }) {
     },
   ];
 
+  const [partnerIndex, setPartnerIndex] = useState(0);
+
+  const extendedPartners = [...partners, ...partners];
+
+  const handlePrevPartner = () => {
+    setPartnerIndex((prev) => (prev - 1 + partners.length) % partners.length);
+  };
+
+  const handleNextPartner = () => {
+    setPartnerIndex((prev) => (prev + 1) % partners.length);
+  };
+
   return (
     <section className="relative overflow-hidden border-b border-white/10 bg-primary">
       <div className="absolute inset-0 grid-bg opacity-70" />
@@ -88,29 +88,13 @@ export default function Hero({ heroData }) {
             </a>
 
             <a
-              href={data.secondaryButtonLink}
+              href="#summit"
               className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-[#263B38] px-7 py-4 text-base font-semibold text-white hover:bg-white/10"
             >
-              {data.secondaryButtonText}
+              IEAS Summit 2026
             </a>
           </div>
 
-          <div className="mt-12 grid grid-cols-1 gap-4 text-left sm:grid-cols-3">
-            {cards.map((card) => (
-              <div
-                key={card.title}
-                className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur"
-              >
-                <p className="font-semibold text-white">
-                  {card.title}
-                </p>
-
-                <p className="mt-2 text-sm leading-6 text-white/60">
-                  {card.body}
-                </p>
-              </div>
-            ))}
-          </div>
         </div>
 
         {/* Partners slider */}
@@ -119,27 +103,73 @@ export default function Hero({ heroData }) {
             Trusted by partners and ecosystems
           </p>
 
-          <div className="overflow-hidden">
-            <div className="marquee flex w-[200%] gap-4">
-              {[...partners, ...partners].map((item, idx) => (
-                <div
-                  key={`${item.name}-${idx}`}
-                  className="flex min-w-[180px] items-center justify-center rounded-2xl border border-white/10 bg-white px-5 py-4 text-sm font-medium text-white/80"
-                >
-                  {item.logo?.node?.sourceUrl ? (
-                    <Image
-                      width={100}
-                      height={100}
-                      src={item.logo.node.sourceUrl}
-                      alt={item.logo.node.altText || item.name}
-                      className="h-20 w-auto object-contain grayscale hover:grayscale-0"
-                    />
-                  ) : (
-                    item.name
-                  )}
-                </div>
+          <div className="relative px-2 sm:px-6">
+
+            <div className="relative overflow-hidden">
+              <div 
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ 
+                  width: `${(extendedPartners.length / 5) * 100}%`,
+                  transform: `translateX(-${(partnerIndex * 100) / extendedPartners.length}%)` 
+                }}
+              >
+                {extendedPartners.map((item, idx) => (
+                  <div key={`${item.name}-${idx}`} className="w-full flex-shrink-0 px-2" style={{ width: `${100 / extendedPartners.length}%` }}>
+                    <div className="flex h-full items-center justify-center rounded-2xl border border-white/10 bg-white px-3 py-3 sm:px-5 sm:py-4 text-sm font-medium text-white/80 shadow-sm">
+                      {item.logo?.node?.sourceUrl ? (
+                        <Image
+                          width={100}
+                          height={100}
+                          src={item.logo.node.sourceUrl}
+                          alt={item.logo.node.altText || item.name}
+                          className="h-12 sm:h-20 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
+                        />
+                      ) : (
+                        <span className="text-center text-[#304945] font-bold text-xs sm:text-sm">{item.name}</span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+
+          {/* Scroller Indicator with Arrows */}
+          <div className="flex items-center justify-center gap-6 mt-8">
+            {/* Left Arrow */}
+            <button
+              onClick={handlePrevPartner}
+              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 transition-all duration-300"
+              aria-label="Previous partners"
+            >
+              <ChevronLeft size={20} />
+            </button>
+
+            {/* Dots Indicator */}
+            <div className="flex items-center justify-center gap-2.5">
+              {partners.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setPartnerIndex(idx)}
+                  className={`h-2.5 rounded-full transition-all duration-300 ${
+                    partnerIndex === idx 
+                      ? 'w-6 bg-[#C2A66B]' 
+                      : 'w-2.5 bg-white/20 hover:bg-white/40'
+                  }`}
+                  aria-label={`Go to partner ${idx + 1}`}
+                />
               ))}
             </div>
+
+            {/* Right Arrow */}
+            <button
+              onClick={handleNextPartner}
+              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 transition-all duration-300"
+              aria-label="Next partners"
+            >
+              <ChevronRight size={20} />
+            </button>
           </div>
         </div>
       </div>
