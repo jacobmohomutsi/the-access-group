@@ -154,8 +154,6 @@ async function sendNotificationEmail(email, { source, name, company, phone, best
             body: JSON.stringify(payload)
         });
 
-        const resText = await response.text();
-        console.log("BREVO SMTP RESPONSE:", response.status, resText);
         return response.ok;
     } catch (error) {
         console.error("BREVO SMTP ERROR:", error);
@@ -172,6 +170,7 @@ export async function POST(req) {
     try {
         let data;
         const contentType = req.headers.get("content-type") || "";
+
         if (contentType.includes("application/json")) {
             data = await req.json();
         } else {
@@ -206,7 +205,6 @@ export async function POST(req) {
 
         // ENV CHECK
         if (!process.env.BREVO_API_KEY) {
-            console.error("Missing Brevo API key");
             return NextResponse.json(
                 { error: "Server misconfiguration" },
                 { status: 500 }
@@ -251,8 +249,8 @@ export async function POST(req) {
             bestTime: attributes.BEST_TIME || "",
             budget: attributes.BUDGET || "",
             message: attributes.MESSAGE || "",
-            recipientEmail: data.source === "Partnership Application" ? "info@theaccessgroup.co.za" : undefined,
-            recipientName: data.source === "Partnership Application" ? "The Access Group" : undefined,
+            recipientEmail: data.source === "Partnership Application" ? "info@theaccessgroup.co.za" : data.source === "Career Application" ? "careers@theaccessgroup.co.za" : undefined,
+            recipientName: data.source === "Partnership Application" ? "The Access Group" : data.source === "Career Application" ? "Simphiwe" : undefined,
             subject: data.source === "Partnership Application" ? data.subject : undefined
         };
 
