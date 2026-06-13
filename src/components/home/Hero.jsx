@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -46,6 +46,8 @@ export default function Hero({ heroData }) {
   ];
 
   const [partnerIndex, setPartnerIndex] = useState(0);
+  const mobilePartnerSliderRef = useRef(null);
+  const mobileScrollTimeoutRef = useRef(null);
 
   const extendedPartners = [...partners, ...partners];
 
@@ -55,6 +57,31 @@ export default function Hero({ heroData }) {
 
   const handleNextPartner = () => {
     setPartnerIndex((prev) => (prev + 1) % partners.length);
+  };
+
+  const handlePartnerDotClick = (idx) => {
+    setPartnerIndex(idx);
+    mobilePartnerSliderRef.current?.scrollTo({
+      left: mobilePartnerSliderRef.current.clientWidth * idx,
+      behavior: 'smooth',
+    });
+  };
+
+  const handleMobilePartnerScroll = (event) => {
+    const slider = event.currentTarget;
+    const slideWidth = slider.clientWidth;
+    if (!slideWidth) return;
+    const nextIndex = Math.round(slider.scrollLeft / slideWidth);
+    setPartnerIndex(nextIndex % partners.length);
+
+    window.clearTimeout(mobileScrollTimeoutRef.current);
+    mobileScrollTimeoutRef.current = window.setTimeout(() => {
+      const settledIndex = Math.round(slider.scrollLeft / slideWidth);
+      if (settledIndex >= partners.length) {
+        slider.scrollTo({ left: 0, behavior: 'auto' });
+        setPartnerIndex(0);
+      }
+    }, 120);
   };
 
   return (
@@ -105,7 +132,31 @@ export default function Hero({ heroData }) {
 
           <div className="relative px-2 sm:px-6">
 
-            <div className="relative overflow-hidden">
+            <div
+              ref={mobilePartnerSliderRef}
+              onScroll={handleMobilePartnerScroll}
+              className="sm:hidden flex overflow-x-auto snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            >
+              {extendedPartners.map((item, idx) => (
+                <div key={`${item.name}-${idx}`} className="min-w-full snap-center px-2">
+                  <div className="flex h-full items-center justify-center rounded-2xl border border-white/10 bg-white px-3 py-3 text-sm font-medium text-white/80 shadow-sm">
+                    {item.logo?.node?.sourceUrl ? (
+                      <Image
+                        width={100}
+                        height={100}
+                        src={item.logo.node.sourceUrl}
+                        alt={item.logo.node.altText || item.name}
+                        className="h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
+                      />
+                    ) : (
+                      <span className="text-center text-[#304945] font-bold text-xs">{item.name}</span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="relative hidden overflow-hidden sm:block">
               <div 
                 className="flex transition-transform duration-500 ease-in-out"
                 style={{ 
@@ -140,7 +191,7 @@ export default function Hero({ heroData }) {
             {/* Left Arrow */}
             <button
               onClick={handlePrevPartner}
-              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 transition-all duration-300"
+              className="hidden w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/20 sm:flex items-center justify-center text-white hover:bg-white/10 transition-all duration-300"
               aria-label="Previous partners"
             >
               <ChevronLeft size={20} />
@@ -151,7 +202,7 @@ export default function Hero({ heroData }) {
               {partners.map((_, idx) => (
                 <button
                   key={idx}
-                  onClick={() => setPartnerIndex(idx)}
+                  onClick={() => handlePartnerDotClick(idx)}
                   className={`h-2.5 rounded-full transition-all duration-300 ${
                     partnerIndex === idx 
                       ? 'w-6 bg-[#C2A66B]' 
@@ -165,7 +216,7 @@ export default function Hero({ heroData }) {
             {/* Right Arrow */}
             <button
               onClick={handleNextPartner}
-              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 transition-all duration-300"
+              className="hidden w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/20 sm:flex items-center justify-center text-white hover:bg-white/10 transition-all duration-300"
               aria-label="Next partners"
             >
               <ChevronRight size={20} />

@@ -68,8 +68,8 @@ Built around accessibility, compliance, and innovation, our work combines local 
             </p>
           </div>
 
-          <div className="rounded-[2rem] bg-primary p-6 sm:p-8 text-white shadow-2xl shadow-black/10 flex flex-col items-center"> 
-            <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-black/20">
+          <div className="text-primary flex flex-col items-center"> 
+            <div className="relative w-full aspect-[4/3] rounded-[2rem] overflow-hidden shadow-2xl shadow-black/10">
               <div 
                 className="flex transition-transform duration-500 ease-in-out h-full"
                 style={{ transform: `translateX(-${galleryIndex * 100}%)` }}
@@ -92,7 +92,7 @@ Built around accessibility, compliance, and innovation, our work combines local 
               {/* Left Arrow */}
               <button
                 onClick={handlePrevGallery}
-                className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 transition-all duration-300 flex-shrink-0"
+                className="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center text-primary hover:bg-primary/10 transition-all duration-300 flex-shrink-0"
                 aria-label="Previous image"
               >
                 <ChevronLeft size={20} />
@@ -107,7 +107,7 @@ Built around accessibility, compliance, and innovation, our work combines local 
                     className={`h-2.5 rounded-full transition-all duration-300 ${
                       galleryIndex === idx 
                         ? 'w-6 bg-[#C2A66B]' 
-                        : 'w-2.5 bg-white/20 hover:bg-white/40'
+                        : 'w-2.5 bg-primary/50 hover:bg-primary/70'
                     }`}
                     aria-label={`Go to image ${idx + 1}`}
                   />
@@ -117,7 +117,7 @@ Built around accessibility, compliance, and innovation, our work combines local 
               {/* Right Arrow */}
               <button
                 onClick={handleNextGallery}
-                className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 transition-all duration-300 flex-shrink-0"
+                className="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center text-primary hover:bg-primary/10 transition-all duration-300 flex-shrink-0"
                 aria-label="Next image"
               >
                 <ChevronRight size={20} />

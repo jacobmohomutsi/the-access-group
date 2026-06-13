@@ -75,10 +75,10 @@ const Hero = ({ heroData, partnersData }) => {
                     </div>
                 </div>
 
-                <div className="opacity-0 animate-fade-up animation-delay-600 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4">
+                <div className="opacity-0 animate-fade-up animation-delay-600 flex flex-col justify-center gap-4 sm:flex-row sm:flex-wrap">
                     <a
                         href="#partnerships"
-                        className="px-8 py-4 rounded-2xl border-2 border-white/30 text-white font-semibold text-lg hover:border-secondary hover:text-secondary hover:bg-white/5 transition-all duration-300 min-w-[180px] text-center"
+                        className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-[#263B38] px-7 py-4 text-base font-semibold text-white hover:bg-white/10"
                     >
                         Sponsor
                     </a>
@@ -87,13 +87,13 @@ const Hero = ({ heroData, partnersData }) => {
                             e.preventDefault();
                             setDrawerOpen(true);
                         }}
-                        className="px-8 py-4 rounded-2xl border-2 border-white/30 text-white font-semibold text-lg hover:border-secondary hover:text-secondary hover:bg-white/5 transition-all duration-300 min-w-[180px] text-center"
+                        className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-[#263B38] px-7 py-4 text-base font-semibold text-white hover:bg-white/10"
                     >
                         Exhibitor
                     </button>
                     <a
                         href="#tickets"
-                        className="px-8 py-4 rounded-2xl border-2 border-white/30 text-white font-semibold text-lg hover:border-secondary hover:text-secondary hover:bg-white/5 transition-all duration-300 min-w-[180px] text-center"
+                        className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-[#263B38] px-7 py-4 text-base font-semibold text-white hover:bg-white/10"
                     >
                         Delegate
                     </a>
