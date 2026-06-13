@@ -4,30 +4,11 @@ const Speakers = ({ speakersData }) => {
     const data = speakersData;
 
     const speakers = [
-        {
-            name: data.card1Title,
-            role: data.card1Position,
-            organisation: data.card1Body,
-            image: data.card1Image?.node,
-        },
-        {
-            name: data.card2Title,
-            role: data.card2Position,
-            organisation: data.card2Body,
-            image: data.card2Image?.node,
-        },
-        {
-            name: data.card3Title,
-            role: data.card3Position,
-            organisation: data.card3Body,
-            image: data.card3Image?.node,
-        },
-        {
-            name: data.card4Title,
-            role: data.card4Position,
-            organisation: data.card4Body,
-            image: data.card4Image?.node,
-        }
+        { name: "Deputy Minister Jane Sithole", role: "Summit Speaker" },
+        { name: "Dr Sifiso Falala", role: "Summit Speaker" },
+        { name: "Lehlohonolo Chabeli", role: "Summit Speaker" },
+        { name: "Nolo Mmeti", role: "Summit Speaker" },
+        { name: "Botlhale Mosito", role: "Summit Speaker" },
     ];
 
     return (
@@ -65,9 +46,11 @@ const Speakers = ({ speakersData }) => {
                                 <p className="text-sm font-semibold text-primary mb-1">
                                     {speaker.role}
                                 </p>
-                                <p className="text-sm text-primary/70">
-                                    {speaker.organisation}
-                                </p>
+                                {speaker.organisation && (
+                                    <p className="text-sm text-primary/70">
+                                        {speaker.organisation}
+                                    </p>
+                                )}
                             </div>
                         </div>
                     ))}

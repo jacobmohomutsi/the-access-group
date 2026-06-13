@@ -41,10 +41,10 @@ const tickets = [
     },
     {
         name: "Full Access Pass",
-        subtitle: "Both Days · 15–16 October",
+        subtitle: "Both Days · 15-16 October",
         price: "R3,500",
         originalPrice: "R4,000",
-        description: "Complete experience — Gala Dinner + Main Summit",
+        description: "Complete experience - Gala Dinner + Main Summit",
         features: [
             "Everything in Gala Dinner",
             "Everything in Main Summit",
@@ -91,7 +91,7 @@ const Tickets = () => {
                         Get Your <span className="text-primary">Tickets</span>
                     </h2>
                     <p className="text-primary/70 text-lg max-w-2xl mx-auto">
-                        Choose the experience that suits you — from the Investment Gala Dinner on Day 1 to the full Main Summit on Day 2, or get the best value with a Full Access Pass.
+                        Choose the experience that suits you - from the Investment Gala Dinner on Day 1 to the full Main Summit on Day 2, or get the best value with a Full Access Pass.
                     </p>
                 </div>
 

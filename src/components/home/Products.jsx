@@ -212,7 +212,7 @@ ${boxRequirementsMsg}
             </h2>
 
             <p className="mt-4 text-lg leading-8 text-white/65">
-              Our Access Boxes are modular service packages designed to help businesses formalise, grow visibility, strengthen operations, and unlock new market opportunities — from startup foundations to international expansion.
+              Our Access Boxes are modular service packages designed to help businesses formalise, grow visibility, strengthen operations, and unlock new market opportunities - from startup foundations to international expansion.
             </p>
           </div>
 
@@ -274,7 +274,7 @@ ${boxRequirementsMsg}
           />
 
           {/* Drawer Container */}
-          <div className="relative w-full max-w-6xl h-full bg-[#F8F9FA] text-gray-900 shadow-2xl flex flex-col overflow-y-auto animate-slide-in-right z-10 p-6 sm:p-12">
+          <div className="relative w-full max-w-6xl h-full bg-[#F8F9FA] text-gray-900 shadow-2xl flex flex-col overflow-y-auto animate-slide-in-right z-10 p-6 pb-24 sm:p-12 sm:pb-32">
 
             {/* Close Button */}
             <button
@@ -289,7 +289,7 @@ ${boxRequirementsMsg}
 
             {/* VIEW A: Tiers Selection */}
             {activeView === 'tiers' && (
-              <div className="h-full flex flex-col justify-start">
+              <div className="min-h-full flex flex-col justify-start">
                 <button
                   onClick={handleCloseDrawer}
                   className="inline-flex items-center gap-2 text-sm text-[#304945] hover:text-[#C2A66B] mb-8 font-semibold transition-colors group self-start"
@@ -297,7 +297,7 @@ ${boxRequirementsMsg}
                   <ChevronLeft size={16} className="group-hover:-translate-x-0.5 transition-transform" /> Back to Packages
                 </button>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mt-4">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mt-4 pb-12">
                   {/* Product Overview */}
                   <div className="lg:col-span-5 flex flex-col">
                     <div className="bg-white border border-gray-100 p-4 rounded-3xl w-fit flex items-center justify-center text-[#304945] mb-6 shadow-sm">
@@ -395,7 +395,7 @@ ${boxRequirementsMsg}
 
             {/* VIEW B: Checkout form */}
             {activeView === 'checkout' && selectedTier && (
-              <div className="h-full flex flex-col justify-start">
+              <div className="min-h-full flex flex-col justify-start">
                 <button
                   onClick={handleBackToTiers}
                   className="inline-flex items-center gap-2 text-sm text-[#304945] hover:text-[#C2A66B] mb-8 font-semibold transition-colors group self-start"
@@ -656,6 +656,8 @@ ${boxRequirementsMsg}
               </div>
             )}
 
+            {/* Spacer to ensure bottom padding in scrollable area */}
+            <div className="h-32 min-h-[8rem] w-full flex-shrink-0" aria-hidden="true" />
           </div>
         </div>
       )}
