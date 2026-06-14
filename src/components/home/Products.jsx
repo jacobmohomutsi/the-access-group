@@ -18,6 +18,7 @@ import {
   X
 } from 'lucide-react';
 import { boxes } from '@/lib/data/boxes';
+import { submitAccessBoxCheckout } from '@/lib/accessBoxCheckout';
 
 // Map icon names from boxes.js to Lucide React icons
 const iconMap = {
@@ -48,6 +49,7 @@ export default function Products({ productsData }) {
   });
   const [status, setStatus] = useState('idle'); // 'idle' | 'loading' | 'success' | 'error'
   const [errorMessage, setErrorMessage] = useState('');
+  const [paymentUrl, setPaymentUrl] = useState('');
 
   // Lock body scroll when drawer is open
   useEffect(() => {
@@ -68,6 +70,7 @@ export default function Products({ productsData }) {
     setCheckoutStep(1);
     setStatus('idle');
     setErrorMessage('');
+    setPaymentUrl('');
 
     // Initialize form data with base fields + dynamic custom fields
     const initialForm = {
@@ -91,12 +94,14 @@ export default function Products({ productsData }) {
     setDrawerOpen(false);
     setSelectedProduct(null);
     setSelectedTier(null);
+    setPaymentUrl('');
   };
 
   // Handle tier selection
   const handleSelectTier = (tier) => {
     setSelectedTier(tier);
     setCheckoutStep(1);
+    setPaymentUrl('');
     setActiveView('checkout');
   };
 
@@ -105,6 +110,7 @@ export default function Products({ productsData }) {
     setActiveView('tiers');
     setSelectedTier(null);
     setCheckoutStep(1);
+    setPaymentUrl('');
   };
 
   // Form input changes
@@ -119,69 +125,26 @@ export default function Products({ productsData }) {
     setCheckoutStep(2);
   };
 
-  // Submit step 2 (API post and redirection to Yoco)
+  // Submit step 2 (create Yoco link, save details, and redirect to Yoco)
   const handlePayNow = async (e) => {
     e.preventDefault();
     setStatus('loading');
     setErrorMessage('');
 
-    // Format custom fields answers for Brevo message field
-    let boxRequirementsMsg = '';
-    if (selectedProduct.customFields && selectedProduct.customFields.length > 0) {
-      boxRequirementsMsg = selectedProduct.customFields
-        .map(field => `- ${field.label}: ${formData[field.name] || 'Not specified'}`)
-        .join('\n');
-    } else {
-      boxRequirementsMsg = 'None';
-    }
-
-    const emailMessage = `
-Access Box Order:
------------------------------------------
-Product: ${selectedProduct.name}
-Selected Tier: ${selectedTier.name} (${selectedTier.priceDisplay})
-Total Price: ${selectedTier.priceDisplay}
-
-Client Details:
-- Name: ${formData.firstName} ${formData.lastName}
-- Email: ${formData.email}
-- Phone: ${formData.phone}
-
-Box Requirements:
-${boxRequirementsMsg}
-    `.trim();
-
-    const payload = {
-      fullName: `${formData.firstName} ${formData.lastName}`,
-      email: formData.email,
-      company: selectedProduct.name,
-      phone: formData.phone,
-      bestTime: 'morning',
-      message: emailMessage
-    };
-
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
+      const paymentData = await submitAccessBoxCheckout({
+        selectedProduct,
+        selectedTier,
+        formData,
       });
 
-      if (response.ok) {
-        setStatus('success');
-        // Open the Yoco payment link in a new window/tab
-        window.open(selectedTier.paymentLink, '_blank', 'noopener,noreferrer');
-      } else {
-        const errData = await response.json();
-        setStatus('error');
-        setErrorMessage(errData.error || 'Failed to submit order details. Please try again.');
-      }
+      setPaymentUrl(paymentData.url);
+      setStatus('success');
+      window.open(paymentData.url, '_blank', 'noopener,noreferrer');
     } catch (err) {
       console.error('Order checkout submission error:', err);
       setStatus('error');
-      setErrorMessage('Failed to connect to the server. Please check your network.');
+      setErrorMessage(err.message || 'Failed to connect to the server. Please check your network.');
     }
   };
 
@@ -545,7 +508,7 @@ ${boxRequirementsMsg}
                             </div>
 
                             <a
-                              href={selectedTier.paymentLink}
+                              href={paymentUrl}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="inline-flex items-center gap-2 bg-[#304945] text-white hover:bg-[#C2A66B] hover:text-[#304945] font-extrabold py-4 px-8 rounded-2xl transition-all duration-300 shadow-md shadow-gray-200 mb-4 text-sm"

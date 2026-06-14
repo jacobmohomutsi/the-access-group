@@ -249,8 +249,8 @@ export async function POST(req) {
             bestTime: attributes.BEST_TIME || "",
             budget: attributes.BUDGET || "",
             message: attributes.MESSAGE || "",
-            recipientEmail: data.source === "Partnership Application" ? "info@theaccessgroup.co.za" : data.source === "Career Application" ? "careers@theaccessgroup.co.za" : undefined,
-            recipientName: data.source === "Partnership Application" ? "The Access Group" : data.source === "Career Application" ? "Simphiwe" : undefined,
+            recipientEmail: data.source === "Partnership Application" ? "info@theaccessgroup.co.za" : data.source === "Career Application" ? "careers@theaccessgroup.co.za" : data.source === "Access Box Order" ? "theaccessgroupsa@gmail.com" : undefined,
+            recipientName: data.source === "Partnership Application" ? "The Access Group" : data.source === "Career Application" ? "Simphiwe" : data.source === "Access Box Order" ? "The Access Group" : undefined,
             subject: data.source === "Partnership Application" ? data.subject : undefined
         };
 
