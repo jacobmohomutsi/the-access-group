@@ -7,6 +7,7 @@ import Speakers from '../../components/summit/Speakers';
 import Tickets from '../../components/summit/Tickets';
 import Partnerships from '../../components/summit/Partnerships';
 import Programme from '../../components/summit/Programme';
+import Venue from '../../components/summit/Venue';
 import CTA from '../../components/summit/CTA';
 import { client } from "@/lib/graphql";
 import { SUMMIT_QUERY } from "@/queries/summitQuery";
@@ -45,6 +46,7 @@ export default async function TheAccessGroupLandingPage() {
                 <Tickets />
                 <Partnerships />
                 <Programme />
+                <Venue />
                 <CTA />
             </main>
             <Footer />
