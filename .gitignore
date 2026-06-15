@@ -39,3 +39,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Secret utility scripts
+check-*.mjs
+get-*.mjs
+test-*.mjs
+test-*.js
+register-*.mjs
+run-*.mjs
+update-*.mjs
+update-*.js
+*.sql
+!supabase/migrations/*.sql
