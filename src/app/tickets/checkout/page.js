@@ -1,10 +1,10 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { createCheckout } from './actions';
 
-export default function CheckoutPage() {
+function CheckoutContent() {
     const searchParams = useSearchParams();
     const itemsParam = searchParams.get('items');
     const [items, setItems] = useState([]);
@@ -134,5 +134,13 @@ export default function CheckoutPage() {
 
             </div>
         </div>
+    );
+}
+
+export default function CheckoutPage() {
+    return (
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-gray-50">Loading checkout...</div>}>
+            <CheckoutContent />
+        </Suspense>
     );
 }
