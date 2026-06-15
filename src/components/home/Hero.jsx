@@ -111,14 +111,13 @@ export default function Hero({ heroData }) {
               className="inline-flex items-center justify-center rounded-2xl bg-white px-7 py-4 text-base font-semibold text-primary shadow-lg shadow-white/20 hover:opacity-95"
             >
               {data.primaryButtonText}
-              <span className="ml-3">→</span>
             </a>
 
             <a
               href="#summit"
               className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-[#263B38] px-7 py-4 text-base font-semibold text-white hover:bg-white/10"
             >
-              IEAS Summit 2026
+              Buy Tickets
             </a>
           </div>
 
@@ -157,11 +156,11 @@ export default function Hero({ heroData }) {
             </div>
 
             <div className="relative hidden overflow-hidden sm:block">
-              <div 
+              <div
                 className="flex transition-transform duration-500 ease-in-out"
-                style={{ 
+                style={{
                   width: `${(extendedPartners.length / 5) * 100}%`,
-                  transform: `translateX(-${(partnerIndex * 100) / extendedPartners.length}%)` 
+                  transform: `translateX(-${(partnerIndex * 100) / extendedPartners.length}%)`
                 }}
               >
                 {extendedPartners.map((item, idx) => (
@@ -203,11 +202,10 @@ export default function Hero({ heroData }) {
                 <button
                   key={idx}
                   onClick={() => handlePartnerDotClick(idx)}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${
-                    partnerIndex === idx 
-                      ? 'w-6 bg-[#C2A66B]' 
-                      : 'w-2.5 bg-white/20 hover:bg-white/40'
-                  }`}
+                  className={`h-2.5 rounded-full transition-all duration-300 ${partnerIndex === idx
+                    ? 'w-6 bg-[#C2A66B]'
+                    : 'w-2.5 bg-white/20 hover:bg-white/40'
+                    }`}
                   aria-label={`Go to partner ${idx + 1}`}
                 />
               ))}

@@ -26,7 +26,7 @@ const Programme = () => {
                                 Investment & Partnership Dinner
                             </h3>
                             <p className="text-white/70 text-sm">
-                                By-invitation-only · "Closing Deals, Building Trust"
+                                By-invitation-only | Closing Deals, Building Trust
                             </p>
                         </div>
 

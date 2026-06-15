@@ -21,9 +21,9 @@ const CTA = () => {
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-                    <a
-                        href="#tickets"
-                        className="bg-secondary px-10 py-4 rounded-2xl text-primary font-extrabold text-lg flex items-center gap-2 hover:bg-white hover:scale-102 transition-all duration-300 shadow-lg shadow-black/20"
+                    <a 
+                        href="/tickets" 
+                        className="inline-flex items-center gap-2 bg-secondary text-primary px-8 py-4 rounded-xl font-bold text-lg hover:bg-white hover:scale-105 transition-all duration-300"
                     >
                         Get Tickets Now <ArrowRight className="w-5 h-5" />
                     </a>

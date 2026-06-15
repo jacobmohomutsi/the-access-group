@@ -7,7 +7,7 @@ const tickets = [
     {
         name: "Investment Gala Dinner",
         subtitle: "Day 1 · 15 October 2026",
-        price: "R1,500",
+        price: "R2,500",
         originalPrice: null,
         description: "An exclusive evening of networking, fine dining & deal-making",
         features: [
@@ -24,7 +24,7 @@ const tickets = [
     {
         name: "Main Summit",
         subtitle: "Day 2 · 16 October 2026",
-        price: "R2,500",
+        price: "R1,500",
         originalPrice: null,
         description: "Full-day summit with panels, breakaways & exhibitions",
         features: [

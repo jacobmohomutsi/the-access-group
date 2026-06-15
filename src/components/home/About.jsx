@@ -62,21 +62,21 @@ export default function About({ aboutData }) {
             <p className="mt-6 text-lg leading-8 text-primary/80">
               The Access Group is a youth-led strategic consultancy focused on business activation, digital transformation, and market access across Africa.
 
-We help entrepreneurs, creatives, organisations, and community-led enterprises transition from informal activity into structured, scalable, and globally connected operations.
+              We help entrepreneurs, creatives, organisations, and community-led enterprises transition from informal activity into structured, scalable, and globally connected operations.
 
-Built around accessibility, compliance, and innovation, our work combines local understanding with internationally aligned business systems designed for long-term impact.
+              Built around accessibility, compliance, and innovation, our work combines local understanding with internationally aligned business systems designed for long-term impact.
             </p>
           </div>
 
-          <div className="text-primary flex flex-col items-center"> 
+          <div className="text-primary flex flex-col items-center">
             <div className="relative w-full aspect-[4/3] rounded-[2rem] overflow-hidden shadow-2xl shadow-black/10">
-              <div 
+              <div
                 className="flex transition-transform duration-500 ease-in-out h-full"
                 style={{ transform: `translateX(-${galleryIndex * 100}%)` }}
               >
                 {galleryImages.map((src, idx) => (
                   <div key={idx} className="w-full h-full flex-shrink-0 relative">
-                    <Image 
+                    <Image
                       src={src}
                       alt={`Gallery Image ${idx + 1}`}
                       fill
@@ -104,11 +104,10 @@ Built around accessibility, compliance, and innovation, our work combines local 
                   <button
                     key={idx}
                     onClick={() => setGalleryIndex(idx)}
-                    className={`h-2.5 rounded-full transition-all duration-300 ${
-                      galleryIndex === idx 
-                        ? 'w-6 bg-[#C2A66B]' 
-                        : 'w-2.5 bg-primary/50 hover:bg-primary/70'
-                    }`}
+                    className={`h-2.5 rounded-full transition-all duration-300 ${galleryIndex === idx
+                      ? 'w-6 bg-[#C2A66B]'
+                      : 'w-2.5 bg-primary/50 hover:bg-primary/70'
+                      }`}
                     aria-label={`Go to image ${idx + 1}`}
                   />
                 ))}
@@ -137,8 +136,8 @@ Built around accessibility, compliance, and innovation, our work combines local 
 
         {/* SDG Goals Section */}
         <div className="mt-24 grid gap-12 lg:grid-cols-2 lg:items-start">
-          <div className="order-2 lg:order-1"> 
-            <Image 
+          <div className="order-2 lg:order-1">
+            <Image
               src="/images/RUEDA-ODS-ENG-768x777.png"
               alt="SDG Goals"
               width={768}
@@ -149,12 +148,12 @@ Built around accessibility, compliance, and innovation, our work combines local 
 
           <div className="order-1 lg:order-2">
             <h2 className="text-3xl font-black tracking-tight text-primary sm:text-4xl">
-              SDG Goals write-up:
+              Sustainable Development Goals:
             </h2>
             <p className="mt-6 text-lg leading-8 text-primary/80">
-              The Access Group is a purpose-driven enterprise systematically aligned with UN Sustainable Development Goals 8, 9, 10, and 17.
+              The Access Group is a purpose-driven enterprise systematically aligned with the following UN Sustainable Development Goals:
             </p>
-            
+
             {/* SDG Individual Icons Below the Section */}
             <div className="mt-10 grid grid-cols-3 gap-4 sm:gap-6 max-w-[550px]">
               {[
@@ -166,7 +165,7 @@ Built around accessibility, compliance, and innovation, our work combines local 
                 "/images/6_E_SDG_Icons-17.jpg"
               ].map((src, idx) => (
                 <div key={idx} className="relative aspect-square rounded-xl overflow-hidden shadow-sm hover:scale-105 transition-transform duration-300">
-                  <Image 
+                  <Image
                     src={src}
                     alt={`SDG Goal ${idx + 1}`}
                     fill

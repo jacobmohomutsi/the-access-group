@@ -34,7 +34,7 @@ const Hero = ({ heroData, partnersData }) => {
     };
 
     return (
-        <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+        <section className="relative py-10 min-h-screen flex flex-col items-center justify-center overflow-hidden">
             {/* Background image */}
             <div className="absolute inset-0">
                 <Image
@@ -50,13 +50,13 @@ const Hero = ({ heroData, partnersData }) => {
             {/* Content */}
             <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
                 <div className="opacity-0 animate-fade-up">
-                    <span className="inline-block px-4 py-1.5 rounded-full text-sm font-semibold tracking-widest uppercase bg-secondary text-primary mb-8">
+                    <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase bg-secondary text-primary mb-8">
                         {normalizeDash(data.badgeText)}
                     </span>
                 </div>
 
                 <h1 className="opacity-0 animate-fade-up animation-delay-200 font-black tracking-tight text-4xl md:text-6xl lg:text-7xl text-white leading-tight mb-6">
-                    {normalizeDash(data.heroTitle)}
+                    IMPORT EXPORT ACCESS SUMMIT 2026
                 </h1>
 
                 <p className="opacity-0 animate-fade-up animation-delay-400 text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-10 leading-relaxed">

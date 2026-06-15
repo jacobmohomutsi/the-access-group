@@ -120,100 +120,99 @@ const Partnerships = () => {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-6 items-start">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-6 items-start">
                     {partnerships.map((partner, idx) => {
                         const isExpanded = expandedIdx === idx;
                         return (
-                        <div
-                            key={idx}
-                            className={`relative rounded-2xl p-7 flex flex-col cursor-pointer transition-all duration-300 ${partner.highlighted
-                                ? "bg-primary text-white shadow-2xl md:scale-105 border-0 z-10"
-                                : "bg-white border border-primary/10 shadow-lg"
-                                }`}
-                            onClick={() => setExpandedIdx(isExpanded ? null : idx)}
-                        >
-                            {/* Badge */}
-                            <span
-                                className={`absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold tracking-wider uppercase whitespace-nowrap ${partner.badgeColor}`}
-                            >
-                                {partner.badge}
-                            </span>
-
-                            <h3
-                                className={`font-black tracking-tight text-xl mt-4 mb-1 ${partner.highlighted ? "text-white" : "text-primary"
+                            <div
+                                key={idx}
+                                className={`relative rounded-2xl p-7 flex flex-col cursor-pointer transition-all duration-300 ${partner.highlighted
+                                    ? "bg-primary text-white shadow-2xl md:scale-105 border-0 z-10"
+                                    : "bg-white border border-primary/10 shadow-lg"
                                     }`}
+                                onClick={() => setExpandedIdx(isExpanded ? null : idx)}
                             >
-                                {partner.name}
-                            </h3>
-                            <p
-                                className={`text-xs font-semibold mb-3 uppercase tracking-wider ${partner.highlighted ? "text-secondary" : "text-[#A37B30]"
-                                    }`}
-                            >
-                                {partner.subtitle}
-                            </p>
-
-                            <div className="flex items-baseline gap-2 mb-2">
+                                {/* Badge */}
                                 <span
-                                    className={`font-black tracking-tight ${partner.compactPrice ? "text-3xl" : "text-3xl md:text-4xl"} ${partner.highlighted ? "text-white" : "text-primary"
+                                    className={`absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold tracking-wider uppercase whitespace-nowrap ${partner.badgeColor}`}
+                                >
+                                    {partner.badge}
+                                </span>
+
+                                <h3
+                                    className={`font-black tracking-tight text-xl mt-4 mb-1 ${partner.highlighted ? "text-white" : "text-primary"
                                         }`}
                                 >
-                                    {partner.price}
-                                </span>
+                                    {partner.name}
+                                </h3>
+                                <p
+                                    className={`text-xs font-semibold mb-3 uppercase tracking-wider ${partner.highlighted ? "text-secondary" : "text-[#A37B30]"
+                                        }`}
+                                >
+                                    {partner.subtitle}
+                                </p>
+
+                                <div className="flex items-baseline gap-2 mb-2">
+                                    <span
+                                        className={`font-black tracking-tight ${partner.compactPrice ? "text-3xl" : "text-3xl md:text-4xl"} ${partner.highlighted ? "text-white" : "text-primary"
+                                            }`}
+                                    >
+                                        {partner.price}
+                                    </span>
+                                </div>
+
+                                <p
+                                    className={`text-sm mb-5 font-medium ${partner.highlighted ? "text-white/70" : "text-primary/70"
+                                        }`}
+                                >
+                                    {partner.description}
+                                </p>
+
+                                {/* Dropdown Toggle */}
+                                <div
+                                    className={`flex items-center justify-between py-3 border-t border-b border-primary/10 mb-4 transition-colors ${partner.highlighted ? 'hover:bg-white/5 text-secondary' : 'hover:bg-primary/5 text-[#A37B30]'
+                                        }`}
+                                >
+                                    <span className="font-bold text-sm">
+                                        Partnership Benefits
+                                    </span>
+                                    {isExpanded ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                                </div>
+
+                                <div className={`overflow-hidden transition-all duration-300 ${isExpanded ? 'max-h-[800px] opacity-100 mb-8' : 'max-h-0 opacity-0 mb-0'}`}>
+                                    <ul className="space-y-3 flex-1">
+                                        {partner.features.map((feature, fIdx) => (
+                                            <li key={fIdx} className="flex items-start gap-3">
+                                                <Check
+                                                    className={`w-4 h-4 mt-0.5 flex-shrink-0 ${partner.highlighted ? "text-secondary" : "text-[#A37B30]"
+                                                        }`}
+                                                />
+                                                <span
+                                                    className={`text-sm leading-snug ${partner.highlighted ? "text-white/90" : "text-primary/80"
+                                                        }`}
+                                                >
+                                                    {feature}
+                                                </span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+
+                                <button
+                                    className={`w-full py-3.5 rounded-2xl font-extrabold text-base flex items-center justify-center gap-2 hover:scale-102 transition-all duration-300 mt-auto ${partner.highlighted
+                                        ? "bg-secondary text-primary hover:bg-white"
+                                        : "bg-primary text-white hover:bg-secondary hover:text-primary"
+                                        }`}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setSelectedPartner(partner);
+                                        setModalOpen(true);
+                                    }}
+                                    type="button"
+                                >
+                                    Apply for Partnership <ArrowRight className="w-4 h-4" />
+                                </button>
                             </div>
-
-                            <p
-                                className={`text-sm mb-5 font-medium ${partner.highlighted ? "text-white/70" : "text-primary/70"
-                                    }`}
-                            >
-                                {partner.description}
-                            </p>
-
-                            {/* Dropdown Toggle */}
-                            <div 
-                                className={`flex items-center justify-between py-3 border-t border-b border-primary/10 mb-4 transition-colors ${
-                                    partner.highlighted ? 'hover:bg-white/5 text-secondary' : 'hover:bg-primary/5 text-[#A37B30]'
-                                }`}
-                            >
-                                <span className="font-bold text-sm">
-                                    Partnership Benefits
-                                </span>
-                                {isExpanded ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
-                            </div>
-
-                            <div className={`overflow-hidden transition-all duration-300 ${isExpanded ? 'max-h-[800px] opacity-100 mb-8' : 'max-h-0 opacity-0 mb-0'}`}>
-                                <ul className="space-y-3 flex-1">
-                                    {partner.features.map((feature, fIdx) => (
-                                        <li key={fIdx} className="flex items-start gap-3">
-                                            <Check
-                                                className={`w-4 h-4 mt-0.5 flex-shrink-0 ${partner.highlighted ? "text-secondary" : "text-[#A37B30]"
-                                                    }`}
-                                            />
-                                            <span
-                                                className={`text-sm leading-snug ${partner.highlighted ? "text-white/90" : "text-primary/80"
-                                                    }`}
-                                            >
-                                                {feature}
-                                            </span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-
-                            <button
-                                className={`w-full py-3.5 rounded-2xl font-extrabold text-base flex items-center justify-center gap-2 hover:scale-102 transition-all duration-300 mt-auto ${partner.highlighted
-                                    ? "bg-secondary text-primary hover:bg-white"
-                                    : "bg-primary text-white hover:bg-secondary hover:text-primary"
-                                    }`}
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    setSelectedPartner(partner);
-                                    setModalOpen(true);
-                                }}
-                                type="button"
-                            >
-                                Apply for Partnership <ArrowRight className="w-4 h-4" />
-                            </button>
-                        </div>
                         );
                     })}
                 </div>

@@ -26,12 +26,12 @@ export default function Summit({ featureData }) {
 
         {/* Subtitle */}
         <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#C2A66B]">
-          IMPORT EXPORT ACCESS SUMMIT
+          Connecting African innovation to global opportunity.
         </p>
 
         {/* Title */}
         <h2 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white max-w-4xl mx-auto leading-tight">
-          Connecting African innovation to global opportunity.
+          IMPORT EXPORT ACCESS SUMMIT 2026
         </h2>
 
         {/* Dates and Venue badges */}
@@ -58,7 +58,7 @@ export default function Summit({ featureData }) {
             href="/summit"
             className="inline-flex items-center gap-2 rounded-2xl bg-[#C2A66B] px-10 py-4.5 text-sm font-extrabold text-[#304945] hover:bg-white hover:text-[#304945] hover:scale-102 transition-all duration-300 shadow-lg shadow-black/20"
           >
-            Learn More & Explore the Summit →
+            Learn More & Explore the Summit
           </a>
         </div>
 

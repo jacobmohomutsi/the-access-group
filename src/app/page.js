@@ -15,8 +15,6 @@ import { HOME_QUERY } from "@/queries/homeQuery";
 export default async function TheAccessGroupLandingPage() {
 
   const data = await client.request(HOME_QUERY);
-
-  console.log(data.page);
   const hero = data.page.homeHero;
   const about = data.page.homeAbout;
   const products = data.page.homeProducts;
