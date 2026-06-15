@@ -44,25 +44,48 @@ function verifySignature(payloadStr, headers, secret) {
 
 export async function POST(req) {
     try {
+        console.log('[YOCO_WEBHOOK]', { 
+            stage: 'received_request', 
+            headers: {
+                'webhook-id': req.headers.get('webhook-id'),
+                'webhook-timestamp': req.headers.get('webhook-timestamp'),
+                'webhook-signature': req.headers.get('webhook-signature')
+            }
+        });
+
         const payloadStr = await req.text();
+        console.log('[YOCO_WEBHOOK]', { stage: 'raw_payload', payload: payloadStr });
         const webhookSecret = process.env.YOCO_WEBHOOK_SECRET;
 
         // Verify Signature
         if (webhookSecret && !verifySignature(payloadStr, req.headers, webhookSecret)) {
-            console.error('Invalid Yoco Webhook Signature');
+            console.error('[PAYMENT_ERROR]', { stage: 'webhook_signature_verification_failed' });
             return NextResponse.json({ error: 'Invalid signature' }, { status: 401 });
         }
 
         const event = JSON.parse(payloadStr);
+        console.log('[YOCO_WEBHOOK]', { 
+            stage: 'parsed_event', 
+            event_type: event.type, 
+            event_id: event.id 
+        });
 
         // We only care about payment.succeeded
         if (event.type !== 'payment.succeeded') {
+            console.log('[YOCO_WEBHOOK]', { stage: 'ignored_event_type', type: event.type });
             return NextResponse.json({ received: true });
         }
 
         const checkoutId = event.payload.checkoutId || (event.payload.metadata && event.payload.metadata.checkoutId) || null;
         const paymentId = event.payload.id;
         const eventId = event.id; // Yoco webhook event ID for idempotency
+
+        console.log('[YOCO_WEBHOOK]', { 
+            stage: 'processing_payment_succeeded', 
+            yoco_checkout_id: checkoutId, 
+            payment_id: paymentId, 
+            metadata: event.payload.metadata 
+        });
 
         // Execute atomic transaction via Supabase RPC
         const { data, error } = await supabaseAdmin.rpc('process_yoco_webhook', {
@@ -73,18 +96,33 @@ export async function POST(req) {
         });
 
         if (error) {
-            console.error('Webhook RPC Error:', error);
+            console.error('[PAYMENT_ERROR]', { 
+                stage: 'webhook_rpc_failed', 
+                error: error,
+                yoco_checkout_id: checkoutId,
+                payment_id: paymentId
+            });
             // If it's a capacity error, we might want to return 200 so Yoco doesn't retry,
             // or 500 if we want it to retry (though capacity won't change).
             // Let's return 200 and log it to prevent endless retries.
             return NextResponse.json({ error: error.message }, { status: 200 });
         }
 
+        console.log('[ORDER]', { 
+            stage: 'webhook_rpc_completed', 
+            status: data.status, 
+            order_id: data.order_id,
+            yoco_checkout_id: checkoutId,
+            payment_id: paymentId
+        });
+
         if (data.status === 'already_processed' || data.status === 'already_paid') {
             return NextResponse.json({ received: true, note: data.status });
         }
 
         if (data.status === 'success') {
+            console.log('[ORDER]', { stage: 'fetching_order_details_for_email', order_id: data.order_id });
+            
             // Fetch order details for email
             const { data: order } = await supabaseAdmin
                 .from('orders')
@@ -103,6 +141,7 @@ export async function POST(req) {
                 .single();
 
             if (order) {
+                console.log('[ORDER]', { stage: 'sending_confirmation_email', order_number: order.order_number, email: order.buyer_email });
                 // Determine base URL dynamically or from env
                 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://theaccessgroup.co.za';
                 
@@ -119,12 +158,16 @@ export async function POST(req) {
                     managementUrl: `${baseUrl}/manage/${order.management_token}`,
                     items
                 });
+                console.log('[ORDER]', { stage: 'confirmation_email_sent', order_number: order.order_number });
+            } else {
+                console.error('[PAYMENT_ERROR]', { stage: 'email_order_not_found', order_id: data.order_id });
             }
         }
 
+        console.log('[YOCO_WEBHOOK]', { stage: 'processing_complete', success: true });
         return NextResponse.json({ received: true, success: true });
     } catch (err) {
-        console.error('Yoco Webhook Route Error:', err);
+        console.error('[PAYMENT_ERROR]', { stage: 'webhook_route_uncaught_error', error: err.stack || err });
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 }

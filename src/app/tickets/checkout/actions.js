@@ -11,10 +11,9 @@ export async function createCheckout(formData) {
     const buyerPhone = formData.get('buyerPhone');
     const buyerCompany = formData.get('buyerCompany');
 
-    // Parse items from form
     const itemsRaw = formData.get('items');
     if (!itemsRaw) throw new Error("No items provided");
-    const items = JSON.parse(itemsRaw); // Array of { id, quantity, price, name }
+    const items = JSON.parse(itemsRaw);
 
     if (items.length === 0) {
         throw new Error("Cart is empty");
@@ -22,6 +21,14 @@ export async function createCheckout(formData) {
 
     const totalAmount = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const orderNumber = 'ORD-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+
+    console.log('[YOCO_CHECKOUT]', { 
+        stage: 'init', 
+        buyerCompany: buyerCompany || 'N/A',
+        items: items.map(i => ({ id: i.id, quantity: i.quantity, price: i.price, name: i.name })),
+        totalAmount,
+        orderNumber
+    });
 
     // Soft Capacity Check
     // Get all rules for the selected products
@@ -96,9 +103,22 @@ export async function createCheckout(formData) {
         .single();
 
     if (orderError) {
-        console.error("Order Creation Error:", orderError);
+        console.error('[PAYMENT_ERROR]', { 
+            stage: 'database_order_creation', 
+            error: orderError,
+            order_number: orderNumber,
+            customer_email: buyerEmail
+        });
         throw new Error("Failed to create order");
     }
+
+    console.log('[ORDER]', { 
+        stage: 'order_created_in_db', 
+        order_id: order.id, 
+        order_number: order.order_number,
+        total_amount: order.total_amount,
+        customer_email: buyerEmail
+    });
 
     // Create Order Items
     const orderItemsToInsert = items.map(item => ({
@@ -114,13 +134,43 @@ export async function createCheckout(formData) {
         .insert(orderItemsToInsert);
 
     if (itemsError) {
-        console.error("Order Items Error:", itemsError);
+        console.error('[PAYMENT_ERROR]', { 
+            stage: 'database_order_items_creation', 
+            error: itemsError,
+            order_id: order.id,
+            order_number: order.order_number
+        });
         throw new Error("Failed to add items to order");
     }
+
+    console.log('[ORDER]', { 
+        stage: 'order_items_created_in_db', 
+        order_id: order.id, 
+        order_number: order.order_number,
+        items_count: items.length 
+    });
 
     // Initiate Yoco Checkout
     const yocoToken = process.env.YOCO_API_TOKEN;
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://theaccessgroup.co.za';
+
+    const yocoPayload = {
+        amount: Math.round(totalAmount * 100),
+        currency: 'ZAR',
+        clientReferenceId: orderNumber,
+        successUrl: `${baseUrl}/tickets/success`,
+        cancelUrl: `${baseUrl}/tickets`,
+        metadata: {
+            order_id: order.id
+        }
+    };
+
+    console.log('[YOCO_CHECKOUT]', { 
+        stage: 'sending_api_request', 
+        order_id: order.id, 
+        order_number: order.order_number,
+        payload: yocoPayload 
+    });
 
     const yocoResponse = await fetch('https://payments.yoco.com/api/checkouts', {
         method: 'POST',
@@ -128,24 +178,31 @@ export async function createCheckout(formData) {
             'Authorization': `Bearer ${yocoToken}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            amount: Math.round(totalAmount * 100),
-            currency: 'ZAR',
-            clientReferenceId: orderNumber,
-            successUrl: `${baseUrl}/tickets/success`,
-            cancelUrl: `${baseUrl}/tickets`,
-            metadata: {
-                order_id: order.id
-            }
-        })
+        body: JSON.stringify(yocoPayload)
     });
 
     const yocoData = await yocoResponse.json();
 
     if (!yocoResponse.ok) {
-        console.error("Yoco API Error:", yocoData);
+        console.error('[PAYMENT_ERROR]', { 
+            stage: 'yoco_api_failure', 
+            status: yocoResponse.status, 
+            response: yocoData, 
+            order_id: order.id,
+            order_number: order.order_number
+        });
         throw new Error("Failed to initialize payment");
     }
+
+    console.log('[YOCO_CHECKOUT]', { 
+        stage: 'yoco_api_success', 
+        status: yocoResponse.status,
+        response: yocoData,
+        order_id: order.id, 
+        order_number: order.order_number,
+        yoco_checkout_id: yocoData.id,
+        redirectUrl: yocoData.redirectUrl 
+    });
 
     // Update order with Yoco checkout ID
     const { error: updateError } = await supabaseAdmin
@@ -154,7 +211,19 @@ export async function createCheckout(formData) {
         .eq('id', order.id);
 
     if (updateError) {
-        console.error("Order Update Error:", updateError);
+        console.error('[PAYMENT_ERROR]', { 
+            stage: 'update_order_with_checkout_id', 
+            error: updateError, 
+            order_id: order.id,
+            order_number: order.order_number
+        });
+    } else {
+        console.log('[ORDER]', { 
+            stage: 'updated_order_with_checkout_id', 
+            order_id: order.id, 
+            order_number: order.order_number,
+            yoco_checkout_id: yocoData.id 
+        });
     }
 
     // Return the URL so the client can navigate
