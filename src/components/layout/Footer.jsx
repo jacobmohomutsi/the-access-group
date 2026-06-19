@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 
 const XIcon = ({ size = 20, className = "" }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
@@ -62,14 +63,16 @@ export default function Footer() {
 
           {/* Social Icons */}
           <div className="lg:col-span-1 flex gap-4 lg:justify-end">
-            <Link href="#" className="text-white hover:text-white/80 transition-colors">
-              <img src="/icons/facebook.svg" alt="Facebook" width={40} height={40} />
+            <Link href="#" aria-label="Facebook">
+              <FaFacebookF className="w-5 h-5 text-white hover:text-[#C2A66B]" />
             </Link>
-            <Link href="#" className="text-white hover:text-white/80 transition-colors">
-              <img src="/icons/instagram.svg" alt="Instagram" width={40} height={40} />
+
+            <Link href="#" aria-label="Instagram">
+              <FaInstagram className="w-5 h-5 text-white hover:text-[#C2A66B]" />
             </Link>
-            <Link href="#" className="text-white hover:text-white/80 transition-colors">
-              <img src="/icons/linkedin.svg" alt="Linkedin" width={40} height={40} />
+
+            <Link href="#" aria-label="LinkedIn">
+              <FaLinkedinIn className="w-5 h-5 text-white hover:text-[#C2A66B]" />
             </Link>
           </div>
 
