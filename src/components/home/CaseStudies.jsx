@@ -97,7 +97,7 @@ export default function CaseStudies({ caseStudiesData }) {
 
   return (
     <section id="cases" className="bg-primary text-white py-8 lg:py-10 overflow-hidden h-auto md:h-screen">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
         <div className="max-w-2xl">

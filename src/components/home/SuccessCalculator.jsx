@@ -50,7 +50,7 @@ export default function SuccessCalculator() {
       {/* Subtle decorative background grid */}
       <div className="absolute inset-0 grid-bg opacity-5 pointer-events-none" />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10">

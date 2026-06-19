@@ -6,113 +6,123 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function Hero({ heroData }) {
   const data = heroData;
-  const partners = [
-    {
-      name: data.partner1name,
-      logo: data.partner1logo,
-    },
-    {
-      name: data.partner2name,
-      logo: data.partner2logo,
-    },
-    {
-      name: data.partner3name,
-      logo: data.partner3logo,
-    },
-    {
-      name: data.partner4name,
-      logo: data.partner4logo,
-    },
-    {
-      name: data.partner5name,
-      logo: data.partner5logo,
-    },
-    {
-      name: data.partner6name,
-      logo: data.partner6logo,
-    },
-    {
-      name: data.partner7name,
-      logo: data.partner7logo,
-    },
-    {
-      name: data.partner8name,
-      logo: data.partner8logo,
-    },
-    {
-      name: data.partner9name,
-      logo: data.partner9logo,
-    },
+  const rawPartners = [
+    { name: data.partner1name, logo: data.partner1logo },
+    { name: data.partner2name, logo: data.partner2logo },
+    { name: data.partner3name, logo: data.partner3logo },
+    { name: data.partner4name, logo: data.partner4logo },
+    { name: data.partner5name, logo: data.partner5logo },
+    { name: data.partner6name, logo: data.partner6logo },
+    { name: data.partner7name, logo: data.partner7logo },
+    { name: data.partner8name, logo: data.partner8logo },
+    { name: data.partner9name, logo: data.partner9logo },
   ];
 
-  const [partnerIndex, setPartnerIndex] = useState(0);
+  const basePartners = rawPartners.filter(p => p.name || p.logo?.node?.sourceUrl);
+  let safePartners = [...(basePartners.length > 0 ? basePartners : rawPartners)];
+  
+  while (safePartners.length < 5) {
+    safePartners = [...safePartners, ...safePartners];
+  }
+
+  const extendedPartners = [
+    ...safePartners,
+    ...safePartners,
+    ...safePartners,
+    ...safePartners,
+    ...safePartners,
+  ];
+
+  const [desktopIndex, setDesktopIndex] = useState(safePartners.length * 2);
+  const [isDesktopTransitioning, setIsDesktopTransitioning] = useState(false);
+
   const mobilePartnerSliderRef = useRef(null);
   const mobileScrollTimeoutRef = useRef(null);
 
-  const extendedPartners = [...partners, ...partners];
+  const desktopNext = () => {
+    setIsDesktopTransitioning(true);
+    setDesktopIndex((prev) => prev + 1);
+  };
+
+  const desktopPrev = () => {
+    setIsDesktopTransitioning(true);
+    setDesktopIndex((prev) => prev - 1);
+  };
 
   const handlePrevPartner = () => {
-    setPartnerIndex((prev) => (prev - 1 + partners.length) % partners.length);
+    if (typeof window !== 'undefined' && window.innerWidth < 640) {
+      if (mobilePartnerSliderRef.current) {
+        mobilePartnerSliderRef.current.scrollBy({ left: -mobilePartnerSliderRef.current.clientWidth, behavior: 'smooth' });
+      }
+    } else {
+      desktopPrev();
+    }
   };
 
   const handleNextPartner = () => {
-    setPartnerIndex((prev) => (prev + 1) % partners.length);
+    if (typeof window !== 'undefined' && window.innerWidth < 640) {
+      if (mobilePartnerSliderRef.current) {
+        mobilePartnerSliderRef.current.scrollBy({ left: mobilePartnerSliderRef.current.clientWidth, behavior: 'smooth' });
+      }
+    } else {
+      desktopNext();
+    }
   };
 
-  const handlePartnerDotClick = (idx) => {
-    setPartnerIndex(idx);
-    mobilePartnerSliderRef.current?.scrollTo({
-      left: mobilePartnerSliderRef.current.clientWidth * idx,
-      behavior: 'smooth',
-    });
-  };
+  useEffect(() => {
+    let timeout;
+    if (desktopIndex >= safePartners.length * 3) {
+      timeout = setTimeout(() => {
+        setIsDesktopTransitioning(false);
+        setDesktopIndex((prev) => prev - safePartners.length);
+      }, 500);
+    } else if (desktopIndex <= safePartners.length) {
+      timeout = setTimeout(() => {
+        setIsDesktopTransitioning(false);
+        setDesktopIndex((prev) => prev + safePartners.length);
+      }, 500);
+    }
+    return () => clearTimeout(timeout);
+  }, [desktopIndex, safePartners.length]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (typeof window !== 'undefined' && window.innerWidth < 640) {
+        if (mobilePartnerSliderRef.current) {
+          mobilePartnerSliderRef.current.scrollBy({ left: mobilePartnerSliderRef.current.clientWidth, behavior: 'smooth' });
+        }
+      } else {
+        desktopNext();
+      }
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [desktopIndex]);
+
+  useEffect(() => {
+    if (mobilePartnerSliderRef.current && typeof window !== 'undefined' && window.innerWidth < 640) {
+      const slider = mobilePartnerSliderRef.current;
+      slider.scrollLeft = slider.clientWidth * safePartners.length * 2;
+    }
+  }, [safePartners.length]);
 
   const handleMobilePartnerScroll = (event) => {
     const slider = event.currentTarget;
-    const slideWidth = slider.clientWidth;
-    if (!slideWidth) return;
-    const nextIndex = Math.round(slider.scrollLeft / slideWidth);
-    setPartnerIndex(nextIndex % partners.length);
-
-    window.clearTimeout(mobileScrollTimeoutRef.current);
-    mobileScrollTimeoutRef.current = window.setTimeout(() => {
-      const settledIndex = Math.round(slider.scrollLeft / slideWidth);
-      if (settledIndex >= partners.length) {
-        slider.scrollTo({ left: 0, behavior: 'auto' });
-        setPartnerIndex(0);
+    if (mobileScrollTimeoutRef.current) {
+      clearTimeout(mobileScrollTimeoutRef.current);
+    }
+    mobileScrollTimeoutRef.current = setTimeout(() => {
+      if (!slider) return;
+      const slideWidth = slider.clientWidth;
+      const scrollLeft = slider.scrollLeft;
+      const setWidth = slideWidth * safePartners.length;
+      
+      if (scrollLeft < setWidth) {
+        slider.scrollTo({ left: scrollLeft + setWidth * 2, behavior: 'auto' });
+      } else if (scrollLeft >= setWidth * 4) {
+        slider.scrollTo({ left: scrollLeft - setWidth * 2, behavior: 'auto' });
       }
-    }, 120);
+    }, 150);
   };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setPartnerIndex((prev) =>
-        prev >= extendedPartners.length - 5 ? 0 : prev + 1
-      );
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, [extendedPartners.length]);
-
-  useEffect(() => {
-    if (!mobilePartnerSliderRef.current) return;
-
-    const slider = mobilePartnerSliderRef.current;
-
-    const interval = setInterval(() => {
-      const next =
-        slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 10
-          ? 0
-          : slider.scrollLeft + slider.clientWidth;
-
-      slider.scrollTo({
-        left: next,
-        behavior: "smooth",
-      });
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <section className="relative overflow-hidden border-b border-white/10 bg-primary">
@@ -120,12 +130,14 @@ export default function Hero({ heroData }) {
       <div className="absolute -left-32 top-20 h-72 w-72 rounded-full bg-primary/30 blur-3xl" />
       <div className="absolute right-[-6rem] top-36 h-80 w-80 rounded-full bg-white/10 blur-3xl" />
 
-      <div className="relative mx-auto h-screen max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-20">
+      <div className="relative mx-auto h-screen max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-20 flex flex-col justify-center">
         <div className="mx-auto max-w-4xl text-center">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm font-medium text-white">
-            <span className="h-2 w-2 rounded-full bg-white" />
-            {data.badgeText}
-          </div>
+          {data.badgeText && (
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm font-medium text-white">
+              <span className="h-2 w-2 rounded-full bg-white" />
+              {data.badgeText}
+            </div>
+          )}
 
           <h1 className="text-5xl font-black tracking-tight text-white sm:text-6xl lg:text-7xl">
             {data.heroTitle}
@@ -135,17 +147,17 @@ export default function Hero({ heroData }) {
             {data.heroDescription}
           </p>
 
-          <div className="mt-4 flex flex-col justify-center gap-4 sm:flex-row">
+          <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
             <a
               href="#products"
-              className="inline-flex items-center justify-center rounded-2xl bg-white px-7 py-4 text-base font-semibold text-primary shadow-lg shadow-white/20 hover:opacity-95"
+              className="inline-flex items-center justify-center rounded-2xl bg-white px-7 py-4 text-base font-semibold text-primary shadow-lg shadow-white/20 hover:opacity-95 transition-opacity"
             >
               {data.primaryButtonText}
             </a>
 
             <a
               href="#summit"
-              className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-[#263B38] px-7 py-4 text-base font-semibold text-white hover:bg-white/10"
+              className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-[#263B38] px-7 py-4 text-base font-semibold text-white hover:bg-white/10 transition-colors"
             >
               Access Summit Ticket
             </a>
@@ -154,16 +166,17 @@ export default function Hero({ heroData }) {
         </div>
 
         {/* Partners slider */}
-        <div className="mt-8 rounded-3xl border border-white/10 bg-white/5 p-4">
+        <div className="mt-16 rounded-3xl border border-white/10 bg-white/5 p-4 relative z-10 w-full max-w-6xl mx-auto">
           <p className="mb-4 text-center text-xs font-semibold uppercase tracking-[0.32em] text-white/60">
             Trusted by partners and ecosystems
           </p>
 
-          <div className="relative px-2 sm:px-6">
+          <div className="relative px-8 sm:px-12">
             {/* Left */}
             <button
               onClick={handlePrevPartner}
-              className="absolute left-2 top-1/2 z-20 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition"
+              className="absolute left-0 top-1/2 z-20 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition"
+              aria-label="Previous Partner"
             >
               <ChevronLeft size={22} />
             </button>
@@ -171,25 +184,28 @@ export default function Hero({ heroData }) {
             {/* Right */}
             <button
               onClick={handleNextPartner}
-              className="absolute right-2 top-1/2 z-20 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition"
+              className="absolute right-0 top-1/2 z-20 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition"
+              aria-label="Next Partner"
             >
               <ChevronRight size={22} />
             </button>
+            
+            {/* Mobile Native Snap Carousel */}
             <div
               ref={mobilePartnerSliderRef}
               onScroll={handleMobilePartnerScroll}
-              className="sm:hidden flex overflow-x-auto snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              className="sm:hidden flex overflow-x-auto snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden w-full"
             >
               {extendedPartners.map((item, idx) => (
-                <div key={`${item.name}-${idx}`} className="min-w-full snap-center px-2">
-                  <div className="flex h-full items-center justify-center rounded-2xl border border-white/10 bg-white px-3 py-3 text-sm font-medium text-white/80 shadow-sm">
+                <div key={`mobile-${idx}`} className="min-w-full w-full snap-center px-1">
+                  <div className="flex h-20 items-center justify-center rounded-2xl border border-white/10 bg-white px-4 py-3 text-sm font-medium text-white/80 shadow-sm">
                     {item.logo?.node?.sourceUrl ? (
                       <Image
-                        width={100}
-                        height={100}
+                        width={120}
+                        height={60}
                         src={item.logo.node.sourceUrl}
                         alt={item.logo.node.altText || item.name}
-                        className="h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
+                        className="h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
                       />
                     ) : (
                       <span className="text-center text-[#304945] font-bold text-xs">{item.name}</span>
@@ -199,27 +215,29 @@ export default function Hero({ heroData }) {
               ))}
             </div>
 
-            <div className="relative hidden overflow-hidden sm:block">
+            {/* Desktop CSS Transform Carousel */}
+            <div className="relative hidden overflow-hidden sm:block w-full">
               <div
-                className="flex transition-transform duration-500 ease-in-out"
+                className="flex"
                 style={{
                   width: `${(extendedPartners.length / 5) * 100}%`,
-                  transform: `translateX(-${(partnerIndex * 100) / extendedPartners.length}%)`
+                  transform: `translateX(-${(desktopIndex * 100) / extendedPartners.length}%)`,
+                  transition: isDesktopTransitioning ? 'transform 500ms ease-in-out' : 'none'
                 }}
               >
                 {extendedPartners.map((item, idx) => (
-                  <div key={`${item.name}-${idx}`} className="w-full flex-shrink-0 px-2" style={{ width: `${100 / extendedPartners.length}%` }}>
-                    <div className="flex h-full items-center justify-center rounded-2xl border border-white/10 bg-white px-3 py-3 sm:px-5 sm:py-4 text-sm font-medium text-white/80 shadow-sm">
+                  <div key={`desktop-${idx}`} className="w-full flex-shrink-0 px-2" style={{ width: `${100 / extendedPartners.length}%` }}>
+                    <div className="flex h-24 items-center justify-center rounded-2xl border border-white/10 bg-white px-5 py-4 text-sm font-medium text-white/80 shadow-sm">
                       {item.logo?.node?.sourceUrl ? (
                         <Image
-                          width={100}
-                          height={100}
+                          width={150}
+                          height={80}
                           src={item.logo.node.sourceUrl}
                           alt={item.logo.node.altText || item.name}
-                          className="h-12 sm:h-30 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
+                          className="h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
                         />
                       ) : (
-                        <span className="text-center text-[#304945] font-bold text-xs sm:text-sm">{item.name}</span>
+                        <span className="text-center text-[#304945] font-bold text-sm">{item.name}</span>
                       )}
                     </div>
                   </div>

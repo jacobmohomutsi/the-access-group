@@ -164,7 +164,7 @@ export default function Products({ productsData }) {
       {/* HOMEPAGE PRODUCTS GRID                                                    */}
       {/* ========================================================================= */}
       <section id="products" className="bg-primary text-white py-20 lg:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl text-center mx-auto">
             <p className="text-sm font-semibold uppercase tracking-[0.28em] text-white">
               ACCESS BOXES

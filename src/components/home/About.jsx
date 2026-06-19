@@ -96,7 +96,7 @@ export default function About({ aboutData }) {
 
   return (
     <section id="about" className="bg-[#F5F5F2] text-primary">
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
+      <div className="mx-auto max-w-8xl px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center h-auto md:h-screen">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.28em] text-primary">ABOUT THE ACCESS GROUP</p>

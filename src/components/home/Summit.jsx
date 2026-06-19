@@ -23,7 +23,7 @@ export default function Summit({ featureData }) {
       {/* Decorative background grid/lines */}
       <div className="absolute inset-0 grid-bg opacity-10 pointer-events-none" />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center z-10">
+      <div className="relative mx-auto max-w-8xl px-4 sm:px-6 lg:px-8 text-center z-10">
 
         {/* Subtitle */}
         <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#C2A66B]">
