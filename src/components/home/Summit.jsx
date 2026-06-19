@@ -1,5 +1,6 @@
 import React from 'react';
 import { Calendar, MapPin } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Summit({ featureData }) {
   const data = featureData;
@@ -8,10 +9,10 @@ export default function Summit({ featureData }) {
   return (
     <section
       id="summit"
-      className="bg-[#304945] text-white py-20 lg:py-28 relative overflow-hidden border-t border-b border-white/5"
+      className="bg-[#304945] text-white py-20 lg:py-28 relative overflow-hidden border-t border-b border-white/5 h-auto md:h-screen"
       style={{
-        backgroundImage: "url('/images/summit_bg.png')",
-        backgroundSize: 'cover',
+        backgroundImage: "url('/images/The_Access_Group_BackGround.jpg')",
+        backgroundSize: 'contain',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat'
       }}
@@ -28,14 +29,20 @@ export default function Summit({ featureData }) {
         <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#C2A66B]">
           Connecting African innovation to global opportunity.
         </p>
+        <div className="flex justify-center items-center">
+          <Image
+            src="/images/Import Export Access Summit 1.png"
+            alt="Summit Title"
+            width={100}
+            height={100}
+            className="w-80"
+          />
+        </div>
 
-        {/* Title */}
-        <h2 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white max-w-4xl mx-auto leading-tight">
-          IMPORT EXPORT ACCESS SUMMIT 2026
-        </h2>
+
 
         {/* Dates and Venue badges */}
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 text-xs sm:text-sm font-bold text-[#C2A66B]">
+        <div className="mt-4 flex flex-col sm:flex-row items-center justify-center gap-4 text-xs sm:text-sm font-bold text-[#C2A66B]">
           <div className="flex items-center gap-2.5 bg-white/5 border border-white/10 px-5 py-2.5 rounded-2xl shadow-sm">
             <Calendar size={16} />
             <span>15-16 October 2026</span>
@@ -58,7 +65,7 @@ export default function Summit({ featureData }) {
             href="/summit"
             className="inline-flex items-center gap-2 rounded-2xl bg-[#C2A66B] px-10 py-4.5 text-sm font-extrabold text-[#304945] hover:bg-white hover:text-[#304945] hover:scale-102 transition-all duration-300 shadow-lg shadow-black/20"
           >
-            Learn More & Explore the Summit
+            Learn More & Access Summit
           </a>
         </div>
 

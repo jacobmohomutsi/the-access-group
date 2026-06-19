@@ -4,7 +4,7 @@ export default function CTA({ ctaData }) {
   const data = ctaData;
 
   return (
-    <section id="cta" className="bg-white text-primary">
+    <section id="cta" className="bg-white text-primary h-auto h-screen flex items-center flex-col justify-center">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
         <div className="flex flex-col gap-8 rounded-[2rem] bg-primary/5 p-8 backdrop-blur md:flex-row md:items-center md:justify-between">
           <div className="max-w-2xl">
@@ -23,6 +23,25 @@ export default function CTA({ ctaData }) {
             </a>
           </div>
         </div>
+      </div>
+      <div className="opacity-0 animate-fade-up animation-delay-600 flex flex-col justify-center gap-4 sm:flex-row sm:flex-wrap">
+        <a
+          href="#partnerships"
+          className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-[#263B38] px-7 py-4 text-base font-semibold text-white hover:bg-white/10"
+        >
+          LinkedIn
+        </a>
+        <button
+          className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-[#263B38] px-7 py-4 text-base font-semibold text-white hover:bg-white/10"
+        >
+          Instagram
+        </button>
+        <a
+          href="#tickets"
+          className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-[#263B38] px-7 py-4 text-base font-semibold text-white hover:bg-white/10"
+        >
+          Facebook
+        </a>
       </div>
     </section>
   );

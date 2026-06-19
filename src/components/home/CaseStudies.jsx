@@ -96,14 +96,16 @@ export default function CaseStudies({ caseStudiesData }) {
   const rightIdx = (currentIndex + 1) % total;
 
   return (
-    <section id="cases" className="bg-primary text-white py-20 lg:py-24 overflow-hidden">
+    <section id="cases" className="bg-primary text-white py-8 lg:py-10 overflow-hidden h-auto md:h-screen">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        
+
         {/* Header */}
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between border-b border-white/10 pb-10">
+        <div className="max-w-2xl">
+          <p className="text-xs mb-4 font-semibold uppercase tracking-[0.28em] text-[#C2A66B]">CASE STUDIES</p>
+        </div>
+        <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between border-b border-white/10 pb-4">
           <div className="max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#C2A66B]">CASE STUDIES</p>
-            <h2 className="mt-4 text-4xl font-black tracking-tight text-white sm:text-5xl">
+            <h2 className="text-4xl font-black tracking-tight text-white sm:text-5xl">
               Real businesses. Structured growth. Market-ready outcomes.
             </h2>
           </div>
@@ -115,66 +117,84 @@ export default function CaseStudies({ caseStudiesData }) {
         {/* ========================================================================= */}
         {/* DESKTOP SLIDER (3 Slides Visible)                                         */}
         {/* ========================================================================= */}
-        <div className="hidden md:flex justify-center items-stretch gap-6 lg:gap-8 mt-16 min-h-[450px] px-4">
-          {[leftIdx, centerIdx, rightIdx].map((idx, pos) => {
-            const item = caseStudies[idx];
-            const isCenter = pos === 1;
-            const IconComponent = item.icon;
+        <div className="relative mt-0">
+          <button
+            onClick={handlePrev}
+            className="absolute left-2 top-1/2 z-20 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition"
+            aria-label="Previous slide"
+          >
+            <ChevronLeft size={20} />
+          </button>
 
-            return (
-              <div
-                key={item.client}
-                onClick={() => {
-                  if (!isCenter) setCurrentIndex(idx);
-                }}
-                className={`w-full md:w-1/3 flex flex-col rounded-3xl overflow-hidden transition-all duration-500 border bg-white ${
-                  isCenter 
-                    ? 'scale-105 z-10 border-[#C2A66B]/50 ring-1 ring-[#C2A66B]/20 shadow-2xl opacity-100' 
+          <button
+            onClick={handleNext}
+            className="absolute right-2 top-1/2 z-20 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition"
+            aria-label="Next slide"
+          >
+            <ChevronRight size={20} />
+          </button>
+          <div className="hidden md:flex justify-center items-stretch gap-6 lg:gap-8 mt-8 min-h-[450px] px-4">
+
+
+            {[leftIdx, centerIdx, rightIdx].map((idx, pos) => {
+              const item = caseStudies[idx];
+              const isCenter = pos === 1;
+              const IconComponent = item.icon;
+
+              return (
+                <div
+                  key={item.client}
+                  onClick={() => {
+                    if (!isCenter) setCurrentIndex(idx);
+                  }}
+                  className={`w-full md:w-1/3 flex flex-col rounded-3xl overflow-hidden transition-all duration-500 border bg-white ${isCenter
+                    ? 'scale-105 z-10 border-[#C2A66B]/50 ring-1 ring-[#C2A66B]/20 shadow-2xl opacity-100'
                     : 'scale-95 border-gray-100 opacity-40 blur-[0.5px] hover:opacity-75 cursor-pointer shadow-sm'
-                }`}
-              >
-                {/* Gold Header Banner */}
-                <div className="bg-[#C2A66B] text-white font-extrabold text-xs tracking-wider py-4 px-6 text-center uppercase select-none">
-                  {item.client}
-                </div>
-                
-                {/* Card Content Body */}
-                <div className="p-6 sm:p-8 flex flex-col justify-between flex-grow text-gray-900 bg-white">
-                  <div>
-                    <h4 className="text-xs font-black italic text-[#304945] tracking-wide mb-5 uppercase border-b border-gray-100 pb-3">
-                      {item.subTitle}
-                    </h4>
-                    <ul className="space-y-3 text-xs sm:text-sm text-gray-600 font-medium">
-                      {item.items.map((bullet, bIdx) => (
-                        <li key={bIdx} className="flex items-start gap-2.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#304945]/40 flex-shrink-0 mt-2" />
-                          <span>{bullet}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    }`}
+                >
+                  {/* Gold Header Banner */}
+                  <div className="bg-[#C2A66B] text-white font-extrabold text-xs tracking-wider py-4 px-6 text-center uppercase select-none">
+                    {item.client}
                   </div>
 
-                  {/* Respective Card Footer Icon Link (following Box Card style) */}
-                  <div className="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between">
-                    <div className="flex flex-col">
-                      <span className="text-[10px] uppercase font-bold tracking-wider text-gray-400">Platform</span>
-                      <span className="text-xs font-extrabold text-[#304945]">{item.platformLabel}</span>
+                  {/* Card Content Body */}
+                  <div className="p-6 sm:p-8 flex flex-col justify-between flex-grow text-gray-900 bg-white">
+                    <div>
+                      <h4 className="text-xs font-black italic text-[#304945] tracking-wide mb-5 uppercase border-b border-gray-100 pb-3">
+                        {item.subTitle}
+                      </h4>
+                      <ul className="space-y-3 text-xs sm:text-sm text-gray-600 font-medium">
+                        {item.items.map((bullet, bIdx) => (
+                          <li key={bIdx} className="flex items-start gap-2.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#304945]/40 flex-shrink-0 mt-2" />
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    
-                    <a
-                      href={item.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-[#304945] hover:bg-[#304945] hover:text-white hover:border-[#304945] transition-all duration-300"
-                      aria-label={`Visit ${item.client} on ${item.platformLabel}`}
-                    >
-                      <IconComponent size={16} />
-                    </a>
+
+                    {/* Respective Card Footer Icon Link (following Box Card style) */}
+                    <div className="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between">
+                      <div className="flex flex-col">
+                        <span className="text-[10px] uppercase font-bold tracking-wider text-gray-400">Platform</span>
+                        <span className="text-xs font-extrabold text-[#304945]">{item.platformLabel}</span>
+                      </div>
+
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-[#304945] hover:bg-[#304945] hover:text-white hover:border-[#304945] transition-all duration-300"
+                        aria-label={`Visit ${item.client} on ${item.platformLabel}`}
+                      >
+                        <IconComponent size={16} />
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
 
         {/* ========================================================================= */}
@@ -186,7 +206,7 @@ export default function CaseStudies({ caseStudiesData }) {
             <div className="bg-[#C2A66B] text-white font-extrabold text-xs tracking-wider py-4 px-6 text-center uppercase">
               {caseStudies[currentIndex].client}
             </div>
-            
+
             {/* Card Content Body */}
             <div className="p-6 sm:p-8 flex flex-col justify-between flex-grow bg-white">
               <div>
@@ -209,7 +229,7 @@ export default function CaseStudies({ caseStudiesData }) {
                   <span className="text-[10px] uppercase font-bold tracking-wider text-gray-400">Platform</span>
                   <span className="text-xs font-extrabold text-[#304945]">{caseStudies[currentIndex].platformLabel}</span>
                 </div>
-                
+
                 <a
                   href={caseStudies[currentIndex].link}
                   target="_blank"
@@ -223,44 +243,6 @@ export default function CaseStudies({ caseStudiesData }) {
             </div>
           </div>
         </div>
-
-        {/* ========================================================================= */}
-        {/* SLIDER CONTROLS (Arrows & Dot Indicators)                                 */}
-        {/* ========================================================================= */}
-        <div className="flex items-center justify-center gap-6 mt-12">
-          <button
-            onClick={handlePrev}
-            className="w-11 h-11 rounded-full border border-white/20 bg-white/5 flex items-center justify-center text-white hover:bg-white hover:text-primary hover:border-white transition-all duration-300"
-            aria-label="Previous slide"
-          >
-            <ChevronLeft size={20} />
-          </button>
-
-          {/* Dots Indicator */}
-          <div className="flex items-center gap-2.5">
-            {caseStudies.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrentIndex(idx)}
-                className={`h-2.5 rounded-full transition-all duration-300 ${
-                  currentIndex === idx 
-                    ? 'w-6 bg-[#C2A66B]' 
-                    : 'w-2.5 bg-white/20 hover:bg-white/40'
-                }`}
-                aria-label={`Go to slide ${idx + 1}`}
-              />
-            ))}
-          </div>
-
-          <button
-            onClick={handleNext}
-            className="w-11 h-11 rounded-full border border-white/20 bg-white/5 flex items-center justify-center text-white hover:bg-white hover:text-primary hover:border-white transition-all duration-300"
-            aria-label="Next slide"
-          >
-            <ChevronRight size={20} />
-          </button>
-        </div>
-
       </div>
     </section>
   );

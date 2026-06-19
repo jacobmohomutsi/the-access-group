@@ -213,9 +213,9 @@ export default function Products({ productsData }) {
                     <button
                       type="button"
                       aria-label={`View options for ${item.name}`}
-                      className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white group-hover:bg-[#C2A66B] group-hover:text-primary group-hover:border-[#C2A66B] transition-all duration-300"
+                      className="px-3 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white group-hover:bg-[#C2A66B] group-hover:text-primary group-hover:border-[#C2A66B] transition-all duration-300"
                     >
-                      <ArrowRight size={16} />
+                      <span className='text-sm mr-2'>Access</span><ArrowRight size={16} />
                     </button>
                   </div>
                 </article>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -84,15 +84,45 @@ export default function Hero({ heroData }) {
     }, 120);
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPartnerIndex((prev) =>
+        prev >= extendedPartners.length - 5 ? 0 : prev + 1
+      );
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [extendedPartners.length]);
+
+  useEffect(() => {
+    if (!mobilePartnerSliderRef.current) return;
+
+    const slider = mobilePartnerSliderRef.current;
+
+    const interval = setInterval(() => {
+      const next =
+        slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 10
+          ? 0
+          : slider.scrollLeft + slider.clientWidth;
+
+      slider.scrollTo({
+        left: next,
+        behavior: "smooth",
+      });
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="relative overflow-hidden border-b border-white/10 bg-primary">
       <div className="absolute inset-0 grid-bg opacity-70" />
       <div className="absolute -left-32 top-20 h-72 w-72 rounded-full bg-primary/30 blur-3xl" />
       <div className="absolute right-[-6rem] top-36 h-80 w-80 rounded-full bg-white/10 blur-3xl" />
 
-      <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+      <div className="relative mx-auto h-screen max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-20">
         <div className="mx-auto max-w-4xl text-center">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm font-medium text-white">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm font-medium text-white">
             <span className="h-2 w-2 rounded-full bg-white" />
             {data.badgeText}
           </div>
@@ -101,11 +131,11 @@ export default function Hero({ heroData }) {
             {data.heroTitle}
           </h1>
 
-          <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-white/65 sm:text-lg">
+          <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-white/65 sm:text-base">
             {data.heroDescription}
           </p>
 
-          <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
+          <div className="mt-4 flex flex-col justify-center gap-4 sm:flex-row">
             <a
               href="#products"
               className="inline-flex items-center justify-center rounded-2xl bg-white px-7 py-4 text-base font-semibold text-primary shadow-lg shadow-white/20 hover:opacity-95"
@@ -117,20 +147,34 @@ export default function Hero({ heroData }) {
               href="#summit"
               className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-[#263B38] px-7 py-4 text-base font-semibold text-white hover:bg-white/10"
             >
-              Buy Tickets
+              Access Summit Ticket
             </a>
           </div>
 
         </div>
 
         {/* Partners slider */}
-        <div className="mt-14 rounded-3xl border border-white/10 bg-white/5 p-4">
+        <div className="mt-8 rounded-3xl border border-white/10 bg-white/5 p-4">
           <p className="mb-4 text-center text-xs font-semibold uppercase tracking-[0.32em] text-white/60">
             Trusted by partners and ecosystems
           </p>
 
           <div className="relative px-2 sm:px-6">
+            {/* Left */}
+            <button
+              onClick={handlePrevPartner}
+              className="absolute left-2 top-1/2 z-20 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition"
+            >
+              <ChevronLeft size={22} />
+            </button>
 
+            {/* Right */}
+            <button
+              onClick={handleNextPartner}
+              className="absolute right-2 top-1/2 z-20 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition"
+            >
+              <ChevronRight size={22} />
+            </button>
             <div
               ref={mobilePartnerSliderRef}
               onScroll={handleMobilePartnerScroll}
@@ -172,7 +216,7 @@ export default function Hero({ heroData }) {
                           height={100}
                           src={item.logo.node.sourceUrl}
                           alt={item.logo.node.altText || item.name}
-                          className="h-12 sm:h-20 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
+                          className="h-12 sm:h-30 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
                         />
                       ) : (
                         <span className="text-center text-[#304945] font-bold text-xs sm:text-sm">{item.name}</span>
@@ -183,42 +227,6 @@ export default function Hero({ heroData }) {
               </div>
             </div>
 
-          </div>
-
-          {/* Scroller Indicator with Arrows */}
-          <div className="flex items-center justify-center gap-6 mt-8">
-            {/* Left Arrow */}
-            <button
-              onClick={handlePrevPartner}
-              className="hidden w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/20 sm:flex items-center justify-center text-white hover:bg-white/10 transition-all duration-300"
-              aria-label="Previous partners"
-            >
-              <ChevronLeft size={20} />
-            </button>
-
-            {/* Dots Indicator */}
-            <div className="flex items-center justify-center gap-2.5">
-              {partners.map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => handlePartnerDotClick(idx)}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${partnerIndex === idx
-                    ? 'w-6 bg-[#C2A66B]'
-                    : 'w-2.5 bg-white/20 hover:bg-white/40'
-                    }`}
-                  aria-label={`Go to partner ${idx + 1}`}
-                />
-              ))}
-            </div>
-
-            {/* Right Arrow */}
-            <button
-              onClick={handleNextPartner}
-              className="hidden w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/20 sm:flex items-center justify-center text-white hover:bg-white/10 transition-all duration-300"
-              aria-label="Next partners"
-            >
-              <ChevronRight size={20} />
-            </button>
           </div>
         </div>
       </div>
