@@ -14,7 +14,7 @@ const tickets = [
             "Gala dinner & drinks reception",
             "High-level investor networking",
             "Keynote address by guest speaker",
-            "Live entertainment & awards",
+            "Live entertainment",
             "Access to deal-room matchmaking",
         ],
         highlighted: false,
@@ -58,18 +58,17 @@ const tickets = [
         badgeColor: "bg-secondary text-primary",
     },
     {
-        name: "Early Bird Full Access",
-        subtitle: "Both Days · Limited Time",
-        price: "R2,800",
-        originalPrice: "R3,500",
-        description: "Book before 31 July 2026 and save R700",
+        name: "Corperate/Group Ticket",
+        subtitle: "Investment Gala Dinner Only R22 000 (10 people)",
+        price: "R22,000",
+        originalPrice: "R25,000",
+        description: "An exclusive evening of networking, fine dining & deal-making",
         features: [
-            "Everything in Full Access Pass",
-            "Priority front-row seating",
-            "VIP networking dinner",
-            "1-on-1 matchmaking sessions",
-            "Printed summit report",
-            "Post-summit resource portal",
+            "Gala dinner & drinks reception",
+            "High-level investor networking",
+            "Keynote address by guest speaker",
+            "Live entertainment",
+            "Access to deal-room matchmaking",
         ],
         highlighted: false,
         badge: "Save R700",
@@ -83,14 +82,14 @@ const Tickets = () => {
         <section id="tickets" className="px-4 py-20 sm:px-6 lg:px-8 lg:py-24 bg-slate-50">
             <MailingListModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
             <div className="max-w-7xl mx-auto">
-                <div className="text-center mb-16">
+                <div className="text-center mb-8">
                     <span className="text-sm font-semibold tracking-widest uppercase text-primary">
                         Secure Your Spot
                     </span>
                     <h2 className="font-black tracking-tight text-3xl md:text-5xl text-primary mt-3 mb-4">
-                        Get Your <span className="text-primary">Tickets</span>
+                        Get Your Tickets
                     </h2>
-                    <p className="text-primary/70 text-lg max-w-2xl mx-auto">
+                    <p className="text-primary/70 text-md max-w-2xl mx-auto">
                         Choose the experience that suits you - from the Investment Gala Dinner on Day 1 to the full Main Summit on Day 2, or get the best value with a Full Access Pass.
                     </p>
                 </div>
@@ -100,7 +99,7 @@ const Tickets = () => {
                         <div
                             key={idx}
                             className={`relative rounded-2xl p-7 flex flex-col ${ticket.highlighted
-                                ? "bg-primary text-white shadow-2xl md:scale-105 border-0 z-10"
+                                ? "bg-primary text-white shadow-2xl border-0 z-10"
                                 : "bg-white border border-primary/10 shadow-lg"
                                 }`}
                         >

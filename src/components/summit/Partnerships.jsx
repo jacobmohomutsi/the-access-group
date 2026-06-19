@@ -5,25 +5,6 @@ import PartnershipModal from "../common/PartnershipModal";
 
 const partnerships = [
     {
-        name: "Gold Partner",
-        subtitle: "Premium Tier",
-        price: "R750,000",
-        description: "Investment (excl. VAT): R750,000",
-        features: [
-            "Keynote Speaker slot in a strategic breakout stream",
-            "Host a Roundtable Session on a topic aligned to your mandate",
-            "8 VIP tickets to the Investment Dinner (15 October)",
-            "Prominent logo on main stage, website & all digital channels",
-            "Exclusive access to the curated \"Investor Lounge\" networking session",
-            "Priority listing in the official Investment Book",
-            "Brand recognition on the #1MillionJobs4NW digital Platform (founding tier)",
-            "Social media campaign featuring your brand pre-, during, and post-summit",
-        ],
-        highlighted: false,
-        badge: "Premium Tier",
-        badgeColor: "bg-[#A37B30] text-white border border-[#A37B30]/20",
-    },
-    {
         name: "Platinum Partner",
         subtitle: "Partnership Investment",
         price: "R1,500,000",
@@ -44,6 +25,25 @@ const partnerships = [
         compactPrice: true,
         badge: "Exclusive - 1 Available",
         badgeColor: "bg-secondary text-primary",
+    },
+    {
+        name: "Gold Partner",
+        subtitle: "Premium Tier",
+        price: "R750,000",
+        description: "Investment (excl. VAT): R750,000",
+        features: [
+            "Keynote Speaker slot in a strategic breakout stream",
+            "Host a Roundtable Session on a topic aligned to your mandate",
+            "8 VIP tickets to the Investment Dinner (15 October)",
+            "Prominent logo on main stage, website & all digital channels",
+            "Exclusive access to the curated \"Investor Lounge\" networking session",
+            "Priority listing in the official Investment Book",
+            "Brand recognition on the #1MillionJobs4NW digital Platform (founding tier)",
+            "Social media campaign featuring your brand pre-, during, and post-summit",
+        ],
+        highlighted: false,
+        badge: "Premium Tier",
+        badgeColor: "bg-[#A37B30] text-white border border-[#A37B30]/20",
     },
     {
         name: "Silver Partner",
@@ -121,16 +121,17 @@ const Partnerships = () => {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-6 items-start">
-                    {partnerships.map((partner, idx) => {
-                        const isExpanded = expandedIdx === idx;
+                    {[...partnerships].reverse().map((partner, idx) => {
+                        const originalIdx = partnerships.length - 1 - idx;
+                        const isExpanded = expandedIdx === originalIdx;
                         return (
                             <div
-                                key={idx}
+                                key={originalIdx}
                                 className={`relative rounded-2xl p-7 flex flex-col cursor-pointer transition-all duration-300 ${partner.highlighted
                                     ? "bg-primary text-white shadow-2xl md:scale-105 border-0 z-10"
                                     : "bg-white border border-primary/10 shadow-lg"
                                     }`}
-                                onClick={() => setExpandedIdx(isExpanded ? null : idx)}
+                                onClick={() => setExpandedIdx(isExpanded ? null : originalIdx)}
                             >
                                 {/* Badge */}
                                 <span

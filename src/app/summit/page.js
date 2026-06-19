@@ -14,15 +14,14 @@ import { SUMMIT_QUERY } from "@/queries/summitQuery";
 
 export default async function TheAccessGroupLandingPage() {
 
-    const data = await client.request(SUMMIT_QUERY);
+  const data = await client.request(SUMMIT_QUERY);
 
-    const summitHero = data.page.summitHero;
-    const homeHero = data.homePage.homeHero;
-    const summitSpeakers = data.page.summitSpeakers;
+  const summitHero = data.page.summitHero;
+  const homeHero = data.homePage.homeHero;
 
-    return (
-        <div className="min-h-screen bg-primary text-white">
-            <style>{`
+  return (
+    <div className="min-h-screen bg-primary text-white">
+      <style>{`
         @keyframes marquee {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
@@ -38,18 +37,18 @@ export default async function TheAccessGroupLandingPage() {
         }
       `}</style>
 
-            <Header />
-            <main>
-                <Hero heroData={summitHero} partnersData={homeHero} />
-                <About />
-                <Speakers speakersData={summitSpeakers} />
-                <Tickets />
-                <Partnerships />
-                <Programme />
-                <Venue />
-                <CTA />
-            </main>
-            <Footer />
-        </div>
-    );
+      <Header />
+      <main>
+        <Hero heroData={summitHero} partnersData={homeHero} />
+        <About />
+        <Speakers />
+        <Tickets />
+        <Partnerships />
+        <Programme />
+        <Venue />
+        <CTA />
+      </main>
+      <Footer />
+    </div>
+  );
 }

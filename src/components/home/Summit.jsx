@@ -29,7 +29,7 @@ export default function Summit({ featureData }) {
         <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#C2A66B]">
           Connecting African innovation to global opportunity.
         </p>
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center h-40">
           <Image
             src="/images/Import Export Access Summit 1.png"
             alt="Summit Title"
@@ -38,7 +38,9 @@ export default function Summit({ featureData }) {
             className="w-80"
           />
         </div>
-
+        <h1 className="opacity-0 animate-fade-up animation-delay-200 font-black tracking-tight text-3xl lg:text-4xl text-white leading-tight mb-6">
+          2026
+        </h1>
 
 
         {/* Dates and Venue badges */}

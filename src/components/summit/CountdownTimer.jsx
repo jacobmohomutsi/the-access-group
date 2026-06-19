@@ -35,12 +35,12 @@ const CountdownTimer = () => {
         <div className="flex items-center justify-center gap-3 sm:gap-6">
             {units.map((u) => (
                 <div key={u.label} className="flex flex-col items-center">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-primary/45 backdrop-blur border border-white/10 flex items-center justify-center shadow-lg">
-                        <span className="font-black tracking-tight text-2xl sm:text-3xl text-secondary">
+                    <div className="w-10 h-10 sm:w-20 sm:h-20 rounded-2xl bg-primary/45 backdrop-blur border border-white/10 flex items-center justify-center shadow-lg">
+                        <span className="font-black tracking-tight text-md sm:text-lg text-secondary">
                             {String(u.value).padStart(2, "0")}
                         </span>
                     </div>
-                    <span className="text-xs sm:text-sm text-white/70 mt-2 uppercase tracking-wider">
+                    <span className="text-xs text-white/70 mt-2 uppercase tracking-wider">
                         {u.label}
                     </span>
                 </div>
