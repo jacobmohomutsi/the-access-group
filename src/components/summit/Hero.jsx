@@ -15,43 +15,43 @@ const Hero = ({ heroData, partnersData }) => {
     const rawPartners = [
         {
             name: "DSBD",
-            logo: "/images/summit-partners/1 TAG - The Access Group _ DSBD.jpg",
+            logo: "/images/summit-partners/1TAG-TheAccess Group_DSBD.jpg",
         },
         {
             name: "SEDFA",
-            logo: "/images/summit-partners/2 TAG - The Access Group _ SEDFA.jpg",
+            logo: "/images/summit-partners/2TAG-TheAccessGroup_SEDFA.jpg",
         },
         {
             name: "NDP",
-            logo: "/images/summit-partners/3 TAG - The Access Group _ NDP.jpg",
+            logo: "/images/summit-partners/3TAG-TheAccessGroup_NDP.jpg",
         },
         {
             name: "30 Years Constitution",
-            logo: "/images/summit-partners/4 TAG - The Access Group _ 30Years_Constitution.jpg",
+            logo: "/images/summit-partners/4TAG-TheAccessGroup_30Years_Constitution.jpg",
         },
         {
             name: "BBDW",
-            logo: "/images/summit-partners/5 TAG - The Access Group _ BBDW.jpg",
+            logo: "/images/summit-partners/5TAG-TheAccessGroup_BBDW.jpg",
         },
         {
             name: "BAKWENA",
-            logo: "/images/summit-partners/6 TAG - The Access Group _ BAKWENA.jpg",
+            logo: "/images/summit-partners/6TAG-TheAccessGroup_BAKWENA.jpg",
         },
         {
             name: "POMF",
-            logo: "/images/summit-partners/7 TAG - The Access Group _ Pomf .jpg",
+            logo: "/images/summit-partners/7TAG-TheAccessGroup_Pomf .jpg",
         },
         {
             name: "Kgotla Ya Rakhudu",
-            logo: "/images/summit-partners/8 TAG - The Access Group _Kgotla_ya_rakhudu.jpg",
+            logo: "/images/summit-partners/8TAG-TheAccessGroup_Kgotla_ya_rakhudu.jpg",
         },
         {
             name: "Plus94",
-            logo: "/images/summit-partners/9 TAG - The Access Group _Plus94.jpg",
+            logo: "/images/summit-partners/9TAG-TheAccessGroup_Plus94.jpg",
         },
         {
             name: "Diplomacy SA",
-            logo: "/images/summit-partners/10 TAG - The Access Group _Diplomacy_SA.jpg",
+            logo: "/images/summit-partners/10TAG-TheAccessGroup_Dimploacy_SA.jpg",
         },
     ];
 
@@ -301,12 +301,12 @@ const Hero = ({ heroData, partnersData }) => {
                             {extendedPartners.map((item, idx) => (
                                 <div key={`desktop-${idx}`} className="w-full flex-shrink-0 px-2" style={{ width: `${100 / extendedPartners.length}%` }}>
                                     <div className="flex h-24 items-center justify-center rounded-2xl border border-white/10 bg-white px-5 py-4 text-sm font-medium text-white/80 shadow-sm">
-                                        {item.logo?.node?.sourceUrl ? (
+                                        {item.logo ? (
                                             <Image
                                                 width={150}
                                                 height={80}
-                                                src={item.logo.node.sourceUrl}
-                                                alt={item.logo.node.altText || item.name}
+                                                src={item.logo}
+                                                alt={item.name}
                                                 className="h-24 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
                                             />
                                         ) : (

@@ -169,9 +169,9 @@ export default function SuccessCalculator() {
                 <p className="text-white/60 mb-10 max-w-md mx-auto leading-relaxed">
                   Comprehensive planning and execution of Annual General Meetings. Discuss your requirements with our expert team to get started.
                 </p>
-                <button className="bg-secondary text-primary hover:bg-white px-10 py-4 rounded-full font-bold text-lg transition-colors shadow-lg shadow-secondary/20 hover:shadow-white/20">
+                <a href="https://forms.zohopublic.com/TheAccessGroup/form/ServiceDiagnosticForm/formperma/rtl77z1DPenppTtJmwuIPW56znH95-4K633GSWfqRMU" target="_blank" rel="noopener noreferrer" className="bg-secondary text-primary hover:bg-white px-10 py-4 rounded-full font-bold text-lg transition-colors shadow-lg shadow-secondary/20 hover:shadow-white/20">
                   Book Session
-                </button>
+                </a>
               </div>
             )}
 
@@ -184,9 +184,9 @@ export default function SuccessCalculator() {
                 <p className="text-white/60 mb-10 max-w-md mx-auto leading-relaxed">
                   Comprehensive full branding and event management. Discuss your vision with our expert team to get started.
                 </p>
-                <button className="bg-secondary text-primary hover:bg-white px-10 py-4 rounded-full font-bold text-lg transition-colors shadow-lg shadow-secondary/20 hover:shadow-white/20">
+                <a href="https://forms.zohopublic.com/TheAccessGroup/form/ServiceDiagnosticForm/formperma/rtl77z1DPenppTtJmwuIPW56znH95-4K633GSWfqRMU" target="_blank" rel="noopener noreferrer" className="bg-secondary text-primary hover:bg-white px-10 py-4 rounded-full font-bold text-lg transition-colors shadow-lg shadow-secondary/20 hover:shadow-white/20">
                   Book Session
-                </button>
+                </a>
               </div>
             )}
 
@@ -316,15 +316,15 @@ export default function SuccessCalculator() {
                     {projectSteps[currentStepIndex].title}
                   </h4>
 
-                  <p className={`text-base leading-relaxed ${!projectSteps[currentStepIndex].locked ? 'text-white/80' : 'text-white/50'
+                  <p className={`text-base leading-relaxed ${!projectSteps[currentStepIndex].locked ? 'text-white/80 mb-4' : 'text-white/50 mb-4'
                     }`}>
                     {projectSteps[currentStepIndex].description}
                   </p>
 
                   {!projectSteps[currentStepIndex].locked && projectSteps[currentStepIndex].button && (
-                    <button className="mt-6 bg-secondary text-primary hover:bg-white px-6 py-3 rounded-xl font-bold text-sm transition-colors shadow-lg">
+                    <a href="https://forms.zohopublic.com/TheAccessGroup/form/ServiceDiagnosticForm/formperma/rtl77z1DPenppTtJmwuIPW56znH95-4K633GSWfqRMU" target="_blank" rel="noopener noreferrer" className="mt-8 bg-secondary text-primary hover:bg-white px-6 py-3 rounded-xl font-bold text-sm transition-colors shadow-lg">
                       {projectSteps[currentStepIndex].button}
-                    </button>
+                    </a>
                   )}
                 </div>
               </div>

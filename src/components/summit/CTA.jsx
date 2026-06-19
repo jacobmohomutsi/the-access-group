@@ -64,19 +64,19 @@ const CTA = () => {
                 <div className="opacity-0 w-full px-4 mt-4 animate-fade-up animation-delay-600 flex flex-col justify-center gap-4 sm:flex-row sm:flex-wrap">
                     <a
                         href="#partnerships"
-                        className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white px-7 py-4 text-base font-semibold text-primary hover:bg-white/10"
+                        className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white px-7 py-4 text-base font-semibold text-primary hover:bg-white/10 hover:text-white"
                     >
                         <FaLinkedinIn className="w-5 h-5 text-primary hover:text-[#C2A66B]" />  <span className="ml-2">LinkedIn</span>
                     </a>
                     <a
                         href="#tickets"
-                        className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white px-7 py-4 text-base font-semibold text-primary hover:bg-white/10"
+                        className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white px-7 py-4 text-base font-semibold text-primary hover:bg-white/10 hover:text-white"
                     >
                         <FaInstagram className="w-5 h-5 text-primary hover:text-[#C2A66B]" />  <span className="ml-2">Instagram</span>
                     </a>
                     <a
                         href="#tickets"
-                        className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white px-7 py-4 text-base font-semibold text-primary hover:bg-white/10"
+                        className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white px-7 py-4 text-base font-semibold text-primary hover:bg-white/10 hover:text-white"
                     >
                         <FaFacebookF className="w-5 h-5 text-primary hover:text-[#C2A66B]" />  <span className="ml-2">Facebook</span>
                     </a>
