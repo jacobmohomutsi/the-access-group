@@ -20,7 +20,7 @@ export default function Hero({ heroData }) {
 
   const basePartners = rawPartners.filter(p => p.name || p.logo?.node?.sourceUrl);
   let safePartners = [...(basePartners.length > 0 ? basePartners : rawPartners)];
-  
+
   while (safePartners.length < 5) {
     safePartners = [...safePartners, ...safePartners];
   }
@@ -115,7 +115,7 @@ export default function Hero({ heroData }) {
       const slideWidth = slider.clientWidth;
       const scrollLeft = slider.scrollLeft;
       const setWidth = slideWidth * safePartners.length;
-      
+
       if (scrollLeft < setWidth) {
         slider.scrollTo({ left: scrollLeft + setWidth * 2, behavior: 'auto' });
       } else if (scrollLeft >= setWidth * 4) {
@@ -130,7 +130,7 @@ export default function Hero({ heroData }) {
       <div className="absolute -left-32 top-20 h-72 w-72 rounded-full bg-primary/30 blur-3xl" />
       <div className="absolute right-[-6rem] top-36 h-80 w-80 rounded-full bg-white/10 blur-3xl" />
 
-      <div className="relative mx-auto h-screen max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-20 flex flex-col justify-center">
+      <div className="relative mx-auto md:h-screen max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-20 flex flex-col justify-center">
         <div className="mx-auto max-w-4xl text-center">
           {data.badgeText && (
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm font-medium text-white">
@@ -139,7 +139,7 @@ export default function Hero({ heroData }) {
             </div>
           )}
 
-          <h1 className="text-5xl font-black tracking-tight text-white sm:text-6xl lg:text-7xl">
+          <h1 className="text-3xl font-black tracking-tight text-white sm:text-3xl lg:text-7xl">
             {data.heroTitle}
           </h1>
 
@@ -175,7 +175,7 @@ export default function Hero({ heroData }) {
             {/* Left */}
             <button
               onClick={handlePrevPartner}
-              className="absolute left-0 top-1/2 z-20 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition"
+              className="absolute left-0 top-1/2 z-20 -translate-y-1/2 w-6 h-6 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition"
               aria-label="Previous Partner"
             >
               <ChevronLeft size={22} />
@@ -184,12 +184,12 @@ export default function Hero({ heroData }) {
             {/* Right */}
             <button
               onClick={handleNextPartner}
-              className="absolute right-0 top-1/2 z-20 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition"
+              className="absolute right-0 top-1/2 z-20 -translate-y-1/2 w-6 h-6 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition"
               aria-label="Next Partner"
             >
               <ChevronRight size={22} />
             </button>
-            
+
             {/* Mobile Native Snap Carousel */}
             <div
               ref={mobilePartnerSliderRef}
@@ -198,14 +198,14 @@ export default function Hero({ heroData }) {
             >
               {extendedPartners.map((item, idx) => (
                 <div key={`mobile-${idx}`} className="min-w-full w-full snap-center px-1">
-                  <div className="flex h-20 items-center justify-center rounded-2xl border border-white/10 bg-white px-4 py-3 text-sm font-medium text-white/80 shadow-sm">
+                  <div className="flex h-24 items-center justify-center rounded-2xl border border-white/10 bg-white px-4 py-3 text-sm font-medium text-white/80 shadow-sm">
                     {item.logo?.node?.sourceUrl ? (
                       <Image
                         width={120}
                         height={60}
                         src={item.logo.node.sourceUrl}
                         alt={item.logo.node.altText || item.name}
-                        className="h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
+                        className="h-24 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
                       />
                     ) : (
                       <span className="text-center text-[#304945] font-bold text-xs">{item.name}</span>
@@ -234,7 +234,7 @@ export default function Hero({ heroData }) {
                           height={80}
                           src={item.logo.node.sourceUrl}
                           alt={item.logo.node.altText || item.name}
-                          className="h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
+                          className="h-24 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
                         />
                       ) : (
                         <span className="text-center text-[#304945] font-bold text-sm">{item.name}</span>

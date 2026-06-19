@@ -97,10 +97,10 @@ export default function About({ aboutData }) {
   return (
     <section id="about" className="bg-[#F5F5F2] text-primary">
       <div className="mx-auto max-w-8xl px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-center h-auto md:h-screen">
-          <div>
+        <div className="grid gap-12 lg:grid-cols-2  lg:items-center h-auto md:h-screen">
+          <div className="order-2 lg:order-1">
             <p className="text-sm font-semibold uppercase tracking-[0.28em] text-primary">ABOUT THE ACCESS GROUP</p>
-            <h2 className="mt-4 text-4xl font-black tracking-tight text-primary sm:text-5xl">
+            <h2 className="mt-4 text-3xl font-black tracking-tight text-primary sm:text-5xl">
               Building pathways between African potential and global opportunity.
             </h2>
             <p className="mt-6 text-lg leading-8 text-primary/80">
@@ -112,13 +112,13 @@ export default function About({ aboutData }) {
             </p>
           </div>
 
-          <div className="text-primary flex flex-col items-center">
+          <div className="text-primary flex flex-col items-center order-1 lg:order-2">
             <div className="relative w-full aspect-[4/3] rounded-[1.5rem] md:rounded-[2rem] overflow-hidden shadow-2xl shadow-black/10">
 
               {/* Left Arrow */}
               <button
                 onClick={handlePrevGallery}
-                className="absolute left-2 md:left-4 top-1/2 z-20 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/30 backdrop-blur border border-white/20 flex items-center justify-center text-white hover:bg-black/50 transition-all duration-300"
+                className="absolute left-2 md:left-4 top-1/2 z-20 -translate-y-1/2 w-6 h-6 md:w-12 md:h-12 rounded-full bg-black/30 backdrop-blur border border-white/20 flex items-center justify-center text-white hover:bg-black/50 transition-all duration-300"
                 aria-label="Previous image"
               >
                 <ChevronLeft size={20} />
@@ -127,7 +127,7 @@ export default function About({ aboutData }) {
               {/* Right Arrow */}
               <button
                 onClick={handleNextGallery}
-                className="absolute right-2 md:right-4 top-1/2 z-20 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/30 backdrop-blur border border-white/20 flex items-center justify-center text-white hover:bg-black/50 transition-all duration-300"
+                className="absolute right-2 md:right-4 top-1/2 z-20 -translate-y-1/2 w-6 h-6 md:w-12 md:h-12 rounded-full bg-black/30 backdrop-blur border border-white/20 flex items-center justify-center text-white hover:bg-black/50 transition-all duration-300"
                 aria-label="Next image"
               >
                 <ChevronRight size={20} />
@@ -163,7 +163,7 @@ export default function About({ aboutData }) {
 
         {/* SDG Goals Section */}
         <div className="mt-24 grid gap-12 lg:grid-cols-2 lg:items-start  h-auto md:h-screen">
-          <div className="order-2 lg:order-1">
+          <div className="order-1 md:order-2">
             <Image
               src="/images/RUEDA-ODS-ENG-768x777.png"
               alt="SDG Goals"
@@ -173,7 +173,7 @@ export default function About({ aboutData }) {
             />
           </div>
 
-          <div className="order-1 lg:order-2">
+          <div className="order-2 md:order-q">
             <h2 className="text-3xl font-black tracking-tight text-primary sm:text-4xl">
               Sustainable Development Goals:
             </h2>

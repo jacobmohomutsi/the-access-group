@@ -170,7 +170,7 @@ export default function Products({ productsData }) {
               ACCESS BOXES
             </p>
 
-            <h2 className="mt-4 text-4xl font-black tracking-tight text-white sm:text-5xl">
+            <h2 className="mt-4 text-3xl font-black tracking-tight text-white sm:text-5xl">
               Productised pathways for business growth.
             </h2>
 

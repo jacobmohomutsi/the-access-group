@@ -87,7 +87,7 @@ export default function SuccessCalculator() {
         <div className="w-full max-w-7xl mx-auto grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-8 items-start">
 
           {/* Left Column: Dynamic Calculator */}
-          <div className="bg-white/[0.03] border border-secondary/20 rounded-[2rem] p-8 sm:p-12 shadow-2xl transition-all duration-300 h-full flex flex-col justify-center">
+          <div className="bg-white/[0.03] border border-secondary/20 rounded-[2rem] p-4 sm:p-2 shadow-2xl transition-all duration-300 h-full flex flex-col justify-center">
 
             {(activeTrack === 'project' || activeTrack === 'stakeholder') && (
               <div className="animate-fade-in">
@@ -272,7 +272,7 @@ export default function SuccessCalculator() {
           </div>
 
           {/* Right Column: Steps Timeline Slider */}
-          <div className="bg-white/[0.03] border border-secondary/20 rounded-[2rem] p-8 sm:p-12 shadow-2xl flex flex-col h-full justify-between">
+          <div className="bg-white/[0.03] border border-secondary/20 rounded-[2rem] p-4 sm:p-4 shadow-2xl flex flex-col h-full justify-between">
             <div className="flex-1 flex flex-col justify-center">
               <p className="text-sm text-white/60 text-center mb-10 font-medium px-4 animate-fade-in">
                 {trackSubtitles[activeTrack]}
@@ -282,7 +282,7 @@ export default function SuccessCalculator() {
                 <button
                   onClick={() => setCurrentStepIndex(Math.max(0, currentStepIndex - 1))}
                   disabled={currentStepIndex === 0}
-                  className={`absolute left-2 top-1/2 z-20 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition ${currentStepIndex === 0 ? 'opacity-30 cursor-not-allowed' : 'hover:bg-white/10 text-white'}`}
+                  className={`absolute left-2 top-1/2 z-20 -translate-y-1/2 w-6 h-6 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition ${currentStepIndex === 0 ? 'opacity-30 cursor-not-allowed' : 'hover:bg-white/10 text-white'}`}
                 >
                   <ChevronLeft size={20} />
                 </button>
@@ -290,7 +290,7 @@ export default function SuccessCalculator() {
                 <button
                   onClick={() => setCurrentStepIndex(Math.min(projectSteps.length - 1, currentStepIndex + 1))}
                   disabled={currentStepIndex === projectSteps.length - 1}
-                  className={`absolute right-2 top-1/2 z-20 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition ${currentStepIndex === projectSteps.length - 1 ? 'opacity-30 cursor-not-allowed' : 'hover:bg-white/10 text-white'}`}
+                  className={`absolute right-2 top-1/2 z-20 -translate-y-1/2 w-6 h-6 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition ${currentStepIndex === projectSteps.length - 1 ? 'opacity-30 cursor-not-allowed' : 'hover:bg-white/10 text-white'}`}
                 >
                   <ChevronRight size={20} />
                 </button>

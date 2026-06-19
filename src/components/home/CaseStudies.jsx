@@ -120,7 +120,7 @@ export default function CaseStudies({ caseStudiesData }) {
         <div className="relative mt-0">
           <button
             onClick={handlePrev}
-            className="absolute left-2 top-1/2 z-20 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition"
+            className="hidden md:flex absolute left-2 top-1/2 z-20 -translate-y-1/2 w-8 h-8 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition"
             aria-label="Previous slide"
           >
             <ChevronLeft size={20} />
@@ -128,12 +128,12 @@ export default function CaseStudies({ caseStudiesData }) {
 
           <button
             onClick={handleNext}
-            className="absolute right-2 top-1/2 z-20 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition"
+            className="hidden md:flex absolute right-2 top-1/2 z-20 -translate-y-1/2 w-8 h-8 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition"
             aria-label="Next slide"
           >
             <ChevronRight size={20} />
           </button>
-          <div className="hidden md:flex justify-center items-stretch gap-6 lg:gap-8 mt-8 min-h-[450px] px-4">
+          <div className="hidden md:flex justify-center items-stretch gap-6 lg:gap-8 mt-8 px-4">
 
 
             {[leftIdx, centerIdx, rightIdx].map((idx, pos) => {
@@ -200,45 +200,63 @@ export default function CaseStudies({ caseStudiesData }) {
         {/* ========================================================================= */}
         {/* MOBILE SLIDER (1 Slide Visible)                                           */}
         {/* ========================================================================= */}
-        <div className="flex md:hidden justify-center items-stretch mt-12 min-h-[400px]">
-          <div className="w-full flex flex-col rounded-3xl overflow-hidden border border-gray-100 shadow-xl bg-white text-gray-900">
-            {/* Gold Header Banner */}
-            <div className="bg-[#C2A66B] text-white font-extrabold text-xs tracking-wider py-4 px-6 text-center uppercase">
-              {caseStudies[currentIndex].client}
-            </div>
+        <div className="relative mt-0">
+          <button
+            onClick={handlePrev}
+            className="absolute left-2 top-1/2 z-20 -translate-y-1/2 w-6 h-6 rounded-full bg-primary/20 backdrop-blur border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition"
+            aria-label="Previous slide"
+          >
+            <ChevronLeft size={20} />
+          </button>
 
-            {/* Card Content Body */}
-            <div className="p-6 sm:p-8 flex flex-col justify-between flex-grow bg-white">
-              <div>
-                <h4 className="text-xs font-black italic text-[#304945] tracking-wide mb-4 uppercase border-b border-gray-100 pb-3">
-                  {caseStudies[currentIndex].subTitle}
-                </h4>
-                <ul className="space-y-3 text-xs sm:text-sm text-gray-600 font-medium">
-                  {caseStudies[currentIndex].items.map((bullet, bIdx) => (
-                    <li key={bIdx} className="flex items-start gap-2.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#304945]/40 flex-shrink-0 mt-2" />
-                      <span>{bullet}</span>
-                    </li>
-                  ))}
-                </ul>
+          <button
+            onClick={handleNext}
+            className="absolute right-2 top-1/2 z-20 -translate-y-1/2 w-6 h-6 rounded-full bg-primary/20 backdrop-blur border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition"
+            aria-label="Next slide"
+          >
+            <ChevronRight size={20} />
+          </button>
+          <div className="flex md:hidden justify-center items-stretch mt-12">
+
+            <div className="w-full flex flex-col rounded-3xl overflow-hidden border border-gray-100 shadow-xl bg-white text-gray-900">
+              {/* Gold Header Banner */}
+              <div className="bg-[#C2A66B] text-white font-extrabold text-xs tracking-wider py-4 px-6 text-center uppercase">
+                {caseStudies[currentIndex].client}
               </div>
 
-              {/* Footer Link */}
-              <div className="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between">
-                <div className="flex flex-col">
-                  <span className="text-[10px] uppercase font-bold tracking-wider text-gray-400">Platform</span>
-                  <span className="text-xs font-extrabold text-[#304945]">{caseStudies[currentIndex].platformLabel}</span>
+              {/* Card Content Body */}
+              <div className="p-6 sm:p-8 flex flex-col justify-between flex-grow bg-white">
+                <div>
+                  <h4 className="text-xs font-black italic text-[#304945] tracking-wide mb-4 uppercase border-b border-gray-100 pb-3">
+                    {caseStudies[currentIndex].subTitle}
+                  </h4>
+                  <ul className="space-y-3 text-xs sm:text-sm text-gray-600 font-medium">
+                    {caseStudies[currentIndex].items.map((bullet, bIdx) => (
+                      <li key={bIdx} className="flex items-start gap-2.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#304945]/40 flex-shrink-0 mt-2" />
+                        <span>{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
 
-                <a
-                  href={caseStudies[currentIndex].link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-[#304945] hover:bg-[#304945] hover:text-white hover:border-[#304945] transition-all duration-300"
-                  aria-label={`Visit ${caseStudies[currentIndex].client} on ${caseStudies[currentIndex].platformLabel}`}
-                >
-                  {React.createElement(caseStudies[currentIndex].icon, { size: 16 })}
-                </a>
+                {/* Footer Link */}
+                <div className="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between">
+                  <div className="flex flex-col">
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-gray-400">Platform</span>
+                    <span className="text-xs font-extrabold text-[#304945]">{caseStudies[currentIndex].platformLabel}</span>
+                  </div>
+
+                  <a
+                    href={caseStudies[currentIndex].link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-[#304945] hover:bg-[#304945] hover:text-white hover:border-[#304945] transition-all duration-300"
+                    aria-label={`Visit ${caseStudies[currentIndex].client} on ${caseStudies[currentIndex].platformLabel}`}
+                  >
+                    {React.createElement(caseStudies[currentIndex].icon, { size: 16 })}
+                  </a>
+                </div>
               </div>
             </div>
           </div>
