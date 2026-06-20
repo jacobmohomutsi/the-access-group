@@ -111,8 +111,8 @@ initiatives. He previously served as the CEO of the Thebe Foundation, championin
 education and early childhood development frameworks, and as the National Director and CEO of
 World Vision South Africa, where he directed large-scale community development and economic
 empowerment programmes.` },
-        { name: "Nolo Mmeti", role: "Summit Speaker", image: "/images/Speakers/nolo.jpg", bio: "Department of Agriculture, Land Reform and Rural Development" },
-        { name: "Botlhale Mosito", role: "Summit Speaker", image: "/images/Speakers/botlhale.jpg", bio: "Department of Agriculture, Land Reform and Rural Development" },
+        { name: "Nolo Mmeti", role: "Summit Speaker", image: "/images/Speakers/nolo.jpg", bio: "A global policy expert and project leader with over 10 years of experience, Nolo has managed initiatives such as the Impala Vaccination Campaign, serving over 100,000 people." },
+        { name: "Botlhale Mosito", role: "Summit Speaker", image: "/images/Speakers/botlhale.jpg", bio: "A seasoned entrepreneur in consumer goods and SME consulting, Botlhale specializes in brand strategy, farming production, and innovation-driven growth." },
     ];
 
     return (

@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation';
 import { createClient } from '@supabase/supabase-js';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import { Lock } from 'lucide-react';
+import { Lock, Plus, Minus } from 'lucide-react';
+import Image from 'next/image';
 
 // Use standard client for public read
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -26,7 +27,7 @@ export default function TicketsPage() {
                     .select('*')
                     .eq('active', true)
                     .order('price', { ascending: false });
-                
+
                 if (supaError) {
                     console.error("Supabase Error:", supaError);
                     setError(supaError.message);
@@ -69,7 +70,7 @@ export default function TicketsPage() {
                 price: p.price,
                 quantity: quantities[p.id]
             }));
-            
+
         // Encode items and redirect
         const params = new URLSearchParams();
         params.set('items', JSON.stringify(selectedItems));
@@ -95,44 +96,96 @@ export default function TicketsPage() {
         return <div className="min-h-screen flex items-center justify-center">Loading tickets...</div>;
     }
 
+    const productDescription = {
+        "Gala Dinner": "Day 1 · 15 October 2026 | An exclusive evening of networking, fine dining & deal-making",
+        "Corporate Gala Package": "Investment Gala Dinner Only R22 000 (10 people) | An exclusive evening of networking, fine dining & deal-making",
+        "Summit Ticket": "Day 2 · 16 October 2026 | Full-day summit with panels, breakaways & exhibitions",
+        "2 Day Pass": "Both Days · 15-16 October | Complete experience - Gala Dinner + Main Summit"
+    }
+
+    switch (products[0].name) {
+        case "Gala Dinner":
+            productDescription["Gala Dinner"];
+            break;
+        case "Corporate Gala Package":
+            productDescription["Corporate Gala Package"];
+            break;
+        case "Summit Ticket":
+            productDescription["Summit Ticket"];
+            break;
+        case "2 Day Pass":
+            return <div>{productDescription["2 Day Pass"]}</div>;
+        default:
+            return <div>Default products</div>;
+    }
+
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col">
             <Header />
             <div className="flex-1 py-20 px-4 mt-16">
-                <div className="max-w-4xl mx-auto">
+                <div className="max-w-6xl mx-auto">
                     <div className="text-center mb-12">
-                        <h1 className="text-4xl font-extrabold text-gray-900 mb-4">Summit Registration</h1>
-                        <p className="text-lg text-gray-600">Select your ticket packages below to attend.</p>
+                        <span className="text-sm font-semibold tracking-widest uppercase text-primary">
+                            Secure Your Spot
+                        </span>
+                        <h1 className="font-black tracking-tight text-4xl md:text-5xl text-primary mt-3 mb-4">
+                            Summit Registration
+                        </h1>
+                        <p className="text-primary/70 text-lg max-w-2xl mx-auto">
+                            Select your ticket packages below to attend.
+                        </p>
                     </div>
 
-                    <div className="space-y-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {products.map(product => (
-                            <div key={product.id} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-6">
-                                <div className="flex-1">
-                                    <h3 className="text-2xl font-bold text-gray-900">{product.name}</h3>
-                                    <p className="text-[#304945] font-semibold text-xl mt-1">
-                                        R {product.price.toLocaleString()}
+                            <div key={product.id} className="relative bg-white shadow-lg rounded-xl flex flex-col justify-between min-h-[240px] overflow-hidden border border-primary/10">
+                                {/* Ticket Edge Cutouts */}
+                                <div className="absolute top-[60%] -translate-y-1/2 -left-4 w-8 h-8 bg-gray-50 rounded-full border border-primary/10 border-r-0 z-10" />
+                                <div className="absolute top-[60%] -translate-y-1/2 -right-4 w-8 h-8 bg-gray-50 rounded-full border border-primary/10 border-l-0 z-10" />
+
+                                <div className="p-6 pb-5 flex-1 relative">
+                                    <span className="inline-block px-2 py-1 bg-secondary text-secondary-dark text-[10px] font-bold uppercase tracking-wider rounded mb-2">
+                                        Admission
+                                    </span>
+                                    <h3 className="font-black tracking-tight text-xl text-primary leading-tight mb-2">
+                                        {product.name}
+                                    </h3>
+                                    <p className="text-xs text-primary/70 leading-relaxed mb-2">
+                                        {productDescription[product.name]}
                                     </p>
                                 </div>
-                                
-                                <div className="flex items-center gap-4 bg-gray-50 p-2 rounded-full border border-gray-200">
-                                    <button 
-                                        onClick={() => handleQuantityChange(product.id, -1)}
-                                        className="w-10 h-10 rounded-full bg-white text-gray-600 shadow-sm border border-gray-200 flex items-center justify-center hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#304945]"
-                                        aria-label="Decrease quantity"
-                                    >
-                                        -
-                                    </button>
-                                    <span className="w-8 text-center font-semibold text-gray-900">
-                                        {quantities[product.id]}
-                                    </span>
-                                    <button 
-                                        onClick={() => handleQuantityChange(product.id, 1)}
-                                        className="w-10 h-10 rounded-full bg-[#304945] text-white shadow-sm flex items-center justify-center hover:bg-[#304945]/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#304945]"
-                                        aria-label="Increase quantity"
-                                    >
-                                        +
-                                    </button>
+
+                                <div className="relative bg-primary/10">
+                                    {/* Dashed divider line */}
+                                    <div className="absolute top-0 left-4 right-4 border-t-2 border-dashed border-gray-200" />
+
+                                    <div className="p-6 pt-5 bg-white/50">
+                                        <div className="flex items-baseline gap-1 mb-4">
+                                            <span className="font-black tracking-tight text-2xl text-primary">
+                                                R {product.price.toLocaleString()}
+                                            </span>
+                                        </div>
+
+                                        <div className="flex items-center justify-between gap-2 bg-white p-1.5 rounded-lg border border-gray-100">
+                                            <button
+                                                onClick={() => handleQuantityChange(product.id, -1)}
+                                                className="w-8 h-8 rounded-md bg-white text-gray-600 shadow-sm border border-gray-200 flex items-center justify-center hover:bg-gray-50 focus:outline-none transition-colors"
+                                                aria-label="Decrease quantity"
+                                            >
+                                                <Minus size={18} />
+                                            </button>
+                                            <span className="w-8 text-center font-bold text-lg text-primary">
+                                                {quantities[product.id] || 0}
+                                            </span>
+                                            <button
+                                                onClick={() => handleQuantityChange(product.id, 1)}
+                                                className="w-8 h-8 rounded-md bg-primary text-white shadow-sm flex items-center justify-center hover:bg-primary/90 focus:outline-none transition-colors"
+                                                aria-label="Increase quantity"
+                                            >
+                                                <Plus size={18} />
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         ))}
@@ -153,9 +206,8 @@ export default function TicketsPage() {
                                         >
                                             Proceed to Checkout
                                         </button>
-                                        <div className="flex items-center justify-center gap-1.5 text-sm text-gray-500 font-medium">
-                                            <Lock className="w-4 h-4 text-green-600" />
-                                            <span>Secure payments handled by <span className="font-bold text-gray-900">Yoco</span></span>
+                                        <div className="flex items-center justify-start gap-1.5 text-sm text-gray-500 font-medium">
+                                            <span className="flex items-center justify-start">Secure payments handled by <Image src='/images/yoco_logo.png' alt="yoco" width={60} height={100} className="ml-2" /></span>
                                         </div>
                                     </div>
                                 </div>

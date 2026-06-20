@@ -2,6 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect, Suspense } from 'react';
+import Image from 'next/image';
 import { createCheckout } from './actions';
 
 function CheckoutContent() {
@@ -25,7 +26,7 @@ function CheckoutContent() {
             <div className="min-h-screen flex items-center justify-center bg-gray-50">
                 <div className="text-center">
                     <h2 className="text-2xl font-bold text-gray-900 mb-4">No items selected</h2>
-                    <a href="/tickets" className="text-[#304945] font-semibold hover:underline">Go back to tickets</a>
+                    <a href="/tickets" className="text-primary font-semibold hover:underline">Go back to tickets</a>
                 </div>
             </div>
         );
@@ -52,81 +53,93 @@ function CheckoutContent() {
 
     return (
         <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8">
-                
+            <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10 mt-16">
+
                 {/* Form Section */}
-                <div className="md:col-span-7 bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-                    <h2 className="text-3xl font-bold text-gray-900 mb-8">Buyer Information</h2>
-                    
+                <div className="md:col-span-7 bg-white p-10 rounded-3xl shadow-xl shadow-primary/5 border border-primary/10 relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary via-secondary to-primary" />
+
+                    <h2 className="text-3xl font-black tracking-tight text-primary mb-8 mt-2">Buyer Information</h2>
+
                     <form action={handleSubmit} className="space-y-6">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div>
-                                <label htmlFor="buyerName" className="block text-sm font-medium text-gray-700">First Name <span className="text-red-500">*</span></label>
-                                <input type="text" name="buyerName" id="buyerName" required 
-                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#304945] focus:ring-[#304945] sm:text-sm py-3 px-4 bg-gray-50 border" />
+                                <label htmlFor="buyerName" className="block text-sm font-bold text-primary/80 mb-2">First Name <span className="text-red-500">*</span></label>
+                                <input type="text" name="buyerName" id="buyerName" required
+                                    className="block w-full rounded-xl border-gray-200 shadow-sm focus:border-primary focus:ring-primary sm:text-base py-3 px-4 bg-gray-50/50 focus:bg-white transition-colors border" />
                             </div>
                             <div>
-                                <label htmlFor="buyerSurname" className="block text-sm font-medium text-gray-700">Surname <span className="text-red-500">*</span></label>
-                                <input type="text" name="buyerSurname" id="buyerSurname" required 
-                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#304945] focus:ring-[#304945] sm:text-sm py-3 px-4 bg-gray-50 border" />
+                                <label htmlFor="buyerSurname" className="block text-sm font-bold text-primary/80 mb-2">Surname <span className="text-red-500">*</span></label>
+                                <input type="text" name="buyerSurname" id="buyerSurname" required
+                                    className="block w-full rounded-xl border-gray-200 shadow-sm focus:border-primary focus:ring-primary sm:text-base py-3 px-4 bg-gray-50/50 focus:bg-white transition-colors border" />
                             </div>
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div>
-                                <label htmlFor="buyerEmail" className="block text-sm font-medium text-gray-700">Email Address <span className="text-red-500">*</span></label>
-                                <input type="email" name="buyerEmail" id="buyerEmail" required 
-                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#304945] focus:ring-[#304945] sm:text-sm py-3 px-4 bg-gray-50 border" />
+                                <label htmlFor="buyerEmail" className="block text-sm font-bold text-primary/80 mb-2">Email Address <span className="text-red-500">*</span></label>
+                                <input type="email" name="buyerEmail" id="buyerEmail" required
+                                    className="block w-full rounded-xl border-gray-200 shadow-sm focus:border-primary focus:ring-primary sm:text-base py-3 px-4 bg-gray-50/50 focus:bg-white transition-colors border" />
                             </div>
                             <div>
-                                <label htmlFor="buyerPhone" className="block text-sm font-medium text-gray-700">Phone Number <span className="text-red-500">*</span></label>
-                                <input type="tel" name="buyerPhone" id="buyerPhone" required 
-                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#304945] focus:ring-[#304945] sm:text-sm py-3 px-4 bg-gray-50 border" />
+                                <label htmlFor="buyerPhone" className="block text-sm font-bold text-primary/80 mb-2">Phone Number <span className="text-red-500">*</span></label>
+                                <input type="tel" name="buyerPhone" id="buyerPhone" required
+                                    className="block w-full rounded-xl border-gray-200 shadow-sm focus:border-primary focus:ring-primary sm:text-base py-3 px-4 bg-gray-50/50 focus:bg-white transition-colors border" />
                             </div>
                         </div>
 
                         <div>
-                            <label htmlFor="buyerCompany" className="block text-sm font-medium text-gray-700">Company Name (Optional)</label>
-                            <input type="text" name="buyerCompany" id="buyerCompany" 
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#304945] focus:ring-[#304945] sm:text-sm py-3 px-4 bg-gray-50 border" />
+                            <label htmlFor="buyerCompany" className="block text-sm font-bold text-primary/80 mb-2">Company Name (Optional)</label>
+                            <input type="text" name="buyerCompany" id="buyerCompany"
+                                className="block w-full rounded-xl border-gray-200 shadow-sm focus:border-primary focus:ring-primary sm:text-base py-3 px-4 bg-gray-50/50 focus:bg-white transition-colors border" />
                         </div>
 
-                        <div className="pt-6">
-                            <button 
-                                type="submit" 
+                        <div className="pt-8">
+                            <button
+                                type="submit"
                                 disabled={loading}
-                                className="w-full flex justify-center items-center py-4 px-4 border border-transparent rounded-xl shadow-sm text-lg font-bold text-white bg-[#304945] hover:bg-[#304945]/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#304945] disabled:opacity-70 disabled:cursor-not-allowed"
+                                className="w-full flex justify-center items-center py-4 px-6 border border-transparent rounded-xl shadow-lg shadow-primary/20 text-l font-black text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-4 focus:ring-primary/50 disabled:opacity-70 disabled:cursor-not-allowed transition-all duration-300 hover:-translate-y-1"
                             >
-                                {loading ? 'Processing...' : 'Pay with Yoco'}
+                                {loading ? 'Processing...' : (
+                                    <span className="flex items-center justify-center">
+                                        Pay with <Image src='/images/yoco_logo.png' alt="yoco" width={60} height={100} className="ml-2 h-7 w-auto object-contain" />
+                                    </span>
+                                )}
                             </button>
-                            <p className="text-xs text-center text-gray-500 mt-4">
+                            <p className="text-xs text-center text-primary/50 mt-4 font-medium flex items-center justify-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                </svg>
                                 You will be redirected to Yoco's secure portal to complete your payment.
                             </p>
+
                         </div>
                     </form>
                 </div>
 
                 {/* Summary Section */}
                 <div className="md:col-span-5">
-                    <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 sticky top-8">
-                        <h3 className="text-xl font-bold text-gray-900 mb-6">Order Summary</h3>
-                        
-                        <div className="space-y-4 mb-6">
+                    <div className="bg-white p-8 rounded-3xl shadow-xl shadow-primary/5 border border-primary/10 sticky top-24">
+                        <h3 className="text-2xl font-black tracking-tight text-primary mb-8">Order Summary</h3>
+
+                        <div className="space-y-5 mb-8">
                             {items.map((item, idx) => (
-                                <div key={idx} className="flex justify-between text-sm">
-                                    <div className="flex text-gray-700">
-                                        <span className="font-semibold mr-2">{item.quantity}x</span>
-                                        <span>{item.name}</span>
+                                <div key={idx} className="flex justify-between items-start text-base">
+                                    <div className="flex flex-col text-primary/80">
+                                        <span className="font-bold text-primary">
+                                            <span className="text-secondary mr-2">{item.quantity}x</span>
+                                            {item.name}
+                                        </span>
                                     </div>
-                                    <span className="text-gray-900 font-medium">R {(item.price * item.quantity).toLocaleString()}</span>
+                                    <span className="text-primary font-bold ml-4 whitespace-nowrap">R {(item.price * item.quantity).toLocaleString()}</span>
                                 </div>
                             ))}
                         </div>
 
-                        <div className="border-t border-gray-200 pt-6">
-                            <div className="flex justify-between items-center">
-                                <span className="text-lg font-bold text-gray-900">Total</span>
-                                <span className="text-2xl font-extrabold text-[#C2A66B]">R {totalAmount.toLocaleString()}</span>
+                        <div className="border-t-2 border-dashed border-gray-100 pt-6">
+                            <div className="flex justify-between items-center bg-gray-50/80 p-4 rounded-2xl border border-gray-100">
+                                <span className="text-lg font-bold text-primary/70">Total</span>
+                                <span className="text-3xl font-black text-primary">R {totalAmount.toLocaleString()}</span>
                             </div>
                         </div>
                     </div>
@@ -139,8 +152,9 @@ function CheckoutContent() {
 
 export default function CheckoutPage() {
     return (
-        <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-gray-50">Loading checkout...</div>}>
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-gray-50"><div className="text-primary font-bold animate-pulse text-xl">Loading checkout...</div></div>}>
             <CheckoutContent />
         </Suspense>
     );
 }
+
