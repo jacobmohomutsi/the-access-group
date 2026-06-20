@@ -6,6 +6,8 @@ export default async function TicketsAdminPage({ searchParams }) {
     const params = await searchParams;
     const page = Number(params?.page) || 1;
     const search = params?.search || '';
+    const status = params?.status || '';
+    const sort = params?.sort || 'desc';
     const pageSize = 20;
     
     let query = supabaseAdmin
@@ -16,8 +18,14 @@ export default async function TicketsAdminPage({ searchParams }) {
         query = query.or(`ticket_number.ilike.%${search}%,attendee_email.ilike.%${search}%,attendee_name.ilike.%${search}%`);
     }
 
+    if (status === 'assigned') {
+        query = query.eq('assigned', true);
+    } else if (status === 'unassigned') {
+        query = query.eq('assigned', false);
+    }
+
     const { data: tickets, count } = await query
-        .order('created_at', { ascending: false })
+        .order('created_at', { ascending: sort === 'asc' })
         .range((page - 1) * pageSize, page * pageSize - 1);
 
     const totalPages = Math.ceil((count || 0) / pageSize);
@@ -33,15 +41,32 @@ export default async function TicketsAdminPage({ searchParams }) {
 
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
                 <div className="p-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
-                    <form className="flex gap-2 w-full max-w-md">
+                    <form className="flex flex-wrap sm:flex-nowrap gap-3 w-full max-w-3xl">
                         <input 
                             type="text" 
                             name="search"
                             defaultValue={search}
                             placeholder="Search by ticket #, name, or email..." 
-                            className="flex-1 rounded-lg border-gray-300 shadow-sm focus:border-[#304945] focus:ring-[#304945] sm:text-sm py-2 px-3 border"
+                            className="flex-1 text-gray-600 rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm py-2 px-3 border min-w-[200px]"
                         />
-                        <button type="submit" className="px-4 py-2 bg-[#304945] text-white rounded-lg text-sm font-semibold hover:bg-[#304945]/90">
+                        <select 
+                            name="status" 
+                            defaultValue={status}
+                            className="text-gray-600 rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm py-2 px-3 border"
+                        >
+                            <option value="">All Statuses</option>
+                            <option value="assigned">Assigned</option>
+                            <option value="unassigned">Unassigned</option>
+                        </select>
+                        <select 
+                            name="sort" 
+                            defaultValue={sort}
+                            className="text-gray-600 rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm py-2 px-3 border"
+                        >
+                            <option value="desc">Newest First</option>
+                            <option value="asc">Oldest First</option>
+                        </select>
+                        <button type="submit" className="px-5 py-2 bg-primary text-white rounded-lg text-sm font-semibold hover:bg-primary/90 transition-colors">
                             Search
                         </button>
                     </form>
@@ -65,7 +90,7 @@ export default async function TicketsAdminPage({ searchParams }) {
                                         {ticket.ticket_number}
                                     </td>
                                     <td className="px-6 py-4 font-medium text-gray-900">
-                                        {ticket.products.name}
+                                        {ticket.products?.name || 'Unknown'}
                                     </td>
                                     <td className="px-6 py-4">
                                         {ticket.assigned ? (
@@ -78,15 +103,15 @@ export default async function TicketsAdminPage({ searchParams }) {
                                         )}
                                     </td>
                                     <td className="px-6 py-4">
-                                        {ticket.orders.order_number}
+                                        {ticket.orders?.order_number || 'N/A'}
                                     </td>
                                     <td className="px-6 py-4">
                                         {ticket.assigned ? (
-                                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                            <span className="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-green-100 text-green-800">
                                                 Assigned
                                             </span>
                                         ) : (
-                                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                            <span className="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-yellow-100 text-yellow-800">
                                                 Unassigned
                                             </span>
                                         )}
@@ -96,7 +121,7 @@ export default async function TicketsAdminPage({ searchParams }) {
                             {(!tickets || tickets.length === 0) && (
                                 <tr>
                                     <td colSpan="5" className="px-6 py-8 text-center text-gray-500">
-                                        No tickets found.
+                                        No tickets found matching your criteria.
                                     </td>
                                 </tr>
                             )}
@@ -111,12 +136,12 @@ export default async function TicketsAdminPage({ searchParams }) {
                         </span>
                         <div className="flex gap-2">
                             {page > 1 && (
-                                <a href={`?page=${page - 1}&search=${search}`} className="px-3 py-1 border border-gray-300 rounded bg-white text-sm hover:bg-gray-50">
+                                <a href={`?page=${page - 1}&search=${search}&status=${status}&sort=${sort}`} className="px-3 py-1 border border-gray-300 rounded bg-white text-sm hover:bg-gray-50">
                                     Previous
                                 </a>
                             )}
                             {page < totalPages && (
-                                <a href={`?page=${page + 1}&search=${search}`} className="px-3 py-1 border border-gray-300 rounded bg-white text-sm hover:bg-gray-50">
+                                <a href={`?page=${page + 1}&search=${search}&status=${status}&sort=${sort}`} className="px-3 py-1 border border-gray-300 rounded bg-white text-sm hover:bg-gray-50">
                                     Next
                                 </a>
                             )}
