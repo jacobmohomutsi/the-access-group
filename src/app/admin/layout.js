@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, ShoppingCart, Ticket, QrCode, BarChart3, LogOut, ClipboardList, Menu, X } from 'lucide-react';
+import { LayoutDashboard, ShoppingCart, Ticket, QrCode, BarChart3, LogOut, ClipboardList, Menu, X, Tags } from 'lucide-react';
 import { createClient } from '@/utils/supabase/client';
 
 export default function AdminLayout({ children }) {
@@ -20,6 +20,7 @@ export default function AdminLayout({ children }) {
         { name: 'Dashboard', href: '/admin/tickets', icon: LayoutDashboard, quickLink: true },
         { name: 'Scanner', href: '/admin/tickets/checkin', icon: QrCode, quickLink: true },
         { name: 'Tickets', href: '/admin/tickets/tickets', icon: Ticket, quickLink: true },
+        { name: 'Ticket Types', href: '/admin/tickets/types', icon: Tags },
         { name: 'Orders', href: '/admin/tickets/orders', icon: ShoppingCart },
         { name: 'Check-Ins Log', href: '/admin/tickets/checkins', icon: ClipboardList },
         { name: 'Analytics', href: '/admin/tickets/analytics', icon: BarChart3 },
@@ -96,7 +97,7 @@ export default function AdminLayout({ children }) {
             </div>
 
             {/* ----------------- MOBILE BOTTOM NAV ----------------- */}
-            <div className="md:hidden fixed bottom-0 left-0 w-full h-16 bg-white z-30 border-t border-gray-100 flex items-center justify-around pb-safe shadow-[0_-4px_20px_-10px_rgba(0,0,0,0.1)]">
+            <div className="md:hidden w-full fixed bottom-0 left-0 w-full h-16 bg-white z-30 border-t border-gray-100 flex items-center justify-around pb-safe shadow-[0_-4px_20px_-10px_rgba(0,0,0,0.1)]">
                 {quickLinks.map((item) => {
                     const isActive = pathname === item.href;
                     const Icon = item.icon;
@@ -137,8 +138,8 @@ export default function AdminLayout({ children }) {
                                 href={item.href}
                                 onClick={() => setIsMobileMenuOpen(false)}
                                 className={`flex items-center gap-4 px-4 py-4 rounded-2xl text-base font-bold transition-all duration-200 ${isActive
-                                        ? 'bg-primary text-white shadow-md shadow-primary/20'
-                                        : 'text-gray-700 bg-gray-50'
+                                    ? 'bg-primary text-white shadow-md shadow-primary/20'
+                                    : 'text-gray-700 bg-gray-50'
                                     }`}
                             >
                                 <Icon className={`w-6 h-6 ${isActive ? 'text-white' : 'text-primary'}`} strokeWidth={2.5} />
@@ -163,8 +164,8 @@ export default function AdminLayout({ children }) {
             </div>
 
             {/* ----------------- MAIN CONTENT ----------------- */}
-            <div className="flex-1 md:ml-64 flex bg-white flex-col min-h-screen pt-16 md:pt-0 pb-16 md:pb-0">
-                <main className="flex-1 p-4 md:p-8 lg:p-10 max-w-7xl mx-auto w-full bg-white md:bg-transparent min-h-full">
+            <div className="flex-1 md:ml-64 flex bg-white flex-col min-h-screen pt-16 md:pt-0 pb-16 md:pb-0 w-full overflow-hidden">
+                <main className="flex-1 p-4 md:p-8 lg:p-10 max-w-7xl mx-auto w-full bg-white md:bg-transparent min-h-full overflow-hidden">
                     {children}
                 </main>
             </div>
