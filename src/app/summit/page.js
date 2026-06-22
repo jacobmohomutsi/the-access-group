@@ -11,6 +11,7 @@ import Venue from '../../components/summit/Venue';
 import CTA from '../../components/summit/CTA';
 import { client } from "@/lib/graphql";
 import { SUMMIT_QUERY } from "@/queries/summitQuery";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 
 export default async function TheAccessGroupLandingPage() {
 
@@ -18,6 +19,17 @@ export default async function TheAccessGroupLandingPage() {
 
   const summitHero = data.page.summitHero;
   const homeHero = data.homePage.homeHero;
+
+  // Fetch active speakers from Supabase
+  const { data: dbSpeakers, error } = await supabaseAdmin
+    .from('speakers')
+    .select('*')
+    .eq('active', true)
+    .order('display_order', { ascending: true })
+    .order('created_at', { ascending: false });
+
+  // If the table doesn't exist yet (42P01), we just gracefully fallback to empty
+  const speakersData = error ? [] : dbSpeakers;
 
   return (
     <div className="min-h-screen bg-primary text-white">
@@ -41,7 +53,7 @@ export default async function TheAccessGroupLandingPage() {
       <main>
         <Hero heroData={summitHero} partnersData={homeHero} />
         <About />
-        <Speakers />
+        <Speakers speakersData={speakersData} />
         <Tickets />
         <Partnerships />
         <Programme />

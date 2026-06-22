@@ -8,14 +8,14 @@ const SpeakerCard = ({ speaker, isExpanded, onToggle }) => {
     return (
         <div className="group relative bg-white border border-primary/10 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow flex flex-col">
             {/* Avatar / Image */}
-            <div className="aspect-[4/3] bg-primary flex items-center justify-center overflow-hidden">
-                <div className="w-60 h-60 rounded-full bg-white/10 border-2 border-white/30 flex items-center justify-center overflow-hidden">
+            <div className="aspect-[1/1] bg-primary flex items-center justify-center overflow-hidden">
+                <div className="w-90 h-90 rounded-t-lg bg-white/10 flex items-center justify-center overflow-hidden">
                     {speaker.image ? (
                         <Image
                             src={speaker.image}
                             alt={speaker.name}
-                            width={100}
-                            height={100}
+                            width={200}
+                            height={200}
                             className="w-full h-full object-cover"
                         />
                     ) : (
@@ -73,9 +73,7 @@ const SpeakerCard = ({ speaker, isExpanded, onToggle }) => {
 const Speakers = ({ speakersData }) => {
     const [openSpeakerIdx, setOpenSpeakerIdx] = useState(null);
 
-    const data = speakersData;
-
-    const speakers = [
+    const fallbackSpeakers = [
         {
             name: "Deputy Minister Jane Sithole", role: "Summit Speaker", image: "/images/speakers/TAG - The Access Group _ Jane_Sithole.jpg",
             bio: `Raesetja Jane Sithole is a distinguished South African leader currently serving as the Deputy Minister of Small Business Development in the Government of National Unity (GNU), a position she assumed in July 2024. She holds postgraduate qualifications in Political Leadership and Governance from the Wits School of Governance, equipping her to champion localised economic development and global market integration. As a Member of the National Assembly, she plays a vital role in
@@ -114,6 +112,8 @@ empowerment programmes.` },
         { name: "Nolo Mmeti", role: "Summit Speaker", image: "/images/speakers/nolo.jpg", bio: "A global policy expert and project leader with over 10 years of experience, Nolo has managed initiatives such as the Impala Vaccination Campaign, serving over 100,000 people." },
         { name: "Botlhale Mosito", role: "Summit Speaker", image: "/images/speakers/botlhale.jpg", bio: "A seasoned entrepreneur in consumer goods and SME consulting, Botlhale specializes in brand strategy, farming production, and innovation-driven growth." },
     ];
+
+    const speakers = speakersData && speakersData.length > 0 ? speakersData : fallbackSpeakers;
 
     return (
         <section id="speakers" className="px-4 py-20 sm:px-6 lg:px-8 lg:py-24 bg-slate-50">

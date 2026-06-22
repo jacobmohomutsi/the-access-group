@@ -32,11 +32,18 @@ export default async function TicketsAdminPage({ searchParams }) {
 
     return (
         <div>
-            <div className="flex justify-between items-center mb-8">
+            <div className="flex justify-between items-center mb-8 gap-4 flex-wrap">
                 <div>
                     <h1 className="text-2xl font-bold text-gray-900">Tickets</h1>
                     <p className="text-gray-500">Manage attendee tickets and assignment status.</p>
                 </div>
+                <a 
+                    href={`/api/admin/export/tickets?search=${encodeURIComponent(search)}&status=${encodeURIComponent(status)}&sort=${encodeURIComponent(sort)}`}
+                    className="bg-primary text-white px-4 py-2 rounded-lg font-bold hover:bg-primary/90 transition-colors shadow-sm text-sm"
+                    download
+                >
+                    Export as CSV
+                </a>
             </div>
 
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">

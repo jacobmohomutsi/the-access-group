@@ -10,7 +10,16 @@ const nextConfig = {
         protocol: "https",
         hostname: "anewhotels.com",
       },
+      {
+        protocol: "https",
+        hostname: "dnqhdlykkvvjdolrytym.supabase.co",
+      },
     ],
+  },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '10mb',
+    },
   },
 };
 

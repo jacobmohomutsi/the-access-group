@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, ShoppingCart, Ticket, QrCode, BarChart3, LogOut, ClipboardList, Menu, X, Tags } from 'lucide-react';
+import { LayoutDashboard, ShoppingCart, Ticket, QrCode, BarChart3, LogOut, ClipboardList, Menu, X, Tags, Mic } from 'lucide-react';
 import { createClient } from '@/utils/supabase/client';
 
 export default function AdminLayout({ children }) {
@@ -22,6 +22,7 @@ export default function AdminLayout({ children }) {
         { name: 'Tickets', href: '/admin/tickets/tickets', icon: Ticket, quickLink: true },
         { name: 'Ticket Types', href: '/admin/tickets/types', icon: Tags },
         { name: 'Orders', href: '/admin/tickets/orders', icon: ShoppingCart },
+        { name: 'Speakers', href: '/admin/speakers', icon: Mic },
         { name: 'Check-Ins Log', href: '/admin/tickets/checkins', icon: ClipboardList },
         { name: 'Analytics', href: '/admin/tickets/analytics', icon: BarChart3 },
     ];
@@ -39,13 +40,15 @@ export default function AdminLayout({ children }) {
             {/* ----------------- DESKTOP SIDEBAR ----------------- */}
             <div className="w-64 bg-white border-r border-gray-100 shadow-sm flex-col hidden md:flex fixed h-full z-10">
                 <div className="h-20 flex flex-col items-center justify-center border-b border-primary/10 bg-primary p-4">
-                    <Image
-                        src="/images/logo-white.png"
-                        alt="The Access Group"
-                        width={140}
-                        height={20}
-                        className="object-contain mb-1"
-                    />
+                    <Link href={"/"}>
+                        <Image
+                            src="/images/logo-white.png"
+                            alt="The Access Group"
+                            width={140}
+                            height={20}
+                            className="object-contain mb-1"
+                        />
+                    </Link>
                 </div>
 
                 <div className="flex-1 overflow-y-auto py-6 flex flex-col gap-1.5 px-4">
