@@ -209,9 +209,6 @@ export default function TicketsPage() {
                                         >
                                             Proceed to Checkout
                                         </button>
-                                        <div className="flex items-center justify-start gap-1.5 text-sm text-gray-500 font-medium">
-                                            <span className="flex items-center justify-start">Secure payments handled by <Image src='/images/yoco_logo.png' alt="yoco" width={60} height={100} className="ml-2" /></span>
-                                        </div>
                                     </div>
                                 </div>
                                 {/* Decorative background element */}

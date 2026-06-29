@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import crypto from 'crypto';
 import { supabaseAdmin } from '@/lib/supabase-admin';
-import { sendOrderConfirmation } from '@/lib/services/email';
+import { sendOrderConfirmation, sendAccessBoxMerchantEmail } from '@/lib/services/email';
 
 // Helper to verify Yoco Webhook Signature (Standard Webhooks format)
 function verifySignature(payloadStr, headers, secret) {
@@ -86,6 +86,12 @@ export async function POST(req) {
             payment_id: paymentId, 
             metadata: event.payload.metadata 
         });
+
+        if (event.payload.metadata && event.payload.metadata.type === 'access_box') {
+            console.log('[YOCO_WEBHOOK]', { stage: 'access_box_paid', metadata: event.payload.metadata });
+            await sendAccessBoxMerchantEmail(event.payload.metadata, paymentId);
+            return NextResponse.json({ received: true, note: 'Access Box notification sent' });
+        }
 
         // Execute atomic transaction via Supabase RPC
         const { data, error } = await supabaseAdmin.rpc('process_yoco_webhook', {

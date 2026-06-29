@@ -373,7 +373,7 @@ begin
         insert into public.ticket_sequences (product_code, current_value) values (v_code, 1) returning current_value into v_ticket_seq;
       end if;
 
-      v_ticket_number := v_code || lpad(v_ticket_seq::text, 6, '0');
+      v_ticket_number := v_code || lpad(v_ticket_seq::text, 6, '0') || '-' || upper(substr(md5(random()::text), 1, 6));
 
       insert into public.tickets (order_id, product_id, ticket_number)
       values (v_order_id, v_item.product_id, v_ticket_number)

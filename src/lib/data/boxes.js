@@ -9,7 +9,7 @@ export const boxes = [
             {
                 name: "Basic Registration",
                 price: 650,
-                priceDisplay: "R650",
+                priceDisplay: "R5",
                 paymentLink: "https://pay.yoco.com/the-access-group-basic",
                 deliverables: ["CIPC Registration", "BBBEE Certificate", "SARS Tax Number", "Share Certificate"]
             },

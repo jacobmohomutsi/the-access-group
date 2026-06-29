@@ -38,55 +38,53 @@ async function getErrorMessage(response, fallback) {
     return data.error || fallback;
 }
 
-export async function submitAccessBoxCheckout({ selectedProduct, selectedTier, formData }) {
+export async function submitAccessBoxCheckout({ selectedProduct, selectedTier, formData, gateway = 'paystack' }) {
     const fullName = `${formData.firstName} ${formData.lastName}`.trim();
 
-    const paymentResponse = await fetch("/api/yoco/payment-link", {
+    const metadata = {
+        type: "access_box",
+        productId: selectedProduct.id,
+        productName: selectedProduct.name,
+        tierName: selectedTier.name,
+        priceDisplay: selectedTier.priceDisplay,
+        fullName,
+        email: formData.email,
+        phone: formData.phone,
+        company: formData.company || selectedProduct.name,
+        boxRequirements: buildBoxRequirementsMessage(selectedProduct, formData)
+    };
+
+    const endpoint = gateway === 'paystack' ? '/api/boxes/paystack/initialize' : '/api/yoco/payment-link';
+
+    const payload = gateway === 'paystack' ? {
+        email: formData.email,
+        amount: selectedTier.price,
+        metadata,
+        reference: `BOX-${Date.now()}`
+    } : {
+        productId: selectedProduct.id,
+        tierName: selectedTier.name,
+        customerReference: fullName,
+        customerDescription: `${selectedProduct.name} - ${selectedTier.name} (${selectedTier.priceDisplay})`,
+        metadata
+    };
+
+    const paymentResponse = await fetch(endpoint, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-            productId: selectedProduct.id,
-            tierName: selectedTier.name,
-            customerReference: fullName,
-            customerDescription: `${selectedProduct.name} - ${selectedTier.name} (${selectedTier.priceDisplay})`,
-        }),
+        body: JSON.stringify(payload),
     });
 
     if (!paymentResponse.ok) {
-        throw new Error(await getErrorMessage(paymentResponse, "Failed to create Yoco payment link."));
+        throw new Error(await getErrorMessage(paymentResponse, `Failed to initialize ${gateway} payment.`));
     }
 
     const paymentData = await paymentResponse.json();
 
     if (!paymentData.url) {
-        throw new Error("Yoco did not return a payment link.");
-    }
-
-    const contactResponse = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            fullName,
-            email: formData.email,
-            company: selectedProduct.name,
-            phone: formData.phone,
-            bestTime: "morning",
-            source: "Access Box Order",
-            message: buildEmailMessage({
-                selectedProduct,
-                selectedTier,
-                formData,
-                paymentData,
-            }),
-        }),
-    });
-
-    if (!contactResponse.ok) {
-        throw new Error(await getErrorMessage(contactResponse, "Failed to submit order details."));
+        throw new Error(`${gateway} did not return a payment link.`);
     }
 
     return paymentData;

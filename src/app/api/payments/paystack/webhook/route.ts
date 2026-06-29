@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { PaymentService } from '@/lib/payments/payment-service';
 import { FulfillmentService } from '@/lib/services/fulfillment-service';
+import { sendAccessBoxMerchantEmail } from '@/lib/services/email';
 
 export async function POST(req: Request) {
     try {
@@ -48,6 +49,12 @@ export async function POST(req: Request) {
             });
             // Return 200 to prevent infinite retry loops if verification explicitly indicates failure/abandoned
             return NextResponse.json({ received: true, note: 'Transaction not successful' });
+        }
+
+        if (parsedEvent.metadata && parsedEvent.metadata.type === 'access_box') {
+            console.log('[PAYSTACK_WEBHOOK]', { stage: 'access_box_paid', metadata: parsedEvent.metadata });
+            await sendAccessBoxMerchantEmail(parsedEvent.metadata, reference);
+            return NextResponse.json({ received: true, note: 'Access Box notification sent' });
         }
 
         // 5. Invoke FulfillmentService (Primary Fulfillment Trigger)

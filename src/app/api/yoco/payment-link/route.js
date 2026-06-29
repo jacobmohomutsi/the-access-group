@@ -71,6 +71,7 @@ export async function POST(request) {
                     productName: product.name,
                     tierName: tier.name,
                     customerDescription,
+                    ...(data.metadata || {})
                 },
             }),
         });

@@ -50,6 +50,7 @@ export default function Products({ productsData }) {
   const [status, setStatus] = useState('idle'); // 'idle' | 'loading' | 'success' | 'error'
   const [errorMessage, setErrorMessage] = useState('');
   const [paymentUrl, setPaymentUrl] = useState('');
+  const [gateway, setGateway] = useState('paystack');
 
   // Lock body scroll when drawer is open
   useEffect(() => {
@@ -125,7 +126,7 @@ export default function Products({ productsData }) {
     setCheckoutStep(2);
   };
 
-  // Submit step 2 (create Yoco link, save details, and redirect to Yoco)
+  // Submit step 2 (create payment link and redirect)
   const handlePayNow = async (e) => {
     e.preventDefault();
     setStatus('loading');
@@ -136,6 +137,7 @@ export default function Products({ productsData }) {
         selectedProduct,
         selectedTier,
         formData,
+        gateway,
       });
 
       setPaymentUrl(paymentData.url);
@@ -288,7 +290,7 @@ export default function Products({ productsData }) {
                         </li>
                         <li className="flex gap-3">
                           <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#304945] text-white flex items-center justify-center text-[10px] font-bold">2</span>
-                          <span>Complete payment safely via Yoco</span>
+                          <span>Complete payment safely via Paystack or Yoco</span>
                         </li>
                         <li className="flex gap-3">
                           <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#304945] text-white flex items-center justify-center text-[10px] font-bold">3</span>
@@ -496,13 +498,13 @@ export default function Products({ productsData }) {
                               <Check size={28} strokeWidth={2.5} />
                             </div>
                             <h3 className="text-3xl font-extrabold text-gray-900 mb-3">Order Captured!</h3>
-                            <p className="text-sm text-gray-500 mb-8 max-w-md mx-auto leading-relaxed">
-                              Thank you! We've captured your details. A new tab has been launched for secure Yoco payment portal.
+                             <p className="text-sm text-gray-500 mb-8 max-w-md mx-auto leading-relaxed">
+                              Thank you! We've captured your details. A new tab has been launched for secure {gateway === 'paystack' ? 'Paystack' : 'Yoco'} payment portal.
                             </p>
 
                             <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 mb-8 text-left max-w-md mx-auto text-xs space-y-2.5 text-gray-600 font-medium">
                               <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">What's next?</p>
-                              <p>1. Complete the payment on the Yoco portal.</p>
+                              <p>1. Complete the payment on the {gateway === 'paystack' ? 'Paystack' : 'Yoco'} portal.</p>
                               <p>2. We will automatically match the payment with your client details.</p>
                               <p>3. A consultant will email you within 24 hours to begin deliverables.</p>
                             </div>
@@ -513,7 +515,7 @@ export default function Products({ productsData }) {
                               rel="noopener noreferrer"
                               className="inline-flex items-center gap-2 bg-[#304945] text-white hover:bg-[#C2A66B] hover:text-[#304945] font-extrabold py-4 px-8 rounded-2xl transition-all duration-300 shadow-md shadow-gray-200 mb-4 text-sm"
                             >
-                              Launch Yoco Portal <ArrowRight size={16} />
+                              Launch {gateway === 'paystack' ? 'Paystack' : 'Yoco'} Portal <ArrowRight size={16} />
                             </a>
 
                             <div className="mt-4">
@@ -530,10 +532,29 @@ export default function Products({ productsData }) {
                             <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-[#304945]/5 text-[#304945] border border-[#304945]/10">
                               <CreditCard size={28} />
                             </div>
-                            <h3 className="text-2xl font-bold text-[#304945] mb-2">Secure Yoco Payment</h3>
-                            <p className="text-sm text-gray-500 mb-8 max-w-sm mx-auto leading-relaxed">
-                              Pay safely and securely via Yoco. Once you click proceed, we'll save your contact requirements and redirect you to complete the payment of <strong className="text-gray-800">{selectedTier.priceDisplay}</strong>.
+                            <h3 className="text-2xl font-bold text-[#304945] mb-2">Select Payment Method</h3>
+                            <p className="text-sm text-gray-500 mb-6 max-w-sm mx-auto leading-relaxed">
+                              Choose your preferred secure gateway to complete payment of <strong className="text-gray-800">{selectedTier.priceDisplay}</strong>.
                             </p>
+
+                            <div className="grid grid-cols-2 gap-3 max-w-sm mx-auto mb-6">
+                              <button
+                                type="button"
+                                onClick={() => setGateway('paystack')}
+                                className={`p-4 rounded-2xl border font-bold text-xs flex flex-col items-center gap-1 transition-all ${gateway === 'paystack' ? 'border-[#304945] bg-[#304945]/5 text-[#304945] ring-2 ring-[#304945]/20' : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'}`}
+                              >
+                                <span className="text-sm font-black">Paystack</span>
+                                <span className="text-[10px] opacity-75 font-normal">Card / EFT / Scan</span>
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setGateway('yoco')}
+                                className={`p-4 rounded-2xl border font-bold text-xs flex flex-col items-center gap-1 transition-all ${gateway === 'yoco' ? 'border-[#304945] bg-[#304945]/5 text-[#304945] ring-2 ring-[#304945]/20' : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'}`}
+                              >
+                                <span className="text-sm font-black">Yoco</span>
+                                <span className="text-[10px] opacity-75 font-normal">Card / Apple Pay</span>
+                              </button>
+                            </div>
 
                             {status === 'error' && (
                               <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-100 text-red-600 text-xs font-semibold text-left max-w-sm mx-auto">
@@ -552,11 +573,11 @@ export default function Products({ productsData }) {
                                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                   </svg>
-                                  Saving Details...
+                                  Connecting to {gateway === 'paystack' ? 'Paystack' : 'Yoco'}...
                                 </>
                               ) : (
                                 <>
-                                  Proceed to Pay {selectedTier.priceDisplay} <ArrowRight size={16} />
+                                  Pay {selectedTier.priceDisplay} via {gateway === 'paystack' ? 'Paystack' : 'Yoco'} <ArrowRight size={16} />
                                 </>
                               )}
                             </button>

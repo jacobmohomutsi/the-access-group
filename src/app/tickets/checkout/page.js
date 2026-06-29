@@ -10,7 +10,7 @@ function CheckoutContent() {
     const itemsParam = searchParams.get('items');
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [gateway, setGateway] = useState('yoco'); // 'yoco' | 'paystack'
+    const [gateway, setGateway] = useState('paystack'); // 'yoco' | 'paystack'
 
     useEffect(() => {
         if (itemsParam) {
@@ -92,12 +92,12 @@ function CheckoutContent() {
                             <div>
                                 <label htmlFor="buyerName" className="block text-sm font-bold text-primary/80 mb-2">First Name <span className="text-red-500">*</span></label>
                                 <input type="text" name="buyerName" id="buyerName" required
-                                    className="block w-full rounded-xl border-gray-200 shadow-sm focus:border-primary focus:ring-primary sm:text-base py-3 px-4 bg-gray-50/50 focus:bg-white transition-colors border" />
+                                    className="block w-full rounded-xl text-gray-900 border-gray-200 shadow-sm focus:border-primary focus:ring-primary sm:text-base py-3 px-4 bg-gray-50/50 focus:bg-white transition-colors border" />
                             </div>
                             <div>
                                 <label htmlFor="buyerSurname" className="block text-sm font-bold text-primary/80 mb-2">Surname <span className="text-red-500">*</span></label>
                                 <input type="text" name="buyerSurname" id="buyerSurname" required
-                                    className="block w-full rounded-xl border-gray-200 shadow-sm focus:border-primary focus:ring-primary sm:text-base py-3 px-4 bg-gray-50/50 focus:bg-white transition-colors border" />
+                                    className="block w-full rounded-xl text-gray-900 border-gray-200 shadow-sm focus:border-primary focus:ring-primary sm:text-base py-3 px-4 bg-gray-50/50 focus:bg-white transition-colors border" />
                             </div>
                         </div>
 
@@ -105,26 +105,26 @@ function CheckoutContent() {
                             <div>
                                 <label htmlFor="buyerEmail" className="block text-sm font-bold text-primary/80 mb-2">Email Address <span className="text-red-500">*</span></label>
                                 <input type="email" name="buyerEmail" id="buyerEmail" required
-                                    className="block w-full rounded-xl border-gray-200 shadow-sm focus:border-primary focus:ring-primary sm:text-base py-3 px-4 bg-gray-50/50 focus:bg-white transition-colors border" />
+                                    className="block w-full rounded-xl text-gray-900 border-gray-200 shadow-sm focus:border-primary focus:ring-primary sm:text-base py-3 px-4 bg-gray-50/50 focus:bg-white transition-colors border" />
                             </div>
                             <div>
                                 <label htmlFor="buyerPhone" className="block text-sm font-bold text-primary/80 mb-2">Phone Number <span className="text-red-500">*</span></label>
                                 <input type="tel" name="buyerPhone" id="buyerPhone" required
-                                    className="block w-full rounded-xl border-gray-200 shadow-sm focus:border-primary focus:ring-primary sm:text-base py-3 px-4 bg-gray-50/50 focus:bg-white transition-colors border" />
+                                    className="block w-full rounded-xl text-gray-900 border-gray-200 shadow-sm focus:border-primary focus:ring-primary sm:text-base py-3 px-4 bg-gray-50/50 focus:bg-white transition-colors border" />
                             </div>
                         </div>
 
                         <div>
                             <label htmlFor="buyerCompany" className="block text-sm font-bold text-primary/80 mb-2">Company Name (Optional)</label>
                             <input type="text" name="buyerCompany" id="buyerCompany"
-                                className="block w-full rounded-xl border-gray-200 shadow-sm focus:border-primary focus:ring-primary sm:text-base py-3 px-4 bg-gray-50/50 focus:bg-white transition-colors border" />
+                                className="block w-full rounded-xl text-gray-900 border-gray-200 shadow-sm focus:border-primary focus:ring-primary sm:text-base py-3 px-4 bg-gray-50/50 focus:bg-white transition-colors border" />
                         </div>
 
                         {/* Payment Gateway Selector */}
                         <div className="pt-4">
-                            <label className="block text-sm font-bold text-primary/80 mb-3">Select Payment Gateway <span className="text-red-500">*</span></label>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div 
+                            <label className="hidden text-sm font-bold text-primary/80 mb-3">Select Payment Gateway <span className="text-red-500">*</span></label>
+                            <div className="grid grid-cols-1 gap-4">
+                                {/* <div 
                                     onClick={() => setGateway('yoco')}
                                     className={`cursor-pointer rounded-2xl border-2 p-5 transition-all duration-300 relative overflow-hidden flex flex-col justify-between ${
                                         gateway === 'yoco' 
@@ -139,15 +139,14 @@ function CheckoutContent() {
                                         <div className="font-black text-lg text-primary">Checkout with Yoco</div>
                                     </div>
                                     <p className="text-xs text-gray-500 font-medium">Pay securely with Cards or Apple Pay via Yoco portal.</p>
-                                </div>
+                                </div> */}
 
-                                <div 
+                                <div
                                     onClick={() => setGateway('paystack')}
-                                    className={`cursor-pointer rounded-2xl border-2 p-5 transition-all duration-300 relative overflow-hidden flex flex-col justify-between ${
-                                        gateway === 'paystack' 
-                                            ? 'border-[#0BA4DB] bg-[#0BA4DB]/5 shadow-md shadow-[#0BA4DB]/10 scale-[1.02]' 
-                                            : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50/50 opacity-70 hover:opacity-100'
-                                    }`}
+                                    className={`cursor-pointer rounded-2xl border-2 p-5 transition-all duration-300 relative overflow-hidden flex flex-col justify-between ${gateway === 'paystack'
+                                        ? 'border-[#0BA4DB] bg-[#0BA4DB]/5 shadow-md shadow-[#0BA4DB]/10 scale-[1.02]'
+                                        : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50/50 opacity-70 hover:opacity-100'
+                                        }`}
                                 >
                                     {gateway === 'paystack' && (
                                         <div className="absolute top-3 right-3 w-6 h-6 rounded-full bg-[#0BA4DB] text-white flex items-center justify-center text-xs font-bold">✓</div>
@@ -164,11 +163,10 @@ function CheckoutContent() {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className={`w-full flex justify-center items-center py-4 px-6 border border-transparent rounded-xl shadow-lg text-l font-black text-white focus:outline-none focus:ring-4 disabled:opacity-70 disabled:cursor-not-allowed transition-all duration-300 hover:-translate-y-1 ${
-                                    gateway === 'yoco'
-                                        ? 'bg-primary hover:bg-primary/90 shadow-primary/20 focus:ring-primary/50'
-                                        : 'bg-[#0BA4DB] hover:bg-[#0BA4DB]/90 shadow-[#0BA4DB]/20 focus:ring-[#0BA4DB]/50'
-                                }`}
+                                className={`w-full flex justify-center items-center py-4 px-6 border border-transparent rounded-xl shadow-lg text-l font-black text-white focus:outline-none focus:ring-4 disabled:opacity-70 disabled:cursor-not-allowed transition-all duration-300 hover:-translate-y-1 ${gateway === 'yoco'
+                                    ? 'bg-primary hover:bg-primary/90 shadow-primary/20 focus:ring-primary/50'
+                                    : 'bg-[#0BA4DB] hover:bg-[#0BA4DB]/90 shadow-[#0BA4DB]/20 focus:ring-[#0BA4DB]/50'
+                                    }`}
                             >
                                 {loading ? 'Processing...' : (
                                     <span className="flex items-center justify-center gap-2">
