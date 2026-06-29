@@ -10,6 +10,7 @@ function CheckoutContent() {
     const itemsParam = searchParams.get('items');
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [gateway, setGateway] = useState('yoco'); // 'yoco' | 'paystack'
 
     useEffect(() => {
         if (itemsParam) {
@@ -38,16 +39,41 @@ function CheckoutContent() {
         setLoading(true);
         formData.append('items', JSON.stringify(items));
         try {
-            const result = await createCheckout(formData);
-            if (result && result.url) {
-                window.location.href = result.url;
+            if (gateway === 'paystack') {
+                const payload = {
+                    buyerName: formData.get('buyerName'),
+                    buyerSurname: formData.get('buyerSurname'),
+                    buyerEmail: formData.get('buyerEmail'),
+                    buyerPhone: formData.get('buyerPhone'),
+                    buyerCompany: formData.get('buyerCompany'),
+                    items
+                };
+
+                const res = await fetch('/api/payments/paystack/initialize', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await res.json();
+                if (res.ok && result.authorization_url) {
+                    window.location.href = result.authorization_url;
+                } else {
+                    throw new Error(result.message || result.error || "Failed to initialize Paystack checkout");
+                }
             } else {
-                throw new Error("No redirect URL returned");
+                // Existing Yoco implementation completely untouched
+                const result = await createCheckout(formData);
+                if (result && result.url) {
+                    window.location.href = result.url;
+                } else {
+                    throw new Error("No redirect URL returned");
+                }
             }
         } catch (error) {
             console.error("Checkout failed", error);
             setLoading(false);
-            alert("Failed to initiate checkout. Please try again.");
+            alert(`Failed to initiate checkout: ${error.message || 'Please try again.'}`);
         }
     };
 
@@ -94,15 +120,63 @@ function CheckoutContent() {
                                 className="block w-full rounded-xl border-gray-200 shadow-sm focus:border-primary focus:ring-primary sm:text-base py-3 px-4 bg-gray-50/50 focus:bg-white transition-colors border" />
                         </div>
 
+                        {/* Payment Gateway Selector */}
+                        <div className="pt-4">
+                            <label className="block text-sm font-bold text-primary/80 mb-3">Select Payment Gateway <span className="text-red-500">*</span></label>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div 
+                                    onClick={() => setGateway('yoco')}
+                                    className={`cursor-pointer rounded-2xl border-2 p-5 transition-all duration-300 relative overflow-hidden flex flex-col justify-between ${
+                                        gateway === 'yoco' 
+                                            ? 'border-primary bg-primary/5 shadow-md shadow-primary/10 scale-[1.02]' 
+                                            : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50/50 opacity-70 hover:opacity-100'
+                                    }`}
+                                >
+                                    {gateway === 'yoco' && (
+                                        <div className="absolute top-3 right-3 w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold">✓</div>
+                                    )}
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <div className="font-black text-lg text-primary">Checkout with Yoco</div>
+                                    </div>
+                                    <p className="text-xs text-gray-500 font-medium">Pay securely with Cards or Apple Pay via Yoco portal.</p>
+                                </div>
+
+                                <div 
+                                    onClick={() => setGateway('paystack')}
+                                    className={`cursor-pointer rounded-2xl border-2 p-5 transition-all duration-300 relative overflow-hidden flex flex-col justify-between ${
+                                        gateway === 'paystack' 
+                                            ? 'border-[#0BA4DB] bg-[#0BA4DB]/5 shadow-md shadow-[#0BA4DB]/10 scale-[1.02]' 
+                                            : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50/50 opacity-70 hover:opacity-100'
+                                    }`}
+                                >
+                                    {gateway === 'paystack' && (
+                                        <div className="absolute top-3 right-3 w-6 h-6 rounded-full bg-[#0BA4DB] text-white flex items-center justify-center text-xs font-bold">✓</div>
+                                    )}
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <div className="font-black text-lg text-[#0BA4DB]">Checkout with Paystack</div>
+                                    </div>
+                                    <p className="text-xs text-gray-500 font-medium">Pay securely across Africa with Cards, EFT, or Mobile Money.</p>
+                                </div>
+                            </div>
+                        </div>
+
                         <div className="pt-8">
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="w-full flex justify-center items-center py-4 px-6 border border-transparent rounded-xl shadow-lg shadow-primary/20 text-l font-black text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-4 focus:ring-primary/50 disabled:opacity-70 disabled:cursor-not-allowed transition-all duration-300 hover:-translate-y-1"
+                                className={`w-full flex justify-center items-center py-4 px-6 border border-transparent rounded-xl shadow-lg text-l font-black text-white focus:outline-none focus:ring-4 disabled:opacity-70 disabled:cursor-not-allowed transition-all duration-300 hover:-translate-y-1 ${
+                                    gateway === 'yoco'
+                                        ? 'bg-primary hover:bg-primary/90 shadow-primary/20 focus:ring-primary/50'
+                                        : 'bg-[#0BA4DB] hover:bg-[#0BA4DB]/90 shadow-[#0BA4DB]/20 focus:ring-[#0BA4DB]/50'
+                                }`}
                             >
                                 {loading ? 'Processing...' : (
-                                    <span className="flex items-center justify-center">
-                                        Pay with <Image src='/images/yoco_logo.png' alt="yoco" width={60} height={100} className="ml-2 h-7 w-auto object-contain" />
+                                    <span className="flex items-center justify-center gap-2">
+                                        {gateway === 'yoco' ? (
+                                            <>Pay with <Image src='/images/yoco_logo.png' alt="yoco" width={60} height={100} className="ml-1 h-7 w-auto object-contain brightness-0 invert" /></>
+                                        ) : (
+                                            <>Pay with <span className="font-black tracking-wider uppercase ml-1">Paystack</span></>
+                                        )}
                                     </span>
                                 )}
                             </button>
@@ -110,9 +184,8 @@ function CheckoutContent() {
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                                 </svg>
-                                You will be redirected to Yoco's secure portal to complete your payment.
+                                You will be redirected to {gateway === 'yoco' ? "Yoco's" : "Paystack's"} secure portal to complete your payment.
                             </p>
-
                         </div>
                     </form>
                 </div>
@@ -157,4 +230,3 @@ export default function CheckoutPage() {
         </Suspense>
     );
 }
-

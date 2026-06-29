@@ -28,6 +28,8 @@ export default function TicketsPage() {
                     .eq('active', true)
                     .order('price', { ascending: false });
 
+                console.log("Products:", data);
+                console.log("Supabase Error:", supaError);
                 if (supaError) {
                     console.error("Supabase Error:", supaError);
                     setError(supaError.message);
@@ -76,6 +78,7 @@ export default function TicketsPage() {
         params.set('items', JSON.stringify(selectedItems));
         window.location.href = `/tickets/checkout?${params.toString()}`;
     };
+
 
     if (error) {
         return (
