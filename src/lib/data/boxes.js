@@ -8,7 +8,7 @@ export const boxes = [
         tiers: [
             {
                 name: "Basic Registration",
-                price: 650,
+                price: 5,
                 priceDisplay: "R5",
                 paymentLink: "https://pay.yoco.com/the-access-group-basic",
                 deliverables: ["CIPC Registration", "BBBEE Certificate", "SARS Tax Number", "Share Certificate"]
