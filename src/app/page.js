@@ -9,19 +9,8 @@ import Summit from '../components/home/Summit';
 import CaseStudies from '../components/home/CaseStudies';
 import CTA from '../components/home/CTA';
 
-import { client } from "@/lib/graphql";
-import { HOME_QUERY } from "@/queries/homeQuery";
 
 export default async function TheAccessGroupLandingPage() {
-
-  const data = await client.request(HOME_QUERY);
-  const hero = data.page.homeHero;
-  const about = data.page.homeAbout;
-  const products = data.page.homeProducts;
-  const feature = data.page.homeFeature;
-  const caseStudies = data.page.homeCaseStudies;
-  const cta = data.page.homeCTA;
-  const projects = data.page.homeProjects;
 
   return (
     <div className="min-h-screen bg-primary text-white">
