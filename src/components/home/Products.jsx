@@ -498,7 +498,7 @@ export default function Products({ productsData }) {
                               <Check size={28} strokeWidth={2.5} />
                             </div>
                             <h3 className="text-3xl font-extrabold text-gray-900 mb-3">Order Captured!</h3>
-                             <p className="text-sm text-gray-500 mb-8 max-w-md mx-auto leading-relaxed">
+                            <p className="text-sm text-gray-500 mb-8 max-w-md mx-auto leading-relaxed">
                               Thank you! We've captured your details. A new tab has been launched for secure {gateway === 'paystack' ? 'Paystack' : 'Yoco'} payment portal.
                             </p>
 

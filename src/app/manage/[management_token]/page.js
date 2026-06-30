@@ -70,13 +70,13 @@ export default async function ManageTicketsPage({ params }) {
                                 <form action={updateTicket} className="space-y-4">
                                     <input type="hidden" name="ticketId" value={ticket.id} />
                                     <input type="hidden" name="managementToken" value={management_token} />
-                                    
+
                                     {ticket.assigned ? (
                                         <>
                                             <input type="hidden" name="actionType" value="resend" />
                                             <input type="hidden" name="currentName" value={ticket.attendee_name} />
                                             <input type="hidden" name="currentEmail" value={ticket.attendee_email} />
-                                            
+
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-50 p-4 rounded-xl border border-gray-100 mb-4">
                                                 <div>
                                                     <p className="text-xs text-gray-500 uppercase font-semibold tracking-wider">Attendee Name</p>
@@ -87,7 +87,7 @@ export default async function ManageTicketsPage({ params }) {
                                                     <p className="font-medium text-gray-900">{ticket.attendee_email}</p>
                                                 </div>
                                             </div>
-                                            
+
                                             <div className="flex gap-4">
                                                 <button type="submit" className="px-4 py-2 bg-gray-900 text-white rounded-lg text-sm font-semibold hover:bg-gray-800 focus:ring-2 focus:ring-offset-2 focus:ring-gray-900">
                                                     Resend Ticket
@@ -104,18 +104,18 @@ export default async function ManageTicketsPage({ params }) {
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                                 <div>
                                                     <label className="block text-sm font-medium text-gray-700">First Name</label>
-                                                    <input type="text" name="attendeeName" required 
+                                                    <input type="text" name="attendeeName" required
                                                         className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#304945] focus:ring-[#304945] sm:text-sm py-2 px-3 border" />
                                                 </div>
                                                 <div>
                                                     <label className="block text-sm font-medium text-gray-700">Surname</label>
-                                                    <input type="text" name="attendeeSurname" required 
+                                                    <input type="text" name="attendeeSurname" required
                                                         className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#304945] focus:ring-[#304945] sm:text-sm py-2 px-3 border" />
                                                 </div>
                                             </div>
                                             <div>
                                                 <label className="block text-sm font-medium text-gray-700">Email Address</label>
-                                                <input type="email" name="attendeeEmail" required 
+                                                <input type="email" name="attendeeEmail" required
                                                     className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#304945] focus:ring-[#304945] sm:text-sm py-2 px-3 border" />
                                             </div>
                                             <div>
