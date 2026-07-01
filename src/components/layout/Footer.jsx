@@ -63,15 +63,15 @@ export default function Footer() {
 
           {/* Social Icons */}
           <div className="lg:col-span-1 flex gap-4 lg:justify-end">
-            <Link href="#" aria-label="Facebook">
+            <Link href="https://www.facebook.com/theaccessgroup.co.za" aria-label="Facebook">
               <FaFacebookF className="w-5 h-5 text-white hover:text-[#C2A66B]" />
             </Link>
 
-            <Link href="#" aria-label="Instagram">
+            <Link href="https://www.instagram.com/the_access_group_sa/" aria-label="Instagram">
               <FaInstagram className="w-5 h-5 text-white hover:text-[#C2A66B]" />
             </Link>
 
-            <Link href="#" aria-label="LinkedIn">
+            <Link href="https://www.linkedin.com/company/the-access-group-sa/?originalSubdomain=za" aria-label="LinkedIn">
               <FaLinkedinIn className="w-5 h-5 text-white hover:text-[#C2A66B]" />
             </Link>
           </div>

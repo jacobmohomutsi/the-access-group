@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Globe } from 'lucide-react';
 import { SiInstagram, SiSpotify, SiWechat } from '@icons-pack/react-simple-icons';
 
-export default function CaseStudies({ caseStudiesData }) {
+export default function CaseStudies() {
   const caseStudies = [
     {
       client: "PERFECT PETALS FLORALS",

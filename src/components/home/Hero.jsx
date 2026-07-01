@@ -4,8 +4,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-export default function Hero({ heroData }) {
-  const data = heroData || {};
+export default function Hero() {
   const rawPartners = [
     { name: "Partner 1", logo: { node: { sourceUrl: "/images/partners/6-raht5uu5xj491hsxc5gikyvvbz2af1t4rr4rqsvw34.webp" } } },
     { name: "Partner 2", logo: { node: { sourceUrl: "/images/partners/8-raht648jtvh49lf9t9is9wih9tryk0ug51nmjkhycw (1).webp" } } },

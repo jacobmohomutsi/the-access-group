@@ -6,8 +6,7 @@ import Image from "next/image";
 import PackageDrawer from "../common/PackageDrawer";
 import { boxes } from "@/lib/data/boxes";
 
-const Hero = ({ heroData, partnersData }) => {
-    const data = heroData;
+const Hero = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [partnerIndex, setPartnerIndex] = useState(0);
     const exhibitorBox = boxes.find(b => b.id === "box-7");

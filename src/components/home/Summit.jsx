@@ -2,8 +2,7 @@ import React from 'react';
 import { Calendar, MapPin } from 'lucide-react';
 import Image from 'next/image';
 
-export default function Summit({ featureData }) {
-  const data = featureData;
+export default function Summit() {
 
 
   return (

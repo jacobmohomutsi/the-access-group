@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-export default function About({ aboutData }) {
+export default function About() {
 
   const galleryImages = [
     "/images/home-about/1 TAG_The_Access_Group_.JPG",

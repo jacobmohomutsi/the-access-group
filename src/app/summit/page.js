@@ -9,16 +9,9 @@ import Partnerships from '../../components/summit/Partnerships';
 import Programme from '../../components/summit/Programme';
 import Venue from '../../components/summit/Venue';
 import CTA from '../../components/summit/CTA';
-import { client } from "@/lib/graphql";
-import { SUMMIT_QUERY } from "@/queries/summitQuery";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 
 export default async function TheAccessGroupLandingPage() {
-
-  //const data = await client.request(SUMMIT_QUERY);
-
-  //const summitHero = data.page.summitHero;
-  //const homeHero = data.homePage.homeHero;
 
   // Fetch active speakers from Supabase
   const { data: dbSpeakers, error } = await supabaseAdmin
@@ -53,7 +46,7 @@ export default async function TheAccessGroupLandingPage() {
       <main>
         <Hero />
         <About />
-        <Speakers />
+        <Speakers speakersData={speakersData} />
         <Tickets />
         <Partnerships />
         <Programme />

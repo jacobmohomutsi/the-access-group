@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function ProjectsDone({ projectsData }) {
+export default function ProjectsDone() {
   const cards = [
     {
       title: "Project Management",

@@ -33,7 +33,7 @@ const iconMap = {
   'globe': Globe
 };
 
-export default function Products({ productsData }) {
+export default function Products() {
   // Drawer states
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [activeView, setActiveView] = useState('tiers'); // 'tiers' | 'checkout'

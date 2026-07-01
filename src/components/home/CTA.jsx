@@ -1,7 +1,6 @@
 import React from 'react';
 
-export default function CTA({ ctaData }) {
-  const data = ctaData;
+export default function CTA() {
 
   return (
     <section id="cta" className="bg-white text-primary h-auto md:h-screen flex items-center flex-col justify-center py-6">

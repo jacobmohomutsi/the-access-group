@@ -9,12 +9,7 @@ import Summit from '../components/home/Summit';
 import CaseStudies from '../components/home/CaseStudies';
 import CTA from '../components/home/CTA';
 
-import { client } from "@/lib/graphql";
-import { HOME_QUERY } from "@/queries/homeQuery";
-
 export default async function TheAccessGroupLandingPage() {
-
-  //const data = await client.request(HOME_QUERY);
 
 
   return (
