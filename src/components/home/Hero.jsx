@@ -5,17 +5,17 @@ import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function Hero({ heroData }) {
-  const data = heroData;
+  const data = heroData || {};
   const rawPartners = [
-    { name: data.partner1name, logo: data.partner1logo },
-    { name: data.partner2name, logo: data.partner2logo },
-    { name: data.partner3name, logo: data.partner3logo },
-    { name: data.partner4name, logo: data.partner4logo },
-    { name: data.partner5name, logo: data.partner5logo },
-    { name: data.partner6name, logo: data.partner6logo },
-    { name: data.partner7name, logo: data.partner7logo },
-    { name: data.partner8name, logo: data.partner8logo },
-    { name: data.partner9name, logo: data.partner9logo },
+    { name: "Partner 1", logo: { node: { sourceUrl: "/images/partners/6-raht5uu5xj491hsxc5gikyvvbz2af1t4rr4rqsvw34.webp" } } },
+    { name: "Partner 2", logo: { node: { sourceUrl: "/images/partners/8-raht648jtvh49lf9t9is9wih9tryk0ug51nmjkhycw (1).webp" } } },
+    { name: "Partner 3", logo: { node: { sourceUrl: "/images/partners/9-raht68xqs1njvn8g1tjx4dbs8r4smid3tox1xyazhs.webp" } } },
+    { name: "Partner 4", logo: { node: { sourceUrl: "/images/partners/10-raht6cp3jdsp632zfv6fecdmmam9has167izv25esw (1).webp" } } },
+    { name: "Partner 5", logo: { node: { sourceUrl: "/images/partners/11-raht6gggapxugixitwsxobfgzu3qc36yiq4xs5zu40.webp" } } },
+    { name: "Partner 6", logo: { node: { sourceUrl: "/images/partners/15-raht6ybdwkmal47kxmiuhox8a5npec5ux6j5wf9cts.webp" } } },
+    { name: "Partner 7", logo: { node: { sourceUrl: "/images/partners/19-raht7f8hbl9ge3j06tu4qkniz3cb8w10zi9wjek9ps.webp" } } },
+    { name: "Partner 8", logo: { node: { sourceUrl: "/images/partners/20-raht7kviglh6brat9w9w5j8ajekij2nf0a6tf2bwog.webp" } } },
+    { name: "Partner 9", logo: { node: { sourceUrl: "/images/partners/22-raht7tc263sr88yiwhxj9z3fvvetgcl01g26qjzd4g.webp" } } },
   ];
 
   const basePartners = rawPartners.filter(p => p.name || p.logo?.node?.sourceUrl);
@@ -132,19 +132,17 @@ export default function Hero({ heroData }) {
 
       <div className="relative mx-auto md:h-screen max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-20 flex flex-col justify-center">
         <div className="mx-auto max-w-4xl text-center">
-          {data.badgeText && (
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm font-medium text-white">
-              <span className="h-2 w-2 rounded-full bg-white" />
-              {data.badgeText}
-            </div>
-          )}
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm font-medium text-white">
+            <span className="h-2 w-2 rounded-full bg-white" />
+            Productised services for growth
+          </div>
 
           <h1 className="text-3xl font-black tracking-tight text-white sm:text-3xl lg:text-7xl">
-            {data.heroTitle}
+            Your Strategic Gateway to Market Access
           </h1>
 
           <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-white/65 sm:text-base">
-            {data.heroDescription}
+            The Access Group combines business formalisation, digital transformation, branding, compliance, and international market activation into scalable service pathways designed for African entrepreneurs, creatives, and growth-stage enterprises.
           </p>
 
           <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
@@ -152,7 +150,7 @@ export default function Hero({ heroData }) {
               href="#products"
               className="inline-flex items-center justify-center rounded-2xl bg-white px-7 py-4 text-base font-semibold text-primary shadow-lg shadow-white/20 hover:opacity-95 transition-opacity"
             >
-              {data.primaryButtonText}
+              Explore Access Boxes
             </a>
 
             <a

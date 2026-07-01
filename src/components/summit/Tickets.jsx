@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Check, ArrowRight } from "lucide-react";
 import MailingListModal from "../common/MailingListModal";
+import Link from "next/link";
 
 const tickets = [
     {
@@ -161,16 +162,15 @@ const Tickets = () => {
                                 ))}
                             </ul>
 
-                            <button
+                            <Link
                                 className={`w-full py-3.5 rounded-2xl font-extrabold text-base flex items-center justify-center gap-2 hover:scale-102 transition-all duration-300 ${ticket.highlighted
                                     ? "bg-secondary text-primary hover:bg-white"
                                     : "bg-primary text-white hover:bg-secondary hover:text-primary"
                                     }`}
-                                onClick={() => setModalOpen(true)}
-                                type="button"
+                                href="/tickets"
                             >
-                                Join waiting list <ArrowRight className="w-4 h-4" />
-                            </button>
+                                Buy Ticket <ArrowRight className="w-4 h-4" />
+                            </Link>
                         </div>
                     ))}
                 </div>

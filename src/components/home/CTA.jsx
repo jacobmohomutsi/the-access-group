@@ -16,10 +16,10 @@ export default function CTA({ ctaData }) {
           </div>
           <div className="flex flex-col gap-4 sm:flex-row">
             <a href="#products" className="inline-flex items-center justify-center rounded-2xl bg-primary px-6 py-4 font-semibold text-white hover:opacity-95">
-              {data.primaryButtonText}
+              Explore Access Boxes
             </a>
             <a href="https://forms.zohopublic.com/TheAccessGroup/form/ServiceDiagnosticForm/formperma/rtl77z1DPenppTtJmwuIPW56znH95-4K633GSWfqRMU" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-2xl border border-primary/15 bg-white px-6 py-4 font-semibold text-primary hover:bg-black/5">
-              {data.secondaryButtonText}
+              Book a Consultation
             </a>
           </div>
         </div>

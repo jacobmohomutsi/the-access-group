@@ -15,10 +15,10 @@ import { supabaseAdmin } from "@/lib/supabase-admin";
 
 export default async function TheAccessGroupLandingPage() {
 
-  const data = await client.request(SUMMIT_QUERY);
+  //const data = await client.request(SUMMIT_QUERY);
 
-  const summitHero = data.page.summitHero;
-  const homeHero = data.homePage.homeHero;
+  //const summitHero = data.page.summitHero;
+  //const homeHero = data.homePage.homeHero;
 
   // Fetch active speakers from Supabase
   const { data: dbSpeakers, error } = await supabaseAdmin
@@ -51,9 +51,9 @@ export default async function TheAccessGroupLandingPage() {
 
       <Header />
       <main>
-        <Hero heroData={summitHero} partnersData={homeHero} />
+        <Hero />
         <About />
-        <Speakers speakersData={speakersData} />
+        <Speakers />
         <Tickets />
         <Partnerships />
         <Programme />

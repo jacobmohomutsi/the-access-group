@@ -15,7 +15,7 @@ export async function POST(req: Request) {
         }
 
         const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://theaccessgroup.co.za';
-        const callbackUrl = `${baseUrl}/?box_success=1`;
+        const callbackUrl = `${baseUrl}/boxes/confirmation`;
 
         // Convert amount to smallest currency unit (kobo/cents) if passed in Rand
         const amountInSmallestUnit = Math.round(Number(amount) * 100);

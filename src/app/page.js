@@ -14,14 +14,8 @@ import { HOME_QUERY } from "@/queries/homeQuery";
 
 export default async function TheAccessGroupLandingPage() {
 
-  const data = await client.request(HOME_QUERY);
-  const hero = data.page.homeHero;
-  const about = data.page.homeAbout;
-  const products = data.page.homeProducts;
-  const feature = data.page.homeFeature;
-  const caseStudies = data.page.homeCaseStudies;
-  const cta = data.page.homeCTA;
-  const projects = data.page.homeProjects;
+  //const data = await client.request(HOME_QUERY);
+
 
   return (
     <div className="min-h-screen bg-primary text-white">
@@ -43,13 +37,13 @@ export default async function TheAccessGroupLandingPage() {
 
       <Header />
       <main>
-        <Hero heroData={hero} />
-        <About aboutData={about} />
-        <Products productsData={products} />
+        <Hero />
+        <About />
+        <Products />
         <SuccessCalculator />
-        <Summit featureData={feature} />
-        <CaseStudies caseStudiesData={caseStudies} />
-        <CTA ctaData={cta} />
+        <Summit />
+        <CaseStudies />
+        <CTA />
 
       </main>
       <Footer />

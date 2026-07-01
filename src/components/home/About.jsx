@@ -5,25 +5,6 @@ import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function About({ aboutData }) {
-  const data = aboutData;
-  const cards = [
-    {
-      title: data.card1Title,
-      body: data.card1Body,
-    },
-    {
-      title: data.card2Title,
-      body: data.card2Body,
-    },
-    {
-      title: data.card3Title,
-      body: data.card3Body,
-    },
-    {
-      title: data.card4Title,
-      body: data.card4Body,
-    },
-  ];
 
   const galleryImages = [
     "/images/home-about/1 TAG_The_Access_Group_.JPG",

@@ -56,6 +56,10 @@ export async function POST(request) {
             );
         }
 
+        const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://theaccessgroup.co.za';
+        const successUrl = `${baseUrl}/boxes/confirmation`;
+        const failureUrl = `${baseUrl}/boxes/failed`;
+
         const response = await fetch(YOCO_CHECKOUTS_URL, {
             method: "POST",
             headers: {
@@ -66,6 +70,9 @@ export async function POST(request) {
                 amount,
                 currency: "ZAR",
                 clientReferenceId: customerReference,
+                successUrl,
+                failureUrl,
+                cancelUrl: failureUrl,
                 metadata: {
                     productId,
                     productName: product.name,

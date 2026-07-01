@@ -98,7 +98,7 @@ Master of Science in Population Studies, and an Honours degree in Business Studi
 extensive career, Dr Falala continues to play a vital role in shaping data-driven economic, credit, and
 market strategies across the African continent.` },
         {
-            name: "Lehlohonolo Chabeli", role: "Summit Speaker", image: "/images/speakers/TAG - The Access Group _Lehlohonolo Chabeli .jpg",
+            name: "Lehlohonolo Chabeli", role: "Summit Speaker", image: "/images/speakers/TAG - The Access Group _Lehlohonolo Chabeli.jpg",
             bio: `Lehlohonolo Chabeli is a prominent South African executive and community development
 strategist currently serving as the Director of the Bakgatla-Ba-Kgafela Development & Welfare
 NPC. In this role, he drives socio-economic advancement across the community's 32 villages in the

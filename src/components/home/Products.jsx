@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import {
   Building2,
   Palette,
@@ -239,7 +240,7 @@ export default function Products({ productsData }) {
           />
 
           {/* Drawer Container */}
-          <div className="relative w-full max-w-6xl h-full bg-[#F8F9FA] text-gray-900 shadow-2xl flex flex-col overflow-y-auto animate-slide-in-right z-10 p-6 pb-24 sm:p-12 sm:pb-32">
+          <div className="relative w-full max-w-6xl h-full bg-[#F8F9FA] text-gray-900 shadow-2xl flex flex-col overflow-y-auto animate-slide-in-right z-10 p-6 mb-8 pb-24 sm:p-12 sm:pb-32">
 
             {/* Close Button */}
             <button
@@ -361,12 +362,7 @@ export default function Products({ productsData }) {
             {/* VIEW B: Checkout form */}
             {activeView === 'checkout' && selectedTier && (
               <div className="min-h-full flex flex-col justify-start">
-                <button
-                  onClick={handleBackToTiers}
-                  className="inline-flex items-center gap-2 text-sm text-[#304945] hover:text-[#C2A66B] mb-8 font-semibold transition-colors group self-start"
-                >
-                  <ChevronLeft size={16} className="group-hover:-translate-x-0.5 transition-transform" /> Back to Tiers
-                </button>
+                {/* Branded Drawer Header */}
 
                 {/* Stepper Progress Indicator */}
                 <div className="max-w-md mx-auto mb-12 flex items-center justify-center gap-4">
@@ -498,7 +494,7 @@ export default function Products({ productsData }) {
                               <Check size={28} strokeWidth={2.5} />
                             </div>
                             <h3 className="text-3xl font-extrabold text-gray-900 mb-3">Order Captured!</h3>
-                             <p className="text-sm text-gray-500 mb-8 max-w-md mx-auto leading-relaxed">
+                            <p className="text-sm text-gray-500 mb-8 max-w-md mx-auto leading-relaxed">
                               Thank you! We've captured your details. A new tab has been launched for secure {gateway === 'paystack' ? 'Paystack' : 'Yoco'} payment portal.
                             </p>
 
@@ -537,11 +533,11 @@ export default function Products({ productsData }) {
                               Choose your preferred secure gateway to complete payment of <strong className="text-gray-800">{selectedTier.priceDisplay}</strong>.
                             </p>
 
-                            <div className="grid grid-cols-2 gap-3 max-w-sm mx-auto mb-6">
+                            <div className="grid gap-3 max-w-sm mx-auto mb-6">
                               <button
                                 type="button"
                                 onClick={() => setGateway('paystack')}
-                                className={`p-4 rounded-2xl border font-bold text-xs flex flex-col items-center gap-1 transition-all ${gateway === 'paystack' ? 'border-[#304945] bg-[#304945]/5 text-[#304945] ring-2 ring-[#304945]/20' : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'}`}
+                                className={`p-4 w-full rounded-2xl border font-bold text-xs flex flex-col items-center gap-1 transition-all ${gateway === 'paystack' ? 'border-[#304945] bg-[#304945]/5 text-[#304945] ring-2 ring-[#304945]/20' : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'}`}
                               >
                                 <span className="text-sm font-black">Paystack</span>
                                 <span className="text-[10px] opacity-75 font-normal">Card / EFT / Scan</span>
@@ -549,7 +545,7 @@ export default function Products({ productsData }) {
                               <button
                                 type="button"
                                 onClick={() => setGateway('yoco')}
-                                className={`p-4 rounded-2xl border font-bold text-xs flex flex-col items-center gap-1 transition-all ${gateway === 'yoco' ? 'border-[#304945] bg-[#304945]/5 text-[#304945] ring-2 ring-[#304945]/20' : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'}`}
+                                className={`hidden p-4 rounded-2xl border font-bold text-xs flex flex-col items-center gap-1 transition-all ${gateway === 'yoco' ? 'border-[#304945] bg-[#304945]/5 text-[#304945] ring-2 ring-[#304945]/20' : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'}`}
                               >
                                 <span className="text-sm font-black">Yoco</span>
                                 <span className="text-[10px] opacity-75 font-normal">Card / Apple Pay</span>
@@ -639,9 +635,6 @@ export default function Products({ productsData }) {
                 </div>
               </div>
             )}
-
-            {/* Spacer to ensure bottom padding in scrollable area */}
-            <div className="h-32 min-h-[8rem] w-full flex-shrink-0" aria-hidden="true" />
           </div>
         </div>
       )}

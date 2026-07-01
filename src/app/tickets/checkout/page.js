@@ -3,6 +3,8 @@
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect, Suspense } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { ShieldCheck, Info } from 'lucide-react';
 import { createCheckout } from './actions';
 
 function CheckoutContent() {
@@ -78,14 +80,45 @@ function CheckoutContent() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10 mt-16">
+        <div className="min-h-screen bg-gray-50 flex flex-col justify-between pb-12">
+            {/* Branded Header */}
+            <header className="sticky top-0 z-50 border-b border-white/10 bg-[#304945] py-4 px-4 sm:px-6 lg:px-8 shadow-md">
+                <div className="mx-auto max-w-6xl flex items-center justify-between">
+                    <Link href="/" className="flex items-center gap-3">
+                        <div className="flex w-16 items-center justify-center">
+                            <Image src="/images/logo-white.png" alt="The Access Group" width={90} height={90} />
+                        </div>
+                        <div>
+                            <p className="text-lg font-bold leading-none text-white">The Access <span className="text-[#C2A66B]">Group</span></p>
+                            <p className="text-[10px] tracking-[0.22em] text-white/60 font-semibold uppercase">IEAS Summit Tickets</p>
+                        </div>
+                    </Link>
+                    <Link href="/tickets" className="text-xs font-bold text-[#C2A66B] hover:text-white transition-colors">
+                        &larr; Back to Tickets
+                    </Link>
+                </div>
+            </header>
+
+            <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10 mt-8 px-4 sm:px-6 lg:px-8 flex-1">
 
                 {/* Form Section */}
-                <div className="md:col-span-7 bg-white p-10 rounded-3xl shadow-xl shadow-primary/5 border border-primary/10 relative overflow-hidden">
-                    <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary via-secondary to-primary" />
+                <div className="md:col-span-7 bg-white p-8 sm:p-10 rounded-3xl shadow-xl shadow-primary/5 border border-primary/10 relative overflow-hidden h-fit">
+                    <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#304945] via-[#C2A66B] to-[#304945]" />
 
-                    <h2 className="text-3xl font-black tracking-tight text-primary mb-8 mt-2">Buyer Information</h2>
+                    <div className="flex items-center justify-between mb-6 mt-2">
+                        <h2 className="text-3xl font-black tracking-tight text-[#304945]">Buyer Information</h2>
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#304945]/10 text-[#304945]">
+                            <ShieldCheck size={14} className="text-[#C2A66B]" /> Secure Checkout
+                        </span>
+                    </div>
+
+                    <div className="mb-6 p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-3 text-xs text-gray-600">
+                        <Info size={18} className="text-[#304945] flex-shrink-0 mt-0.5" />
+                        <div>
+                            <span className="font-bold text-gray-900 block mb-0.5">Ticket Assignment Note</span>
+                            Enter the primary billing contact below. Once your payment completes, you will receive a management link where you can assign individual attendee names and emails to each ticket.
+                        </div>
+                    </div>
 
                     <form action={handleSubmit} className="space-y-6">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -215,8 +248,12 @@ function CheckoutContent() {
                         </div>
                     </div>
                 </div>
-
             </div>
+
+            {/* Footer */}
+            <footer className="mt-12 py-6 text-center text-xs text-gray-400 border-t border-gray-200 bg-white">
+                &copy; {new Date().getFullYear()} The Access Group. All rights reserved.
+            </footer>
         </div>
     );
 }

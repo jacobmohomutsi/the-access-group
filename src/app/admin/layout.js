@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, ShoppingCart, Ticket, QrCode, BarChart3, LogOut, ClipboardList, Menu, X, Tags, Mic } from 'lucide-react';
+import { LayoutDashboard, ShoppingCart, Ticket, QrCode, BarChart3, LogOut, ClipboardList, Menu, X, Tags, Mic, BookOpen, Info, HelpCircle } from 'lucide-react';
 import { createClient } from '@/utils/supabase/client';
 
 export default function AdminLayout({ children }) {
@@ -18,6 +18,7 @@ export default function AdminLayout({ children }) {
 
     const navigation = [
         { name: 'Dashboard', href: '/admin/tickets', icon: LayoutDashboard, quickLink: true },
+        { name: 'User Guide', href: '/admin/guide', icon: BookOpen, quickLink: true },
         { name: 'Scanner', href: '/admin/tickets/checkin', icon: QrCode, quickLink: true },
         { name: 'Tickets', href: '/admin/tickets/tickets', icon: Ticket, quickLink: true },
         { name: 'Ticket Types', href: '/admin/tickets/types', icon: Tags },
@@ -169,6 +170,25 @@ export default function AdminLayout({ children }) {
             {/* ----------------- MAIN CONTENT ----------------- */}
             <div className="flex-1 md:ml-64 flex bg-white flex-col min-h-screen pt-16 md:pt-0 pb-16 md:pb-0 w-full overflow-hidden">
                 <main className="flex-1 p-4 md:p-8 lg:p-10 max-w-7xl mx-auto w-full bg-white md:bg-transparent min-h-full overflow-hidden">
+                    {pathname !== '/admin/guide' && (
+                        <div className="mb-8 bg-[#304945] text-white rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-md border border-white/10">
+                            <div className="flex items-center gap-3">
+                                <div className="p-2.5 bg-[#C2A66B] text-[#304945] rounded-xl flex-shrink-0 font-extrabold">
+                                    <Info size={20} strokeWidth={2.5} />
+                                </div>
+                                <div className="text-xs sm:text-sm">
+                                    <span className="font-bold text-white block mb-0.5">Need help operating the admin dashboard?</span>
+                                    Click the button to open the simplified, step-by-step User Guide manual.
+                                </div>
+                            </div>
+                            <Link
+                                href="/admin/guide"
+                                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-[#C2A66B] text-[#304945] hover:bg-white transition-all flex-shrink-0 shadow-sm"
+                            >
+                                <BookOpen size={16} /> Open User Guide &rarr;
+                            </Link>
+                        </div>
+                    )}
                     {children}
                 </main>
             </div>

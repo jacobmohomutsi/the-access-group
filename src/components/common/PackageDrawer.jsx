@@ -49,7 +49,7 @@ export default function PackageDrawer({ isOpen, onClose, selectedProduct }) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
-      
+
       setActiveView('tiers');
       setSelectedTier(null);
       setCheckoutStep(1);
@@ -145,7 +145,7 @@ export default function PackageDrawer({ isOpen, onClose, selectedProduct }) {
 
         {/* Drawer Container */}
         <div className="relative w-full max-w-6xl h-full bg-[#F8F9FA] text-gray-900 shadow-2xl flex flex-col overflow-y-auto animate-slide-in-right z-10 p-6 pb-24 sm:p-12 sm:pb-32">
-          
+
           <button
             onClick={onClose}
             className="absolute right-6 top-6 text-gray-400 hover:text-gray-900 transition-colors p-2 rounded-full hover:bg-gray-100"
@@ -518,8 +518,6 @@ export default function PackageDrawer({ isOpen, onClose, selectedProduct }) {
             </div>
           )}
 
-          {/* Spacer to ensure bottom padding in scrollable area */}
-          <div className="h-32 min-h-[8rem] w-full flex-shrink-0" aria-hidden="true" />
         </div>
       </div>
     </>

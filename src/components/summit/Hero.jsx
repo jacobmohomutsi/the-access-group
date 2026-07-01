@@ -179,7 +179,7 @@ const Hero = ({ heroData, partnersData }) => {
             <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
                 <div className="opacity-0 animate-fade-up">
                     <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase bg-secondary text-primary mb-8">
-                        {normalizeDash(data.badgeText)}
+                        2nd Annual Summit
                     </span>
                 </div>
                 <div className="flex justify-center items-center h-40">
@@ -196,18 +196,18 @@ const Hero = ({ heroData, partnersData }) => {
                 </h1>
 
                 <p className="opacity-0 animate-fade-up animation-delay-400 text-sm md:text-lg text-white/80 max-w-2xl mx-auto mb-10 leading-relaxed">
-                    {normalizeDash(data.heroDescription)}
+                    Bridging the gap between policy and practice - connecting African innovation to global markets through Special Economic Zones.
                 </p>
 
                 <div className="opacity-0 animate-fade-up animation-delay-600 flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
                     <div className="flex items-center gap-2 text-white/90">
                         <Calendar className="w-5 h-5 text-white" />
-                        <span className="text-sm font-medium">{normalizeDash(data.date)}</span>
+                        <span className="text-sm font-medium">15-16 October 2026</span>
                     </div>
                     <span className="hidden sm:block text-white/40">|</span>
                     <div className="flex items-center gap-2 text-white/90">
                         <MapPin className="w-5 h-5 text-white" />
-                        <span className="text-sm font-medium">{normalizeDash(data.location)}</span>
+                        <span className="text-sm font-medium">ANEW Resort Hunters Rest, Rustenburg</span>
                     </div>
                 </div>
 
